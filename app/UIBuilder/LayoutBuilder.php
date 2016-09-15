@@ -19,18 +19,18 @@ class LayoutBuilder
 
             foreach ($links as $text => $content){
                 if (array_key_exists('route', $content)){
-                    $htmlEntity .= ' <li><a href='. url(str_replace('.', '/', $content['route'])) .'><i class="fa fa-link"></i><span>'. $text .'</span></a></li>';
+                    $htmlEntity .= '<li><a href='. url(str_replace('.', '/', $content['route'])) .'><i class="fa fa-link"></i><span>'. $text .'</span></a></li>';
                 }
 
                 if (array_key_exists('submenu', $content)){
-                    $htmlEntity .= '<li class="treeview">'.
+                    $htmlEntity .= '<li class="treeview hover-active">'.
                                    '<a href="#"><i class="fa fa-link"></i> <span>'. $text .'</span> <i class="fa fa-angle-left pull-right"></i></a>'.
                                    '<ul class="treeview-menu">';
 
-                    foreach ($content['submenu'] as $subtext => $route) {
-                        $htmlEntity .= ' <li><a href=' . url(str_replace('.', '/', $route['route'])) . '>'. $subtext .'</a></li>';
+                    foreach ($content['submenu'] as $subtext => $subcontent) {
+                        $htmlEntity .= '<li><a href=' . url(str_replace('.', '/', $subcontent['route'])) . '>'. $subtext .'</a></li>';
                     }
-                    $htmlEntity .= ' </ul></li>';
+                    $htmlEntity .= '</ul></li>';
                 }
             }
         }

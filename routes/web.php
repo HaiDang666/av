@@ -17,4 +17,12 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'web'], function () {
 
+    Route::auth();
+});
+
+Route::group(['middleware' => ['auth']], function (){
+
+    Route::get('/dashboard', 'HomeController@index');
+
+    Route::resource('studios', 'StudiosController');
 });

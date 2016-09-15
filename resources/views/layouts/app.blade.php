@@ -58,5 +58,8 @@ desired effect
     @include('layouts.partials.scripts')
 @show
 
+@yield('page-style')
+
+@yield('page-script')
 </body>
 </html>

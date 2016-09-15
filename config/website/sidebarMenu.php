@@ -41,10 +41,10 @@ return array(
             'Studios' => [
                 'submenu' => [
                     'List studio' => [
-                        'route' => 'studio.index'
+                        'route' => 'studios'
                     ],
                     'Add studio' => [
-                        'route' => 'studio.create'
+                        'route' => 'studios.create'
                     ],
                 ],
             ]
