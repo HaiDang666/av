@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Studio extends Model
 {
+    static $namespace = 'App\Models\Studio';
+
     protected $table = "studios";
     protected $fillable = [
         'name',

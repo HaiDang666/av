@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
+    static $namespace = 'App\Models\Tag';
+
     protected $table = "tags";
     protected $fillable = [
         'name',

@@ -6,12 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Actress extends Model
 {
+    static $namespace = 'App\Models\Actress';
+
     protected $table = "candidates";
+    protected $guarded = ['id'];
     protected $fillable = [
         'name',
         'movie_count', 'image', 'thumbnail',
     ];
-    protected $guarded = ['id'];
+
+    static $defaultValidation = null;
 
     /**
      * Relationship

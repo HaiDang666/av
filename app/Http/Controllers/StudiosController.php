@@ -2,20 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use app\Repositories\StudioRepository;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
 class StudiosController extends Controller
 {
-    public function __construct()
-    {
+    protected $studioRepository;
 
+    public function __construct(StudioRepository $studioRepo)
+    {
+        $this->studioRepository = $studioRepo;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('studios.index');
+        $perPage = $request->input('perPage', config('custom.default_load_limit'));
+
+        $studios = $this->studioRepository->paginate($perPage);
+
+        return view('studios.index', [
+            'studios' => $studios,
+        ]);
     }
 
     public function show(){

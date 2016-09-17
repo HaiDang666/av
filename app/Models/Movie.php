@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Movie extends Model
 {
+    static $namespace = 'App\Models\Movie';
+
     protected $table = "movies";
     protected $fillable = [
         'name', 'code',

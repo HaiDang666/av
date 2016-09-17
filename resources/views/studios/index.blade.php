@@ -11,15 +11,24 @@
 @section('main-content')
     <div class="container spark-screen">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Home</div>
-
-                    <div class="panel-body">
-                        Studio list here
+            <div class="col-md-10">
+                <div class="box">
+                    <div class="box-body">
+                        @foreach($studios as $studio)
+                            {{$studio->name}}
+                            <br />
+                        @endforeach
+                        <br />
+                    </div>
+                    <div class="box-footer clearfix">
+                        {{$studios->render()}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('page-style')
+    @include('cssjs.studio')
 @endsection
