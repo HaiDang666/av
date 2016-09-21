@@ -11,24 +11,20 @@
 @section('main-content')
     <div class="container spark-screen">
         <div class="row">
-            <div class="col-md-10">
-                <div class="box">
-                    <div class="box-body">
-                        @foreach($studios as $studio)
-                            {{$studio->name}}
-                            <br />
-                        @endforeach
-                        <br />
-                    </div>
-                    <div class="box-footer clearfix">
-                        {{$studios->render()}}
-                    </div>
-                </div>
+            <div id="studio-list" class="col-md-6">
+                @include('studios.partials.table')
+            </div>
+            <div id="studio-create-form" class="col-md-5">
+                @include('studios.partials.create')
             </div>
         </div>
     </div>
 @endsection
 
 @section('page-style')
-    @include('cssjs.studio')
+    @include('bladecss.studio')
+@endsection
+
+@section('page-script')
+    @include('bladejs.studio_index')
 @endsection

@@ -9,3 +9,5 @@
         <li class="active">{{ trans('adminlte_lang::message.here') }}</li>
     </ol>
 </section>
+
+<section id="notification" class="center-block"></section>

@@ -83,22 +83,33 @@ abstract class Repository implements InterfaceRepository
      * Get object with paginate
      *
      * @param int $perPage
-     * @param array $columns
+     * @param array $option
      * @return mixed
      */
-    public function paginate($perPage = 15, $columns = array('*'))
+    public function paginate($perPage = 15, $option = [])
     {
-        return $this->model->paginate($perPage, $columns);
+        if (isset($option['order'])){
+            $direction = 'asc';
+            if (isset($option['order']['dir'])){
+                $direction = $option['order']['dir'];
+            }
+
+            $this->model->orderBy($option['order']['col'], $direction);
+        }
+
+        return $this->model->paginate($perPage);
     }
 
     /**
      * Create new object
      *
      * @param array $attributes
+     * @param array $options
      * @return mixed
      */
-    public function create(array $attributes)
+    public function create(array $attributes, array $options = [])
     {
+        // wrong code don't have create method
         return $this->model->create($attributes);
     }
 

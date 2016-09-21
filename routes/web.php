@@ -26,3 +26,10 @@ Route::group(['middleware' => ['auth']], function (){
 
     Route::resource('studios', 'StudiosController');
 });
+
+Route::group(['middleware' => ['auth']], function (){
+
+    Route::get('/test', 'TestController@get');
+
+    Route::post('/test', 'TestController@post');
+});

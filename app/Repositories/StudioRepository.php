@@ -24,4 +24,35 @@ class StudioRepository extends Repository
         return Studio::$namespace;
     }
 
+    /**
+     * Create new object
+     *
+     * @param array $attributes
+     * @param array $options
+     * @return mixed
+     * @throws \Exception if fail validation
+     */
+    public function create(array $attributes, array $options = [])
+    {
+
+        if (array_key_exists('validation', $options) && $options['validation'] == TRUE){
+            $result = Studio::validate($attributes);
+            if ($result !== TRUE){
+                throw new \Exception($result);
+            }
+        }
+
+        $new_studio = Studio::create($attributes);
+        $this->log();
+
+        return $new_studio;
+    }
+
+    /**
+     * log all user's action on studio object
+     *
+     */
+    protected function log(){
+       // TODO: log action
+    }
 }

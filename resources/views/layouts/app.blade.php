@@ -58,6 +58,8 @@ desired effect
     @include('layouts.partials.scripts')
 @show
 
+@include('bladecss.layout');
+
 @yield('page-style')
 
 @yield('page-script')
