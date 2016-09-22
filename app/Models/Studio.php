@@ -17,6 +17,11 @@ class Studio extends Model
         'name',
         'movie_count'
     ];
+
+    /**
+     * for ValidationTrait
+     * @var array
+     */
     protected static $rules = ['name' => 'bail|required|unique:studios,name'];
 
     /**
@@ -27,10 +32,10 @@ class Studio extends Model
     }
 
     /**
+     * class method
+     */
+
+    /**
      * override method
      */
-    public static function getRules()
-    {
-       return Studio::$rules;
-    }
 }

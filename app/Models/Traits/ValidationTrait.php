@@ -10,14 +10,22 @@ namespace app\Models\Traits;
 
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Class ValidationTrait
+ * @package app\Models\Traits
+ *
+ * declare protected static $rules in model which uses this
+ */
 trait ValidationTrait
 {
     /**
-     * get rules for validation model
+     * get rules of validation model
      *
      * @return mixed
      */
-    public abstract static function getRules();
+    public static function getRules(){
+        return static::$rules;
+    }
 
     /**
      * return result for validation a set of $attributes for model
@@ -30,7 +38,7 @@ trait ValidationTrait
     public static function validate(array $attributes)
     {
         // make a new validator object
-        $v = Validator::make($attributes, static::getRules());
+        $v = Validator::make($attributes, static::$rules);
 
         // check for failure
         if ($v->fails())
