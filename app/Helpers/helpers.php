@@ -17,18 +17,19 @@ function getAVAppConfig($key, $default = NULL){
     return config('website.' . $key, $default);
 }
 
-function makeNotification($action, $object, $type = 1, $detail = ''){
+/**
+ * make message for display on application (show by call function showNotification in JS)
+ *
+ * @param string $action should be Add/Create/Update/Delete/Remove
+ * @param string $object
+ * @param int $type      0 = fail; 1 = success; 2 = success with warning (pass in $detail);
+ * @param string $detail
+ * @return array
+ */
+function makeNotification(string $action, string $object, $type = 1, $detail = ''){
     $notification = ['mes' => '', 'code' => $type, 'detail' => $detail];
 
-    switch ($action){
-        case 'update':
-            $notification['mes'] = 'Updated '. $object; break;
-        case 'delete':
-            $notification['mes'] = 'Deleted '. $object; break;
-        default:
-            $notification['mes'] = 'Added '. $object;
-    }
-
+    $notification['mes'] = $action .' "'. $object.'"';
     switch ($type){
         case 0:
             $notification['mes'] .= ' fail. ';

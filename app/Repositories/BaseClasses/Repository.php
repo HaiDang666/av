@@ -88,6 +88,8 @@ abstract class Repository implements InterfaceRepository
      */
     public function paginate($perPage = 15, $option = [])
     {
+        $this->makeModel();
+
         if (isset($option['order'])){
             $direction = 'asc';
             if (isset($option['order']['dir'])){
@@ -116,27 +118,28 @@ abstract class Repository implements InterfaceRepository
     /**
      * Update object's attributes by column condition
      *
-     * @param array $data
+     * @param array $attributes
      * @param $column
      * @param $value
      * @param string $operator
      * @return mixed
      */
-    public function update(array $data, $column, $value, $operator = "=")
+    public function update(array $attributes, $column, $value, $operator = "=")
     {
-        return $this->model->where($column, $operator, $value)->update($data);
+        return $this->model->where($column, $operator, $value)->update($attributes);
     }
 
     /**
      * Update object's attributes by id
      *
-     * @param array $data
      * @param $id
+     * @param array $attributes
+     * @param array $options
      * @return mixed
      */
-    public function updateAtID(array $data, $id)
+    public function updateAtID($id, array $attributes, array $options = [])
     {
-        return $this->model->where('id', '=', $id)->update($data);
+        return $this->model->where('id', '=', $id)->update($attributes);
     }
 
     /**

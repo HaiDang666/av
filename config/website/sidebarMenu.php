@@ -43,9 +43,6 @@ return array(
                     'List studio' => [
                         'route' => 'studios'
                     ],
-                    'Add studio' => [
-                        'route' => 'studios.create'
-                    ],
                 ],
             ]
         ],

@@ -14,9 +14,9 @@ interface InterfaceRepository
 
     public function create(array $attributes);
 
-    public function update(array $data, $column, $value, $operator = '=');
+    public function update(array $attributes, $column, $value, $operator = '=');
 
-    public function updateAtID(array $data, $id);
+    public function updateAtID($id, array $attributes);
 
     public function delete($id);
 }

@@ -14,7 +14,7 @@
             <div id="studio-list" class="col-md-6">
                 @include('studios.partials.table')
             </div>
-            <div id="studio-create-form" class="col-md-5">
+            <div id="studio-form" class="col-md-5">
                 @include('studios.partials.create')
             </div>
         </div>
