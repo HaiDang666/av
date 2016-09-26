@@ -16,10 +16,10 @@ class CreateMoviesTable extends Migration
         Schema::create('movies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
-            $table->string('name');
+            $table->string('name')->default(NULL);
             $table->unsignedInteger('studio_id');
-            $table->string('image');
-            $table->string('thumbnail');
+            $table->string('image')->default(NULL);
+            $table->string('thumbnail')->default(NULL);
             $table->boolean('stored')->default(true);
             $table->timestamps();
 

@@ -8,7 +8,6 @@
 
 namespace app\Repositories;
 
-use App\Models\Movie;
 use app\Models\Studio;
 use app\Repositories\BaseClasses\Repository;
 
@@ -59,12 +58,13 @@ class StudioRepository extends Repository
     {
         $delete_studio = Studio::findOrFail($id);
 
-        $movie = Movie::where('studio_id', $delete_studio->id)->first();
+        $movie = $delete_studio->movies()->first();
         if (!empty($movie)){
             throw new \Exception('Studio '. $delete_studio->name. ' has (a) movie.');
         }
 
         $delete_studio->delete();
+        //$this->log();
         return $delete_studio;
     }
 

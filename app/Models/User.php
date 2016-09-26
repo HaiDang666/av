@@ -9,7 +9,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    static $namespace = 'App\Models\User';
+    public static $namespace = 'App\Models\User';
 
     /**
      * The attributes that are mass assignable.

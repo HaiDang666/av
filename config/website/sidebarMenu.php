@@ -44,6 +44,13 @@ return array(
                         'route' => 'studios'
                     ],
                 ],
+            ],
+            'Actresses' => [
+                'submenu' => [
+                    'List actresses' => [
+                        'route' => 'actresses'
+                    ],
+                ],
             ]
         ],
     ],

@@ -19,6 +19,7 @@
             </div>
         </div>
     </div>
+    @include('studios.partials.modal')
 @endsection
 
 @section('page-style')

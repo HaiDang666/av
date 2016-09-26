@@ -2,20 +2,26 @@
 
 namespace App\Models;
 
+use app\Models\Traits\ValidationTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Actress extends Model
 {
-    static $namespace = 'App\Models\Actress';
+    use ValidationTrait;
 
-    protected $table = "candidates";
+    public static $namespace = 'App\Models\Actress';
+
+    protected $table = "actresses";
     protected $guarded = ['id'];
     protected $fillable = [
         'name',
         'movie_count', 'image', 'thumbnail',
     ];
-
-    static $defaultValidation = null;
+    /**
+     * for ValidationTrait
+     * @var array
+     */
+    protected static $rules = ['name' => 'bail|required|unique:actresses,name'];
 
     /**
      * Relationship

@@ -15,10 +15,10 @@ class CreateActressesTable extends Migration
     {
         Schema::create('actresses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->default('unknown');;
             $table->unsignedInteger('movie_count')->default(0);
-            $table->string('image');
-            $table->string('thumbnail');
+            $table->string('image')->default(NULL);
+            $table->string('thumbnail')->default(NULL);
             $table->timestamps();
         });
     }

@@ -1,3 +1,4 @@
+<p class="pagination-info">Total {{$paginator->total()}} entries</p>
 @if ($paginator->hasPages())
     <ul class="pagination adjust-pagination">
         <!-- Previous Page Link -->

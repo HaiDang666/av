@@ -1,3 +1,4 @@
+<input type="hidden" id="inactionStudio" value="">
 <div class="box box-info">
     <div class="box-body">
         <table class="table table-striped table-bordered  table-hover">
@@ -10,6 +11,11 @@
             </tr>
             </thead>
             <tbody>
+            @if($studios->total() == 0)
+                <tr>
+                    <td colspan="4">No such thing here</td>
+                </tr>
+            @endif
             @foreach($studios as $studio)
                 <tr>
                     <td>{{$studio->id}}</td>

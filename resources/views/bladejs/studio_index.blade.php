@@ -44,11 +44,16 @@
 
         $('.btn-delete-studio').click(function (e) {
             e.preventDefault();
-            var studioID = $(this).attr('data-id');
+            $('#inactionStudio').val($(this).attr('data-id'));
+            $('#md-confirm-delete-studio').modal('show');
+        });
+
+        $('#btn-confirm-delete-studio').off('click').on('click',function(e){
+            e.preventDefault();
 
             $.ajax({
                 type: 'DELETE',
-                url: '/studios/' + studioID,
+                url: '/studios/' + $('#inactionStudio').val(),
                 data: {_token: '{{csrf_token()}}'},
                 dataType: 'JSON',
                 success: function (data) {
@@ -58,6 +63,7 @@
                     }
 
                     showNotification(data.notification);
+                    $('#md-confirm-delete-studio').modal('hide');
                 }
             });
         });
