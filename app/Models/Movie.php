@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use app\Models\Traits\ValidationTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Movie extends Model
 {
+    use ValidationTrait;
+
     public static $namespace = 'App\Models\Movie';
 
     protected $table = "movies";
@@ -15,6 +18,8 @@ class Movie extends Model
         'image', 'thumbnail',
     ];
     protected $guarded = ['id'];
+
+    protected static $rules = ['code' => 'bail|required|unique:movies,code'];
 
     /**
      * Relationship

@@ -36,11 +36,12 @@
                         success: function (data) {
                             if (data.notification.code != 0){
                                 $('#actress-list').html(data.html.table);
-
+                                $('#frm-edit-actress').trigger('reset');
                                 setActionButton();
                             }
 
                             showNotification(data.notification);
+                            $('#md-edit-actress').modal('hide');
                         }
                     });
                 });

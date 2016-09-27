@@ -38,20 +38,22 @@ return array(
             'Dashboard' => [
                 'route' => 'dashboard'
             ],
-            'Studios' => [
+            'Movies' => [
                 'submenu' => [
-                    'List studio' => [
-                        'route' => 'studios'
+                    'List' => [
+                        'route' => 'movies'
                     ],
-                ],
+                    'Add' => [
+                        'route' => 'movies/create'
+                    ],
+                ]
             ],
             'Actresses' => [
-                'submenu' => [
-                    'List actresses' => [
-                        'route' => 'actresses'
-                    ],
-                ],
-            ]
+                'route' => 'actresses'
+            ],
+            'Studios' => [
+                'route' => 'studios'
+            ],
         ],
     ],
     /**

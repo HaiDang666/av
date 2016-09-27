@@ -24,6 +24,7 @@ class CreateMoviesTable extends Migration
             $table->timestamps();
 
             $table->index('studio_id');
+            $table->index('code');
         });
     }
 

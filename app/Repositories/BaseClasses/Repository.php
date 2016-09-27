@@ -32,6 +32,12 @@ abstract class Repository implements InterfaceRepository
      */
     abstract function model();
 
+    /**
+     * log all user's action on object
+     *
+     */
+    abstract protected function log();
+
     public function __construct(App $app)
     {
         $this->app = $app;
@@ -108,11 +114,27 @@ abstract class Repository implements InterfaceRepository
      * @param array $attributes
      * @param array $options
      * @return mixed
+     * @throws RepositoryException
+     * @throws \Exception
      */
     public function create(array $attributes, array $options = [])
     {
-        // wrong code don't have create method
-        return $this->model->create($attributes);
+        $model = $this->app->make($this->model());
+
+        if (!$model instanceof Model)
+            throw new RepositoryException("Class {$this->model()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
+
+        if (array_key_exists('validation', $options) && $options['validation'] == TRUE){
+            $result = $model::validate($attributes);
+            if ($result !== TRUE){
+                throw new \Exception($result);
+            }
+        }
+
+        $object = $model::create($attributes);
+        //$this->log();
+
+        return $object;
     }
 
     /**
@@ -136,10 +158,32 @@ abstract class Repository implements InterfaceRepository
      * @param array $attributes
      * @param array $options
      * @return mixed
+     * @throws RepositoryException
+     * @throws \Exception
      */
     public function updateAtID($id, array $attributes, array $options = [])
     {
-        return $this->model->where('id', '=', $id)->update($attributes);
+        $model = $this->app->make($this->model());
+
+        if (!$model instanceof Model)
+            throw new RepositoryException("Class {$this->model()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
+
+        if (array_key_exists('validation', $options) && $options['validation'] == TRUE){
+            $result = $model::validate($attributes);
+            if ($result !== TRUE){
+                throw new \Exception($result);
+            }
+        }
+
+        try{
+            $object = $this->find($id)->fill($attributes)->save();
+        }
+        catch (\Exception $e){
+            throw $e;
+        }
+        //$this->log();
+
+        return $object;
     }
 
     /**

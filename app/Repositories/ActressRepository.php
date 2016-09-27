@@ -24,36 +24,6 @@ class ActressRepository extends Repository
         return Actress::$namespace;
     }
 
-    public function create(array $attributes, array $options = [])
-    {
-        if (array_key_exists('validation', $options) && $options['validation'] == TRUE){
-            $result = Actress::validate($attributes);
-            if ($result !== TRUE){
-                throw new \Exception($result);
-            }
-        }
-
-        $new_actress = Actress::create($attributes);
-        //$this->log();
-
-        return $new_actress;
-    }
-
-    public function updateAtID($id, array $attributes, array $options = [])
-    {
-        if (array_key_exists('validation', $options) && $options['validation'] == TRUE){
-            $result = Actress::validate($attributes);
-            if ($result !== TRUE){
-                throw new \Exception($result);
-            }
-        }
-
-        $updated_actress = $this->find($id)->fill($attributes)->save();
-        //$this->log();
-
-        return $updated_actress;
-    }
-
     public function delete($id)
     {
         $detele_actress = Actress::findOrFail($id);
@@ -66,5 +36,14 @@ class ActressRepository extends Repository
         $detele_actress->delete();
         //$this->log();
         return $detele_actress;
+    }
+
+    /**
+     * log all user's action on object
+     *
+     */
+    protected function log()
+    {
+        // TODO: Implement log() method.
     }
 }

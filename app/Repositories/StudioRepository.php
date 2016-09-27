@@ -24,36 +24,6 @@ class StudioRepository extends Repository
         return Studio::$namespace;
     }
 
-    public function create(array $attributes, array $options = [])
-    {
-        if (array_key_exists('validation', $options) && $options['validation'] == TRUE){
-            $result = Studio::validate($attributes);
-            if ($result !== TRUE){
-                throw new \Exception($result);
-            }
-        }
-
-        $new_studio = Studio::create($attributes);
-        //$this->log();
-
-        return $new_studio;
-    }
-
-    public function updateAtID($id, array $attributes, array $options = [])
-    {
-        if (array_key_exists('validation', $options) && $options['validation'] == TRUE){
-            $result = Studio::validate($attributes);
-            if ($result !== TRUE){
-                throw new \Exception($result);
-            }
-        }
-
-        $updated_studio = $this->find($id)->fill($attributes)->save();
-        //$this->log();
-
-        return $updated_studio;
-    }
-
     public function delete($id)
     {
         $delete_studio = Studio::findOrFail($id);
@@ -69,10 +39,11 @@ class StudioRepository extends Repository
     }
 
     /**
-     * log all user's action on studio object
+     * log all user's action on object
      *
      */
-    protected function log(){
-       // TODO: log action
+    protected function log()
+    {
+        // TODO: Implement log() method.
     }
 }

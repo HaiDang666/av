@@ -58,10 +58,13 @@ desired effect
     @include('layouts.partials.scripts')
 @show
 
+@yield('page_plugin_js')
+
 @include('bladecss.layout');
 
 @yield('page-style')
 
 @yield('page-script')
+
 </body>
 </html>
