@@ -5,9 +5,9 @@
             <thead>
             <tr>
                 <th style="width: 2%">ID</th>
-                <th>Thumbnail</th>
+                <th>Image</th>
                 <th>Name</th>
-                <th>#Movies</th>
+                <th>#movie</th>
                 <th>Updated</th>
                 <th>Action</th>
             </tr>
@@ -21,13 +21,13 @@
             @foreach($actresses as $actress)
                 <tr>
                     <td>{{$actress->id}}</td>
-                    <td><img width="130px" height="160px" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=120" /></td>
+                    <td><a href="{{url('actresses/' . $actress->id)}}" target="_blank"><img width="60px" height="60px" alt="act avatar" src="{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}"/></a></td>
                     <td>{{$actress->name}}</td>
                     <td>{{$actress->movie_count}}</td>
                     <td>{{$actress->updated_at}}</td>
                     <td>
-                        <button type="button" class="btn-link clear-padding btn-edit-actress" data-id="{{$actress->id}}">
-                            <i class="fa fa-pencil"></i></button>
+                        <a href="{{url('actresses/' . $actress->id . '/edit')}}"><button type="button" class="btn-link clear-padding">
+                            <i class="fa fa-pencil"></i></button></a>
                         <button type="button" class="btn-link clear-padding text-red btn-delete-actress" data-id="{{$actress->id}}">
                             <i class="fa fa-trash-o"></i></button>
                     </td>

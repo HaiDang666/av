@@ -15,9 +15,7 @@
                 @include('actresses.partials.table')
             </div>
             <div id="actress-form" class="col-md-2">
-                <button type="button" class="btn btn-primary" id="btn-open-add-actress">Add Actress</button>
-                @include('actresses.partials.create')
-                @include('actresses.partials.edit')
+                <a href="{{url('actresses/create')}}" target="_blank"><button type="button" class="btn btn-primary btn-block">Add Actress</button></a>
             </div>
         </div>
     </div>
@@ -25,7 +23,6 @@
 @endsection
 
 @section('page-style')
-
 @endsection
 
 @section('page-script')

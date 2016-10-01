@@ -8,6 +8,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use app\Repositories\ActressRepository;
+use app\Repositories\MovieRepository;
 use Illuminate\Http\Request;
 
 /**
@@ -16,23 +18,24 @@ use Illuminate\Http\Request;
  */
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
+    protected $movieRepository;
+    protected $actressRepository;
 
+    public function __construct(MovieRepository $movieRepo, ActressRepository $actressRepo)
+    {
+        $this->movieRepository = $movieRepo;
+        $this->actressRepository = $actressRepo;
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return Response
-     */
+
     public function index()
     {
-        return view('home');
+        $totalMovie = $this->movieRepository->total();
+        $totalActress = $this->actressRepository->total();
+
+        return view('home', [
+            'totalMovie' => $totalMovie,
+            'totalActress' => $totalActress
+        ]);
     }
 }

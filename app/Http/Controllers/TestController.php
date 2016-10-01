@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class TestController extends Controller
 {
     public function get(){
-        return view('test');
+        $storagePath = storage_path(config('custom.thumbnail_actress_path') . 'test_avatar3_thumbnail.jpg');
+        return response()->file($storagePath);
     }
 
     public function post(){

@@ -18,13 +18,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="thumbnail">Thumbnail</label>
-                        <input type="file" id="thumbnail" name="thumbnail">
+                        <label class="control-label">Select File</label>
+                        <input id="inputThumbnail" name="thumbnail" type="file">
                     </div>
 
                     <div class="form-group">
-                        <label for="image">Big Image</label>
-                        <input type="file" id="image" name="image">
+                        <label class="control-label">Select File</label>
+                        <input id="inputImage" name="image" type="file">
                     </div>
                 </div>
                 <div class="modal-footer">

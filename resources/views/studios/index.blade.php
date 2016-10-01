@@ -23,7 +23,6 @@
 @endsection
 
 @section('page-style')
-    @include('bladecss.studio')
 @endsection
 
 @section('page-script')

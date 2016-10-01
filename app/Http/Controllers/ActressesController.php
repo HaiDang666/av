@@ -34,12 +34,20 @@ class ActressesController extends Controller
         ]);
     }
 
-    public function show(){
-        return view('errors.404');
+    public function show($actressID){
+        try{
+            $actress = $this->actressRepository->find($actressID);
+            $movies = $actress->movies()->paginate(15);
+        }
+        catch (\Exception $e){
+            return view('errors.404');
+        }
+
+        return view('actresses.show', ['actress' => $actress, 'movies' => $movies]);
     }
 
     public function create(){
-        return view('studios.partials.create');
+        return view('actresses.create');
     }
 
     public function store(Request $request){
@@ -47,24 +55,50 @@ class ActressesController extends Controller
         unset($data['_token']);
 
         try{
+            // save thumbnail image
+            if(isset($data['thumbnail'])){
+                $imageName = str_replace(' ', '_', $data['name']). '_thumbnail' . '.' .
+                    $request->file('thumbnail')->getClientOriginalExtension();
+
+                $request->file('thumbnail')->move(
+                    base_path() . '/storage/'. config('custom.thumbnail_actress_path'), $imageName
+                );
+
+                $data['thumbnail'] = $imageName;
+            }
+
+            // save big image
+            if(isset($data['image'])){
+                $imageName = str_replace(' ', '_', $data['name']). '_image' . '.' .
+                    $request->file('image')->getClientOriginalExtension();
+
+                $request->file('image')->move(
+                    base_path() . '/storage/'. config('custom.image_actress_path'), $imageName
+                );
+
+                $data['image'] = $imageName;
+            }
+
             $this->actressRepository->create($data, ['validation' => TRUE]);
 
-            $perPage = $request->input('perPage', config('custom.default_load_limit'));
+            /*$perPage = $request->input('perPage', config('custom.default_load_limit'));
             $actresses = $this->actressRepository->paginate($perPage, $this->indexOrder);
 
             $notification = makeNotification('Add', $data['name']);
             $html = view('actresses.partials.table',[
                 'actresses' => $actresses,
-            ])->render();
+            ])->render();*/
         }
         catch (\Exception $e){
-            $notification = makeNotification('Add', $data['name'], 0, $e->getMessage());
-            $html = '';
+            return $e->getMessage();
+            //$notification = makeNotification('Add', $data['name'], 0, $e->getMessage());
+            //$html = '';
         }
 
-        return response()->json(
+        return redirect()->back();
+        /*return response()->json(
             ['html' => $html,
-                'notification' => $notification]);
+                'notification' => $notification]);*/
     }
 
     public function edit($actressID){
@@ -115,5 +149,4 @@ class ActressesController extends Controller
             ['html' => $html,
                 'notification' => $notification]);
     }
-
 }

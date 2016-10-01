@@ -14,6 +14,10 @@
             <div id="actress-list" class="col-md-9">
                 @include('movies.partials.table')
             </div>
+
+            <div id="actress-form" class="col-md-2">
+                <a href="{{url('movies/create')}}" target="_blank"><button type="button" class="btn btn-primary btn-block">Add Movie</button></a>
+            </div>
         </div>
     </div>
 @endsection

@@ -45,8 +45,19 @@ abstract class Repository implements InterfaceRepository
     }
 
     /**
-     * Interface methods
+     * return the amount of record
+     *
+     * @return mixed
+     * @throws RepositoryException
      */
+    public function total(){
+        $model = $this->app->make($this->model());
+
+        if (!$model instanceof Model)
+            throw new RepositoryException("Class {$this->model()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
+
+        return $model::count();
+    }
 
     /**
      * Get all objects of model
@@ -196,10 +207,6 @@ abstract class Repository implements InterfaceRepository
     {
         return $this->model->destroy($id);
     }
-
-    /**
-     * Other methods
-     */
 
     /**
      * Init model for repository

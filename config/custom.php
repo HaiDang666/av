@@ -7,6 +7,11 @@
  */
 
 return array(
-  // the number of load item for paginate
-  'default_load_limit' => 10
+    // the number of load item for paginate
+    'default_load_limit' => 10,
+    'thumbnail_actress_path' => 'app/upload/img/thumbnail/actress/',
+    'thumbnail_movie_path' => 'app/upload/img/thumbnail/movie/',
+    'image_actress_path' => 'app/upload/img/image/actress/',
+    'image_movie_path' => 'app/upload/img/image/movie/',
+    'no_image_path' => 'app/default/no_image.png',
 );

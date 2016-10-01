@@ -11,7 +11,7 @@ namespace app\UIBuilder;
 class AppTemplate
 {
     /**
-     * Add combobox by Select2 plugin
+     * Add combobox using Select2 plugin
      *
      * @param $data Collection|array has 2 column (id,name) OR Array ['id' => 'value']
      * @param array $option html attributes array ['class' => 'table table-x', 'style' => 'display:none;']

@@ -6,7 +6,7 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>#Movies</th>
+                <th>#movie</th>
                 <th>Action</th>
             </tr>
             </thead>

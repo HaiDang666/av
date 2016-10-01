@@ -29,6 +29,9 @@ Route::group(['middleware' => ['auth']], function (){
     Route::resource('movies', 'MoviesController');
 });
 
+//Image
+Route::get('/image', 'ImagesController@image');
+
 Route::group(['middleware' => ['auth']], function (){
 
     Route::get('/test', 'TestController@get');

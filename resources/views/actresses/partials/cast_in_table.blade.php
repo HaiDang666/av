@@ -1,5 +1,6 @@
 <input type="hidden" id="inactionMovie" value="">
 <div class="box box-info">
+    <div class="box-header"><strong class="custom-box-header">Cast in</strong></div>
     <div class="box-body">
         <table class="table table-striped table-bordered table-hover">
             <thead>
@@ -28,8 +29,6 @@
                     <td>{{$movie->studio_id}}</td>
                     <td>{{$movie->stored}}</td>
                     <td>
-                        <button type="button" class="btn-link clear-padding btn-edit-movie" data-id="{{$movie->id}}">
-                            <i class="fa fa-pencil"></i></button>
                         <button type="button" class="btn-link clear-padding text-red btn-delete-movie" data-id="{{$movie->id}}">
                             <i class="fa fa-trash-o"></i></button>
                     </td>
