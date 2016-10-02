@@ -2,6 +2,8 @@
 
     .notification-app{
         margin-bottom: 5px;
+        width: 93%;
+        margin-left: 3%;
     }
     .clear-padding{
         padding: 0;

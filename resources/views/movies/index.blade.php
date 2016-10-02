@@ -1,29 +1,31 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Movies
+    List Movies
 @endsection
 
 @section('contentheader_title')
-    Movies List
+    List Movies
 @endsection
 
 @section('main-content')
     <div class="container spark-screen">
         <div class="row">
-            <div id="actress-list" class="col-md-9">
+            <div id="movie-list" class="col-md-9">
                 @include('movies.partials.table')
             </div>
 
-            <div id="actress-form" class="col-md-2">
+            <div id="movie-form" class="col-md-2">
                 <a href="{{url('movies/create')}}" target="_blank"><button type="button" class="btn btn-primary btn-block">Add Movie</button></a>
             </div>
         </div>
     </div>
+    @include('movies.partials.modal')
 @endsection
 
 @section('page-style')
 @endsection
 
 @section('page-script')
+    @include('bladejs.movie_index')
 @endsection

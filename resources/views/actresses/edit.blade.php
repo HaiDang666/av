@@ -51,10 +51,10 @@
                             </div>
 
                             @if($actress->image != '')
-                            <div>
-                                <label>Current Image</label>
-                                <img width="430px" alt="act avatar" src="{{url('/image?category=actress&type=image&filename='. $actress->image)}}"/>
-                            </div>
+                                <div>
+                                    <label>Current Image</label>
+                                    <img width="430px" alt="act image" src="{{url('/image?category=actress&type=image&filename='. $actress->image)}}"/>
+                                </div>
                             @endif
 
                             <div class="row">

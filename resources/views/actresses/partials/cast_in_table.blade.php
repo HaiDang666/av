@@ -23,7 +23,7 @@
             @foreach($movies as $movie)
                 <tr>
                     <td>{{$movie->id}}</td>
-                    <td><img width="60px" height="60px" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=60" /></td>
+                    <td><a href="{{url('movies/'. $movie->id)}}" target="_blank"><img width="60px" height="60px" src="{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}" /></a></td>
                     <td>{{$movie->name}}</td>
                     <td>{{$movie->code}}</td>
                     <td>{{$movie->studio_id}}</td>

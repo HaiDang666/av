@@ -29,14 +29,14 @@ class MovieRepository extends Repository
 
     public function create(array $attributes, array $options = [])
     {
-        if(is_array($attributes['nact'])){
-            $newActresses = $attributes['nact'];
-            unset($attributes['nact']);
+        if(isset($attributes['newActresses'])){
+            $newActresses = $attributes['newActresses'];
+            unset($attributes['newActresses']);
         }
 
-        if(is_array($attributes['eact'])){
-            $existActresses = $attributes['eact'];
-            unset($attributes['eact']);
+        if(isset($attributes['existActresses'])){
+            $existActresses = $attributes['existActresses'];
+            unset($attributes['existActresses']);
         }
 
         DB::beginTransaction();
@@ -44,13 +44,13 @@ class MovieRepository extends Repository
             // add movie
             $movie = parent::create($attributes, ['validation' => TRUE]);
 
-            DB::table('studios')
-                ->where('id', $attributes['studio_id'])
-                ->increment('movie_count');
-
             if($movie == NULL){
                 throw new \Exception('Server error cannot create movie');
             }
+
+            DB::table('studios')
+                ->where('id', $attributes['studio_id'])
+                ->increment('movie_count');
 
             // attach existed actresses
             if(isset($existActresses)){
@@ -80,6 +80,40 @@ class MovieRepository extends Repository
         }
 
         DB::commit();
+    }
+
+    public function delete($id)
+    {
+        $delete_movie = Movie::findOrFail($id);
+
+        DB::beginTransaction();
+        try{
+            $actresses = $delete_movie->actresses()->get(['id']);
+            $actressesID = [];
+            foreach ($actresses as $actress){
+                $actressesID[] = $actress->id;
+            }
+
+            DB::table('studios')
+                ->where('id', $delete_movie->studio_id)
+                ->decrement('movie_count');
+
+            if(!empty($actressesID)){
+                DB::table('actresses')
+                    ->whereIn('id', $actressesID)
+                    ->decrement('movie_count');
+            }
+
+            $delete_movie->actresses()->sync([]);
+            $delete_movie->delete();
+            //$this->log();
+        }catch (\Exception $e){
+            DB::rollBack();
+            throw $e;
+        }
+
+        DB::commit();
+        return $delete_movie;
     }
 
 

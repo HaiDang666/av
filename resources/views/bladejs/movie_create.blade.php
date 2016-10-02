@@ -1,5 +1,21 @@
 <script>
     $(document).ready(function () {
+        //Initialize fileinput
+        $('#inputThumbnail').fileinput({
+            allowedFileTypes: ["image"],
+            showRemove: false,
+            showUpload: false,
+            showZoom: false
+        });
+
+        $('#inputImage').fileinput({
+            maxFileCount: 5,
+            allowedFileTypes: ["image"],
+            showRemove: false,
+            showUpload: false,
+            showZoom: false
+        });
+
         //Initialize Select2 Elements
         $('.select2').select2();
 
@@ -21,7 +37,6 @@
 
         $('#inputStudio').select2({
             placeholder: 'Choose studio',
-            allowClear: true
         });
 
         $('#inputNewActresses').select2({
@@ -33,10 +48,10 @@
             placeholder: 'Choose actresses'
         });
 		
-		$('#frm-add-movie').submit(function (e){
+		/*$('#frm-add-movie').submit(function (e){
 			e.preventDefault();
             var data = {
-                _token: '{{csrf_token()}}',
+                _token: '',
                 code: $('#inputCode').val(),
                 name: $('#inputName').val(),
                 studio_id: $('#inputStudio').val(),
@@ -61,6 +76,6 @@
                     showNotification(data.notification);
                 }
             });
-		});
+		});*/
     });
 </script>

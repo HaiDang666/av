@@ -6,34 +6,42 @@
 @endsection
 
 @section('htmlheader_title')
-    Movie
+    {{$movie->name}}
 @endsection
 
 @section('contentheader_title')
-    Add Movie
+    Edit {{$movie->name}}'s info
 @endsection
 
 @section('main-content')
     <div class="container spark-screen">
         <div class="row">
             <div class="col-md-10">
-                {!! Form::open(['action'=>'MoviesController@store', 'files'=>true]) !!}
+                {!! Form::open(['action'=>['MoviesController@update', $movie->id], 'files'=>true]) !!}
+                <input type="hidden" name="_method" value="PUT">
                 <div class="form-group">
                         <label for="inputCode" class="control-label">Code</label>
                         <div class="">
-                            <input type="text" class="form-control" id="inputCode" name="code" placeholder="Enter movie code" required pattern=".*\S.*" title="at least 1 character">
+                            <input type="text" class="form-control" id="inputCode" name="code"
+                                   placeholder="Enter movie code" required pattern=".*\S.*"
+                                   title="at least 1 character" value="{{$movie->code}}">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="inputName" class="control-label">Name</label>
                         <div class="">
-                            <input type="text" class="form-control" id="inputName" name="name" placeholder="Enter movie name" pattern=".*\S.*" title="at least 1 character">
+                            <input type="text" class="form-control" id="inputName" name="name"
+                                   placeholder="Enter movie name" pattern=".*\S.*"
+                                   title="at least 1 character" value="{{$movie->name}}">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        {!! \app\UIBuilder\AppTemplate::select($studios, ['name' => 'studio_id', 'id' => 'inputStudio', 'label' => 'Choose Studio']) !!}
+                        {!! \app\UIBuilder\AppTemplate::select($studios,
+                        ['name' => 'studio_id',
+                         'id' => 'inputStudio',
+                         'label' => 'Choose Studio']) !!}
                     </div>
 
                     <div class="form-group">
@@ -57,9 +65,16 @@
                         <input type="checkbox" class="flat-red" id="inputStored" name="stored" checked>
                     </div>
 
+                    @if($movie->thumbnail != '')
+                        <div>
+                            <label>Current Thumbnail</label>
+                            <img width="60px" height="60px" alt="movie avatar" src="{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}"/>
+                        </div>
+                    @endif
+
                     <div class="row">
                         <div class="form-group">
-                            <label class="col-sm-1 control-label" style="padding-top: 25px" >Avatar</label>
+                            <label class="col-sm-1 control-label" style="padding-top: 25px" >Thumbnail</label>
                             <div class="col-sm-7">
                                 <input id="inputThumbnail" name="thumbnail" type="file"
                                        class="file-loading form-control">
@@ -70,6 +85,13 @@
                             </div>
                         </div>
                     </div>
+
+                    @if($movie->image != '')
+                        <div>
+                            <label>Current Image</label>
+                            <img width="430px" alt="movie image" src="{{url('/image?category=movie&type=image&filename='. $movie->image)}}"/>
+                        </div>
+                    @endif
 
                     <div class="row">
                         <div class="form-group">
@@ -86,7 +108,7 @@
                     </div>
                     <br />
                     <div class="col-md-2 col-lg-offset-10">
-                        <button class="btn btn-primary btn-block">Add</button>
+                        <button class="btn btn-primary btn-block">Update</button>
                     </div>
 
 
@@ -110,5 +132,10 @@
 
 @section('page-script')
     @include('bladejs.movie_create')
+    <script>
+        $( document ).ready(function() {
+            $('#inputStudio').val({{$movie->studio_id}}).change();
+        });
+    </script>
 @endsection
 

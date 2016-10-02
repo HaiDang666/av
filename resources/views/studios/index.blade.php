@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Studios
+    List Studios
 @endsection
 
 @section('contentheader_title')
-    Studio List
+    List Studios
 @endsection
 
 @section('main-content')

@@ -39,7 +39,7 @@ class ActressesController extends Controller
     public function show($actressID){
         try{
             $actress = $this->actressRepository->find($actressID);
-            $movies = $actress->movies()->paginate(15);
+            $movies = $actress->movies()->paginate(5);
         }
         catch (\Exception $e){
             return view('errors.404');

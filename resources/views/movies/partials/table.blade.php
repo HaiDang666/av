@@ -6,8 +6,8 @@
             <tr>
                 <th style="width: 2%">ID</th>
                 <th>Thumbnail</th>
-                <th>Name</th>
                 <th>Code</th>
+                <th>Name</th>
                 <th>Studio</th>
                 <th>Stored</th>
                 <th>Action</th>
@@ -16,20 +16,20 @@
             <tbody>
             @if($movies->total() == 0)
                 <tr>
-                    <td colspan="5">No such thing here</td>
+                    <td colspan="7">No such thing here</td>
                 </tr>
             @endif
             @foreach($movies as $movie)
                 <tr>
                     <td>{{$movie->id}}</td>
-                    <td><img width="60px" height="60px" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=60" /></td>
-                    <td>{{$movie->name}}</td>
+                    <td><a href="{{url('movies/'. $movie->id)}}" target="_blank"><img width="60px" height="60px" src="{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}" /></a></td>
                     <td>{{$movie->code}}</td>
+                    <td>{{$movie->name}}</td>
                     <td>{{$movie->studio_id}}</td>
                     <td>{{$movie->stored}}</td>
                     <td>
-                        <button type="button" class="btn-link clear-padding btn-edit-movie" data-id="{{$movie->id}}">
-                            <i class="fa fa-pencil"></i></button>
+                        <a href="{{url('movies/'. $movie->id . '/edit')}}" target="_blank"><button type="button" class="btn-link clear-padding btn-edit-movie" data-id="{{$movie->id}}">
+                            <i class="fa fa-pencil"></i></button></a>
                         <button type="button" class="btn-link clear-padding text-red btn-delete-movie" data-id="{{$movie->id}}">
                             <i class="fa fa-trash-o"></i></button>
                     </td>

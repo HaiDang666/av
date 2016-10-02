@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Actresses
+    List Actresses
 @endsection
 
 @section('contentheader_title')
-    Actress List
+    List Actresses
 @endsection
 
 @section('main-content')
