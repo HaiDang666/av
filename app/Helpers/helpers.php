@@ -20,13 +20,13 @@ function getAVAppConfig($key, $default = NULL){
 /**
  * make message for display on application (show by call function showNotification in JS)
  *
- * @param string $action should be Add/Create/Update/Delete/Remove
- * @param string $object
+ * @param $action string should be Add/Create/Update/Delete/Remove
+ * @param $object
  * @param int $type      0 = fail; 1 = success; 2 = success with warning (pass in $detail);
  * @param string $detail
  * @return array
  */
-function makeNotification(string $action, string $object, $type = 1, $detail = ''){
+function makeNotification($action, $object, $type = 1, $detail = ''){
     $notification = ['mes' => '', 'code' => $type, 'detail' => $detail];
 
     $notification['mes'] = $action .' "'. $object.'"';
@@ -44,4 +44,20 @@ function makeNotification(string $action, string $object, $type = 1, $detail = '
     }
 
     return $notification;
+}
+
+/**
+ * add exception case for unique rule validation
+ *
+ * @param $fields array list of unique attribute
+ * @param $id
+ * @return array
+ */
+function addExceptionUniqueRule($fields, $id){
+    $result = [];
+    foreach ($fields as $field){
+        $result[$field] = $id;
+    }
+
+    return $result;
 }

@@ -17,8 +17,8 @@ class CreateActressesTable extends Migration
             $table->increments('id');
             $table->string('name')->default('unknown');;
             $table->unsignedInteger('movie_count')->default(0);
-            $table->string('image')->default(NULL);
-            $table->string('thumbnail')->default(NULL);
+            $table->string('image')->default('');
+            $table->string('thumbnail')->default('');
             $table->timestamps();
         });
     }

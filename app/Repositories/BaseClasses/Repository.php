@@ -180,7 +180,11 @@ abstract class Repository implements InterfaceRepository
             throw new RepositoryException("Class {$this->model()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
 
         if (array_key_exists('validation', $options) && $options['validation'] == TRUE){
-            $result = $model::validate($attributes);
+            $unique = [];
+            if (array_key_exists('unique', $options)){
+                $unique = $options['unique'];
+            }
+            $result = $model::validate($attributes, $unique);
             if ($result !== TRUE){
                 throw new \Exception($result);
             }

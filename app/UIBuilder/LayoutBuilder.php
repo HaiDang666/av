@@ -19,7 +19,7 @@ class LayoutBuilder
 
             foreach ($links as $text => $content){
                 if (array_key_exists('route', $content)){
-                    $htmlEntity .= '<li><a href='. url(str_replace('.', '/', $content['route'])) .'><i class="fa fa-link"></i><span>'. $text .'</span></a></li>';
+                    $htmlEntity .= '<li><a href='. url($content['route']) .'><i class="fa fa-link"></i><span>'. $text .'</span></a></li>';
                 }
 
                 if (array_key_exists('submenu', $content)){

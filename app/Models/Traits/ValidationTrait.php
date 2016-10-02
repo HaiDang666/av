@@ -32,13 +32,22 @@ trait ValidationTrait
      * TRUE if pass
      * array if fail
      *
-     * @param $attributes
+     * @param array $attributes
+     * @param array $unique use for add except value for unique rule
      * @return array|bool
      */
-    public static function validate(array $attributes)
+    public static function validate(array $attributes, $unique =[])
     {
+        $f_rules = static::$rules;
+        // modify rules for update unique field
+        if (!empty($unique)){
+            foreach ($unique as $field => $value){
+                $f_rules[$field] .= ','.$value;
+            }
+        }
+
         // make a new validator object
-        $v = Validator::make($attributes, static::$rules);
+        $v = Validator::make($attributes, $f_rules);
 
         // check for failure
         if ($v->fails())

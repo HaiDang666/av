@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Studio;
 use app\Repositories\StudioRepository;
 use Illuminate\Http\Request;
 

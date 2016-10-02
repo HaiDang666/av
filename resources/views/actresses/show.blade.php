@@ -14,7 +14,7 @@
             <div class="col-md-5">
                 <div class="box box-info">
                     <div class="box-body">
-                        <img width="430" height="500" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200">
+                        <img width="430px" src="{{url('/image?category=actress&type=image&filename='. $actress->image)}}">
                     </div>
                 </div>
             </div>
@@ -43,6 +43,10 @@
                         </table>
                     </div>
                 </div>
+            </div>
+
+            <div class="col-md-2">
+                <a href="{{url('actresses/' . $actress->id . '/edit')}}"><button class="btn btn-primary btn-block"><i class="fa fa-pencil-square-o"></i>  Edit profile</button></a>
             </div>
 
             <div class="col-md-6">

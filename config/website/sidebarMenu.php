@@ -40,16 +40,23 @@ return array(
             ],
             'Movies' => [
                 'submenu' => [
-                    'List' => [
+                    'All movies' => [
                         'route' => 'movies'
                     ],
-                    'Add' => [
+                    'Add movie' => [
                         'route' => 'movies/create'
                     ],
                 ]
             ],
             'Actresses' => [
-                'route' => 'actresses'
+                'submenu' => [
+                    'All actresses' => [
+                        'route' => 'actresses'
+                    ],
+                    'Add actress' => [
+                        'route' => 'actresses/create'
+                    ],
+                ]
             ],
             'Studios' => [
                 'route' => 'studios'
