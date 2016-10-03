@@ -37,7 +37,17 @@ class MoviesController extends Controller
     public function index(Request $request){
         $perPage = $request->input('perPage', config('custom.default_load_limit'));
 
+        if(isset($request->q)){
+            $this->indexOrder['q'] = ['field' => 'code',
+                'value' => $request->q];
+        }
+
         $movies = $this->movieRepository->paginate($perPage, $this->indexOrder);
+
+        if(isset($request->q)){
+            $movies->appends(['q' => $request->q]);
+        }
+
         return view('movies.index', [
             'movies' => $movies,
         ]);

@@ -5,16 +5,16 @@
 @endsection
 
 @section('contentheader_title')
-    {{$movie->code}}
+    {{$movie->code}} - {{$movie->name}}
 @endsection
 
 @section('main-content')
     <div class="container spark-screen">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-7">
                 <div class="box box-info">
-                    <div class="box-body">
-                        <img width="430px" src="{{url('/image?category=movie&type=image&filename='. $movie->image)}}">
+                    <div class="box-body" style="min-height:478px">
+                        <img src="{{url('/image?category=movie&type=image&filename='. $movie->image)}}">
                     </div>
                 </div>
             </div>
@@ -35,6 +35,10 @@
                             <tr>
                                 <th>Name</th>
                                 <td>{{$movie->name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Studio</th>
+                                <td>{{$movie->studio_id}}</td>
                             </tr>
                             <tr>
                                 <th>more info</th>

@@ -116,6 +116,15 @@ abstract class Repository implements InterfaceRepository
             $this->model->orderBy($option['order']['col'], $direction);
         }
 
+        if(isset($option['q'])){
+            $value = $option['q']['value'];
+            $field = $option['q']['field'];
+
+            $this->model->where($field, 'like' ,'%'.$value)
+                ->orWhere($field, 'like' ,$value.'%')
+                ->orWhere($field, 'like' ,'%'.$value.'%');
+        }
+
         return $this->model->paginate($perPage);
     }
 

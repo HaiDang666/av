@@ -30,7 +30,17 @@ class ActressesController extends Controller
     public function index(Request $request){
         $perPage = $request->input('perPage', config('custom.default_load_limit'));
 
+        if(isset($request->q)){
+            $this->indexOrder['q'] = ['field' => 'name',
+                                      'value' => $request->q];
+        }
+
         $actresses = $this->actressRepository->paginate($perPage, $this->indexOrder);
+
+        if(isset($request->q)){
+            $actresses->appends(['q' => $request->q]);
+        }
+
         return view('actresses.index', [
             'actresses' => $actresses,
         ]);

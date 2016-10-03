@@ -22,6 +22,11 @@ class StudiosController extends Controller
         $perPage = $request->input('perPage', config('custom.default_load_limit'));
 
         $studios = $this->studioRepository->paginate($perPage, $this->indexOrder);
+
+        if(isset($request->q)){
+            $studios->appends(['q' => $request->q]);
+        }
+
         return view('studios.index', [
             'studios' => $studios,
         ]);
