@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-md-10">
                 {!! Form::open(['action'=>'MoviesController@store', 'files'=>true]) !!}
-                <div class="form-group">
+                    <div class="form-group">
                         <label for="inputCode" class="control-label">Code</label>
                         <div class="">
                             <input type="text" class="form-control" id="inputCode" name="code" placeholder="Enter movie code" required pattern=".*\S.*" title="at least 1 character">
@@ -29,6 +29,13 @@
                         <label for="inputName" class="control-label">Name</label>
                         <div class="">
                             <input type="text" class="form-control" id="inputName" name="name" placeholder="Enter movie name" pattern=".*\S.*" title="at least 1 character">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputLink" class="control-label">Link</label>
+                        <div class="">
+                            <input type="text" class="form-control" id="inputLink" name="link" placeholder="Enter movie link">
                         </div>
                     </div>
 
@@ -84,6 +91,7 @@
                             </div>
                         </div>
                     </div>
+
                     <br />
                     <div class="col-md-2 col-lg-offset-10">
                         <button class="btn btn-primary btn-block">Add</button>

@@ -107,7 +107,8 @@ class MoviesController extends Controller
 
             $this->movieRepository->create($data, ['validation' => TRUE]);
 
-            //$notification = makeNotification('Add', $data['code']);
+            Session::flash('message', 'Create successful');
+            Session::flash('alert-class', 'alert-success');
         }
         catch (\Exception $e){
             return $e->getMessage();
@@ -136,7 +137,7 @@ class MoviesController extends Controller
         unset($data['_token']);
 
         try{
-            $movie = $this->actressRepository->find($movieID);
+            $movie = $this->movieRepository->find($movieID);
 
             // check new thumbnail
             if(isset($data['thumbnail'])){

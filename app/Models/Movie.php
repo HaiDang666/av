@@ -16,6 +16,7 @@ class Movie extends Model
         'name', 'code',
         'studio_id', 'stored',
         'image', 'thumbnail',
+        'link'
     ];
     protected $guarded = ['id'];
 

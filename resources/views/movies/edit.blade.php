@@ -38,6 +38,13 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="inputLink" class="control-label">Link</label>
+                        <div class="">
+                            <input type="text" class="form-control" id="inputLink" name="link" value="{{$movie->link}}" placeholder="Enter movie link">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         {!! \app\UIBuilder\AppTemplate::select($studios,
                         ['name' => 'studio_id',
                          'id' => 'inputStudio',

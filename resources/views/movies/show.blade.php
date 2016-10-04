@@ -51,6 +51,10 @@
 
             <div class="col-md-2">
                 <a href="{{url('movies/' . $movie->id . '/edit')}}"><button class="btn btn-primary btn-block"><i class="fa fa-pencil-square-o"></i>  Edit information</button></a>
+                <br />
+                @if($movie->link != "")
+                <a href="{{$movie->link}}" target="_blank"><button class="btn btn-success btn-block"><i class="fa fa-play"></i>  Watch online</button></a>
+                @endif
             </div>
 
             <div class="col-md-6">
