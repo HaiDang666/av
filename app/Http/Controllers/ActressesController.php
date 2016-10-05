@@ -67,6 +67,15 @@ class ActressesController extends Controller
         unset($data['_token']);
 
         try{
+            if($data['dob'] != '')
+            {
+                $a = explode('-', $data['dob']);
+                $data['dob'] = $a[2].'-'.$a[1].'-'.$a[0];
+            }
+            else $data['dob'] = '1970-01-01';
+
+            $data['debut'] = $data['debut'] == '' ? 0 : $data['debut'];
+
             // save thumbnail
             if(isset($data['thumbnail'])){
                 $imageName = str_replace(' ', '_', $data['name']). '_thumbnail' . '.' .

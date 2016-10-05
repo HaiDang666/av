@@ -11,68 +11,77 @@
 @section('main-content')
     <div class="container spark-screen">
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-7">
                 <div class="box box-info">
                     {!! Form::open(['action'=>['ActressesController@update', $actress->id], 'files'=>true]) !!}
                     <input type="hidden" name="_method" value="PUT">
                         <div class="box-body">
-                            <div class="row">
-                                <div class="form-group">
-
-                                    <label for="inputName" class="col-sm-1 control-label">Name</label>
-
-                                    <div class="col-sm-3">
+                            <table class="table table-form">
+                                <tr>
+                                    <th width="10%">Name</th>
+                                    <td>
                                         <input type="text" class="form-control" id="inputName" name="name"
                                                placeholder="Enter actress name" required pattern=".*\S.*"
                                                title="at least 1 character" value="{{$actress->name}}">
-                                    </div>
-                                </div>
-                            </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Other name</th>
+                                    <td>
+                                        <input type="text" class="form-control" name="alias" pattern=".*\S.*"
+                                               placeholder="Enter other name" value="{{$actress->alias}}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Measurements</th>
+                                    <td>
+                                        <input type="text" class="form-control" name="measurements"
+                                               placeholder="Enter measurements" value="{{$actress->measurements}}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Note</th>
+                                    <td>
+                                        <input type="text" class="form-control" name="note"
+                                               placeholder="Enter note" value="{{$actress->note}}">
+                                    </td>
+                                </tr>
 
-                            @if($actress->thumbnail != '')
-                            <div>
-                                <label>Current Avatar</label>
-                                <img width="60px" height="60px" alt="act avatar" src="{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}"/>
-                            </div>
-                            @endif
-
-                            <div class="row">
-                                <div class="form-group">
-                                    <label class="col-sm-1 control-label" style="padding-top: 25px" >Avatar</label>
-                                    <div class="col-sm-7">
+                                @if($actress->thumbnail != '')
+                                    <tr>
+                                        <th>Current Avatar</th>
+                                        <td>
+                                            <img width="60px" height="60px" alt="act avatar" src="{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}"/>
+                                        </td>
+                                    </tr>
+                                @endif
+                                <tr>
+                                    <th>Avatar</th>
+                                    <td>
                                         <input id="inputThumbnail" name="thumbnail" type="file"
                                                class="file-loading form-control">
-                                    </div>
-                                    <div class="col-sm-3" style="padding-top: 15px">
-                                        <span style="font-style: italic; font-size: small">max 1 file</span><br/>
-                                        <span style="font-style: italic; font-size: small">alow: xxxxxxxxxxxxxxxxxxxxxxxxx</span>
-                                    </div>
-                                </div>
-                            </div>
+                                    </td>
+                                </tr>
 
-                            @if($actress->image != '')
-                                <div>
-                                    <label>Current Image</label>
-                                    <img width="430px" alt="act image" src="{{url('/image?category=actress&type=image&filename='. $actress->image)}}"/>
-                                </div>
-                            @endif
-
-                            <div class="row">
-                                <div class="form-group">
-                                    <label class="col-sm-1 control-label"  style="padding-top: 25px" >Image</label>
-                                    <div class="col-sm-7">
+                                @if($actress->image != '')
+                                    <tr>
+                                        <th>Current Image</th>
+                                        <td>
+                                            <img width="230px" alt="act image" src="{{url('/image?category=actress&type=image&filename='. $actress->image)}}"/>
+                                        </td>
+                                    </tr>
+                                @endif
+                                <tr>
+                                    <th>Image</th>
+                                    <td>
                                         <input id="inputImage" name="image" type="file"
                                                class="file-loading form-control">
-                                    </div>
-                                    <div class="col-sm-3" style="padding-top: 15px">
-                                        <span style="font-style: italic; font-size: small">max 1 files</span><br/>
-                                        <span style="font-style: italic; font-size: small">alow: xxxxxxxxxxxxxxxxxxxxxxxxx</span>
-                                    </div>
-                                </div>
-                            </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                         <div class="box-footer">
-                            <div class="col-md-2 col-lg-offset-10">
+                            <div class="col-md-4 col-md-offset-8">
                                 <button class="btn btn-primary btn-block">Update</button>
                             </div>
                         </div>

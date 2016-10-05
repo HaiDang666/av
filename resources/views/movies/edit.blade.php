@@ -16,110 +16,116 @@
 @section('main-content')
     <div class="container spark-screen">
         <div class="row">
-            <div class="col-md-10">
-                {!! Form::open(['action'=>['MoviesController@update', $movie->id], 'files'=>true]) !!}
-                <input type="hidden" name="_method" value="PUT">
-                <div class="form-group">
-                        <label for="inputCode" class="control-label">Code</label>
-                        <div class="">
-                            <input type="text" class="form-control" id="inputCode" name="code"
-                                   placeholder="Enter movie code" required pattern=".*\S.*"
-                                   title="at least 1 character" value="{{$movie->code}}">
+            <div class="col-md-7">
+                <div class="box box-info">
+                    {!! Form::open(['action'=>['MoviesController@update', $movie->id], 'files'=>true]) !!}
+                    <input type="hidden" name="_method" value="PUT">
+                    <div class="box-body">
+                        <table class="table table-form">
+                            <tr>
+                                <th width="10%">Code</th>
+                                <td style="padding-right: 17px">
+                                    <input type="text" class="form-control"
+                                           name="code" placeholder="Enter code"
+                                           required pattern=".*\S.*" title="at least 1 character"
+                                           value="{{$movie->code}}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Name</th>
+                                <td style="padding-right: 17px">
+                                    <input type="text" class="form-control"
+                                           name="name" placeholder="Enter name"
+                                           pattern=".*\S.*" title="at least 1 character" value="{{$movie->name}}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Link</th>
+                                <td style="padding-right: 17px">
+                                    <input type="text" class="form-control"
+                                           name="link" placeholder="Enter link" value="{{$movie->link}}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Note</th>
+                                <td style="padding-right: 17px">
+                                    <input type="text" class="form-control"
+                                           name="note" placeholder="Enter note" value="{{$movie->note}}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Choose studio</th>
+                                <td>
+                                    {!! \app\UIBuilder\AppTemplate::select($studios, ['name' => 'studio_id', 'id' => 'inputStudio']) !!}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Choose Actresses</th>
+                                <td class="form-group">
+                                    {!! \app\UIBuilder\AppTemplate::select($actresses,
+                                    ['name' => 'existActresses[]',
+                                        'id' => 'inputExistActresses',
+                                        'multiple' => 'multiple']) !!}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Add Actresses</th>
+                                <td class="form-group">
+                                    {!! \app\UIBuilder\AppTemplate::select([],
+                                    ['name' => 'newActresses[]',
+                                        'id' => 'inputNewActresses',
+                                        'multiple' => 'multiple']) !!}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Store</th>
+                                <td>
+                                    <input type="checkbox" class="flat-red" id="inputStored"
+                                           name="stored" checked>
+                                </td>
+                            </tr>
+                            @if($movie->thumbnail != '')
+                                <tr>
+                                    <th>Current Thumbnail</th>
+                                    <td>
+                                        <img width="60px" height="60px" alt="act avatar"
+                                             src="{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}"/>
+                                    </td>
+                                </tr>
+                            @endif
+                            <tr>
+                                <th>Thumbnail</th>
+                                <td>
+                                    <input id="inputThumbnail" name="thumbnail" type="file"
+                                           class="file-loading form-control">
+                                </td>
+                            </tr>
+
+                            @if($movie->image != '')
+                                <tr>
+                                    <th>Current Image</th>
+                                    <td>
+                                        <img width="230px" alt="act image"
+                                             src="{{url('/image?category=movie&type=image&filename='. $movie->image)}}"/>
+                                    </td>
+                                </tr>
+                            @endif
+                            <tr>
+                                <th>Image</th>
+                                <td>
+                                    <input id="inputImage" name="image" type="file"
+                                           class="file-loading form-control">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="box-footer">
+                        <div class="col-md-4 col-md-offset-8">
+                            <button class="btn btn-primary btn-block">Update</button>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="inputName" class="control-label">Name</label>
-                        <div class="">
-                            <input type="text" class="form-control" id="inputName" name="name"
-                                   placeholder="Enter movie name" pattern=".*\S.*"
-                                   title="at least 1 character" value="{{$movie->name}}">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputLink" class="control-label">Link</label>
-                        <div class="">
-                            <input type="text" class="form-control" id="inputLink" name="link" value="{{$movie->link}}" placeholder="Enter movie link">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        {!! \app\UIBuilder\AppTemplate::select($studios,
-                        ['name' => 'studio_id',
-                         'id' => 'inputStudio',
-                         'label' => 'Choose Studio']) !!}
-                    </div>
-
-                    <div class="form-group">
-                        {!! \app\UIBuilder\AppTemplate::select($actresses,
-                        ['name' => 'existActresses[]',
-                         'id' => 'inputExistActresses',
-                         'label' => 'Choose Actresses',
-                         'multiple' => 'multiple']) !!}
-                    </div>
-
-                    <div class="form-group">
-                        {!! \app\UIBuilder\AppTemplate::select([],
-                        ['name' => 'newActresses[]',
-                         'id' => 'inputNewActresses',
-                         'label' => 'Add Actresses',
-                         'multiple' => 'multiple']) !!}
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputStored" class="control-label">Store</label>
-                        <input type="checkbox" class="flat-red" id="inputStored" name="stored" checked>
-                    </div>
-
-                    @if($movie->thumbnail != '')
-                        <div>
-                            <label>Current Thumbnail</label>
-                            <img width="60px" height="60px" alt="movie avatar" src="{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}"/>
-                        </div>
-                    @endif
-
-                    <div class="row">
-                        <div class="form-group">
-                            <label class="col-sm-1 control-label" style="padding-top: 25px" >Thumbnail</label>
-                            <div class="col-sm-7">
-                                <input id="inputThumbnail" name="thumbnail" type="file"
-                                       class="file-loading form-control">
-                            </div>
-                            <div class="col-sm-3" style="padding-top: 15px">
-                                <span style="font-style: italic; font-size: small">max 1 file</span><br/>
-                                <span style="font-style: italic; font-size: small">alow: xxxxxxxxxxxxxxxxxxxxxxxxx</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    @if($movie->image != '')
-                        <div>
-                            <label>Current Image</label>
-                            <img width="430px" alt="movie image" src="{{url('/image?category=movie&type=image&filename='. $movie->image)}}"/>
-                        </div>
-                    @endif
-
-                    <div class="row">
-                        <div class="form-group">
-                            <label class="col-sm-1 control-label"  style="padding-top: 25px" >Image</label>
-                            <div class="col-sm-7">
-                                <input id="inputImage" name="image" type="file"
-                                       class="file-loading form-control">
-                            </div>
-                            <div class="col-sm-3" style="padding-top: 15px">
-                                <span style="font-style: italic; font-size: small">max 1 files</span><br/>
-                                <span style="font-style: italic; font-size: small">alow: xxxxxxxxxxxxxxxxxxxxxxxxx</span>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="col-md-2 col-lg-offset-10">
-                        <button class="btn btn-primary btn-block">Update</button>
-                    </div>
-
-
-                {!! Form::close() !!}
+                    {!! Form::close() !!}
+                </div>
             </div>
         </div>
     </div>

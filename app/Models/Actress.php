@@ -14,14 +14,15 @@ class Actress extends Model
     protected $table = "actresses";
     protected $guarded = ['id'];
     protected $fillable = [
-        'name',
+        'name', 'alias', 'debut', 'measurements', 'dob', 'rate', 'note',
         'movie_count', 'image', 'thumbnail',
     ];
     /**
      * for ValidationTrait
      * @var array
      */
-    protected static $rules = ['name' => 'bail|required|unique:actresses,name'];
+    protected static $rules = ['name' => 'bail|required|unique:actresses,name',
+                                'dob' => 'date'];
 
     /**
      * Relationship

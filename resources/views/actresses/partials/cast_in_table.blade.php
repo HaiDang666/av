@@ -17,7 +17,7 @@
             <tbody>
             @if($movies->total() == 0)
                 <tr>
-                    <td colspan="5">No such thing here</td>
+                    <td colspan="7">No such thing here</td>
                 </tr>
             @endif
             @foreach($movies as $movie)
