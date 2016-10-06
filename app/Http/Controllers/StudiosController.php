@@ -32,8 +32,18 @@ class StudiosController extends Controller
         ]);
     }
 
-    public function show(){
-        return view('errors.404');
+    public function show($studioID){
+        try{
+            $studio = $this->studioRepository->find($studioID);
+            $movies = $studio->movies()->paginate(15);
+        }
+        catch(\Exception $e){
+            return view('errors.404');
+        }
+
+        return view('studios.show', [
+            'studio' => $studio,
+            'movies' => $movies]);    
     }
 
     public function create(){
@@ -66,7 +76,12 @@ class StudiosController extends Controller
     }
 
     public function edit($studioID){
-        $studio = $this->studioRepository->find($studioID);
+        try{
+            $studio = $this->studioRepository->find($studioID);
+        }
+        catch(\Exception $e){
+            return view('errors.404');
+        }
 
         return view('studios.partials.edit',
             ['studio' => $studio]);

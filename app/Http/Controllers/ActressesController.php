@@ -102,28 +102,28 @@ class ActressesController extends Controller
 
             $this->actressRepository->create($data, ['validation' => TRUE]);
 
-            /*$perPage = $request->input('perPage', config('custom.default_load_limit'));
-            $actresses = $this->actressRepository->paginate($perPage, $this->indexOrder);
-
-            $notification = makeNotification('Add', $data['name']);
-            $html = view('actresses.partials.table',[
-                'actresses' => $actresses,
-            ])->render();*/
+            Session::flash('message', 'Create successful');
+            Session::flash('alert-class', 'alert-success');
         }
         catch (\Exception $e){
             return $e->getMessage();
-            //$notification = makeNotification('Add', $data['name'], 0, $e->getMessage());
-            //$html = '';
         }
 
         return redirect()->back();
-        /*return response()->json(
-            ['html' => $html,
-                'notification' => $notification]);*/
     }
 
     public function edit($actressID){
         $actress = $this->actressRepository->find($actressID);
+
+        //change dob format
+        if ($actress->dob == '1970-01-01'){
+            $actress->dob = '';
+        }
+        else if($actress->dob != '')
+        {
+            $a = explode('-', $actress->dob);
+            $actress->dob = $a[2].'-'.$a[1].'-'.$a[0];
+        }
 
         return view('actresses.edit',['actress' => $actress]);
     }
@@ -133,6 +133,15 @@ class ActressesController extends Controller
         unset($data['_token']);
 
         try{
+            if($data['dob'] != '')
+            {
+                $a = explode('-', $data['dob']);
+                $data['dob'] = $a[2].'-'.$a[1].'-'.$a[0];
+            }
+            else $data['dob'] = '1970-01-01';
+
+            $data['debut'] = $data['debut'] == '' ? 0 : $data['debut'];
+
             $actress = $this->actressRepository->find($actressID);
 
             // check new thumbnail

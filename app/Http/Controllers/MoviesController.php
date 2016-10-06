@@ -36,7 +36,6 @@ class MoviesController extends Controller
 
     public function index(Request $request){
         $perPage = $request->input('perPage', config('custom.default_load_limit'));
-
         if(isset($request->q)){
             $this->indexOrder['q'] = ['field' => 'code',
                 'value' => $request->q];
@@ -112,13 +111,9 @@ class MoviesController extends Controller
         }
         catch (\Exception $e){
             return $e->getMessage();
-            //$notification = makeNotification('Add', $data['code'], 0, $e->getMessage());
         }
 
         return redirect()->back();
-        /*return response()->json(
-            ['html' => '',
-                'notification' => $notification]);*/
     }
 
     public function edit($movieID){

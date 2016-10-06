@@ -37,7 +37,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Birthday</th>
+                                    <th>Birthdate</th>
                                     <td>
                                         <div class="input-group date">
                                             <input type="text" class="form-control pull-right" id="datepicker" name="dob"  placeholder="Enter birthday">

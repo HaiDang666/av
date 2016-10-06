@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('page_plugin_css')
+    <!-- bootstrap datepicker -->
+    <link href="{{ asset('/plugins/datepicker/datepicker3.css') }}" rel="stylesheet" type="text/css" />
+@endsection
+
 @section('htmlheader_title')
     {{$actress->name}}
 @endsection
@@ -30,6 +35,25 @@
                                     <td>
                                         <input type="text" class="form-control" name="alias" pattern=".*\S.*"
                                                placeholder="Enter other name" value="{{$actress->alias}}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Birthdate</th>
+                                    <td>
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control pull-right" name="dob" 
+                                            id="datepicker" placeholder="Enter birthday" value="{{$actress->dob}}">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Debut</th>
+                                    <td>
+                                        <input type="number" class="form-control" name="debut"
+                                               placeholder="Enter debut year" value="@if($actress->debut != 0){{$actress->debut}}@endif">
                                     </td>
                                 </tr>
                                 <tr>
@@ -95,6 +119,8 @@
 @section('page_plugin_js')
     <!-- Upload file -->
     <script src="{{ asset('/js/fileinput.min.js') }}"></script>
+    <!-- bootstrap datepicker -->
+    <script src="{{ asset('/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
 @endsection
 
 @section('page-style')

@@ -19,7 +19,7 @@
             @foreach($studios as $studio)
                 <tr>
                     <td>{{$studio->id}}</td>
-                    <td>{{$studio->name}}</td>
+                    <td><a href="{{url('studios/'.$studio->id)}}" target="_blank">{{$studio->name}}</a></td>
                     <td>{{$studio->movie_count}}</td>
                     <td>
                         <button type="button" class="btn-link clear-padding btn-edit-studio" data-id="{{$studio->id}}">
