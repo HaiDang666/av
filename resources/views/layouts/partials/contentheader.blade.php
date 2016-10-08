@@ -14,7 +14,7 @@
     <div class="alert {{ Session::get('alert-class', 'alert-info') }} fade in notification-app">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4>Flash message</h4>
-        <p>{{ Session::get('message') }}</p>
+        <p>{!! Session::get('message') !!}</p>
     </div>
 @endif
 

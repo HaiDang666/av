@@ -12,6 +12,7 @@ use App\Http\Requests;
 use app\Repositories\ActressRepository;
 use app\Repositories\MovieRepository;
 use app\Repositories\StudioRepository;
+use app\Repositories\TagRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
@@ -21,17 +22,20 @@ class MoviesController extends Controller
     protected $movieRepository;
     protected $studioRepository;
     protected $actressRepository;
+    protected $tagRepository;
 
     protected $indexOrder = ['order' => ['col' => 'updated_at',
         'dir' => 'desc']];
 
     public function __construct(MovieRepository $movieRepo,
                                 StudioRepository $studioRepo,
-                                ActressRepository $actressRepo)
+                                ActressRepository $actressRepo,
+                                TagRepository $tagRepo)
     {
         $this->movieRepository = $movieRepo;
         $this->studioRepository = $studioRepo;
         $this->actressRepository = $actressRepo;
+        $this->tagRepository = $tagRepo;
     }
 
     public function index(Request $request){
@@ -56,21 +60,24 @@ class MoviesController extends Controller
         try{
             $movie = $this->movieRepository->find($movieID);
             $actresses = $movie->actresses()->paginate(5);
+            $tags = $movie->tags;
         }
         catch (\Exception $e){
             return view('errors.404');
         }
 
-        return view('movies.show', ['actresses' => $actresses, 'movie' => $movie]);
+        return view('movies.show', ['actresses' => $actresses, 'movie' => $movie, 'tags' => $tags]);
     }
 
     public function create(){
         $studios = $this->studioRepository->all(['name', 'id']);
         $actresses = $this->actressRepository->all(['name', 'id']);
+        $tags = $this->tagRepository->all(['name', 'id']);
 
         return view('movies.create',
             ['studios' => $studios,
-            'actresses' => $actresses]);
+            'actresses' => $actresses,
+            'tags' => $tags]);
     }
 
     public function store(Request $request){
@@ -104,9 +111,9 @@ class MoviesController extends Controller
             // check stored field
             $data['stored'] = isset($request->stored) ? 1 : 0;
 
-            $this->movieRepository->create($data, ['validation' => TRUE]);
+            $movie = $this->movieRepository->create($data, ['validation' => TRUE]);
 
-            Session::flash('message', 'Create successful');
+            Session::flash('message', 'Add <a href='. url('movies/'.$movie->id) .' target="_blank">'.$movie->code.'</a> successful');
             Session::flash('alert-class', 'alert-success');
         }
         catch (\Exception $e){

@@ -47,35 +47,9 @@
         $('#inputExistActresses').select2({
             placeholder: 'Choose actresses'
         });
-		
-		/*$('#frm-add-movie').submit(function (e){
-			e.preventDefault();
-            var data = {
-                _token: '',
-                code: $('#inputCode').val(),
-                name: $('#inputName').val(),
-                studio_id: $('#inputStudio').val(),
-                eact: $('#inputExistActresses').val(),
-                nact: $('#inputNewActresses').val(),
-                stored: $('#inputStored').is(':checked') == true ? 1 : 0
-            };
 
-            $.ajax({
-                type: 'POST',
-                url: '/movies',
-                data: data,
-                dataType: 'JSON',
-                success: function (data) {
-                    if (data.notification.code != 0){
-                        $('#frm-add-movie').trigger('reset');
-                        $('#inputExistActresses').val(null).trigger("change");
-                        $('#inputNewActresses').val(null).trigger("change");
-                        $('#inputStudio').val(null).trigger("change");
-                    }
-
-                    showNotification(data.notification);
-                }
-            });
-		});*/
+        $('#inputTags').select2({
+            placeholder: 'Choose tags'
+        });
     });
 </script>

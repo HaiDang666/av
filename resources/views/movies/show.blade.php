@@ -47,6 +47,10 @@
                                 <td>{{$movie->rate}}</td>
                             </tr>
                             <tr>
+                                <th>Tags</th>
+                                <td>@foreach($tags as $tag) {{$tag->name}} @endforeach</td>
+                            </tr>
+                            <tr>
                                 <th>Note</th>
                                 <td>{{$movie->note}}</td>
                             </tr>

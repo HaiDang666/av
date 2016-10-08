@@ -47,6 +47,15 @@
                                 </td>
                             </tr>
                             <tr>
+                                <th>Choose Tags</th>
+                                <td class="form-group">
+                                    {!! \app\UIBuilder\AppTemplate::select($tags,
+                                    ['name' => 'tags[]',
+                                        'id' => 'inputTags',
+                                        'multiple' => 'multiple']) !!}
+                                </td>
+                            </tr>
+                            <tr>
                                 <th>Note</th>
                                 <td style="padding-right: 17px">
                                     <input type="text" class="form-control"

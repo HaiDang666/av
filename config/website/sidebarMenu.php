@@ -61,6 +61,13 @@ return array(
             'Studios' => [
                 'route' => 'studios'
             ],
+            'Settings' => [
+                'submenu' => [
+                    'Tag' => [
+                        'route' => 'tags'
+                    ],
+                ]
+            ],
         ],
     ],
     /**

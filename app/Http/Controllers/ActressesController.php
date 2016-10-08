@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use app\Repositories\ActressRepository;
+use app\Repositories\TagRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
@@ -18,13 +19,15 @@ use Illuminate\Support\Facades\Session;
 class ActressesController extends Controller
 {
     protected $actressRepository;
+    protected $tagRepository;
 
     protected $indexOrder = ['order' => ['col' => 'updated_at',
         'dir' => 'desc']];
 
-    public function __construct(ActressRepository $actressRepo)
+    public function __construct(ActressRepository $actressRepo, TagRepository $tagRepo)
     {
         $this->actressRepository = $actressRepo;
+        $this->tagRepository = $tagRepo;
     }
 
     public function index(Request $request){
@@ -50,16 +53,19 @@ class ActressesController extends Controller
         try{
             $actress = $this->actressRepository->find($actressID);
             $movies = $actress->movies()->paginate(5);
+            $tags = $actress->tags;
         }
         catch (\Exception $e){
             return view('errors.404');
         }
 
-        return view('actresses.show', ['actress' => $actress, 'movies' => $movies]);
+        return view('actresses.show', ['actress' => $actress, 'movies' => $movies, 'tags' => $tags]);
     }
 
     public function create(){
-        return view('actresses.create');
+        $tags = $this->tagRepository->all(['name', 'id']);
+
+        return view('actresses.create', ['tags' => $tags]);
     }
 
     public function store(Request $request){
@@ -100,9 +106,9 @@ class ActressesController extends Controller
                 $data['image'] = $imageName;
             }
 
-            $this->actressRepository->create($data, ['validation' => TRUE]);
+            $actress = $this->actressRepository->create($data, ['validation' => TRUE]);
 
-            Session::flash('message', 'Create successful');
+            Session::flash('message', 'Add <a href='. url('actresses/'.$actress->id) .' target="_blank">'.$actress->name.'</a> successful');
             Session::flash('alert-class', 'alert-success');
         }
         catch (\Exception $e){

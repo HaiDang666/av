@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth']], function (){
     Route::get('/dashboard', 'HomeController@index');
 
     Route::resource('studios', 'StudiosController');
+    Route::resource('tags', 'TagsController');
     Route::resource('actresses', 'ActressesController');
     Route::resource('movies', 'MoviesController');
 });

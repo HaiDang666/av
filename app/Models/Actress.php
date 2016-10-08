@@ -30,4 +30,8 @@ class Actress extends Model
     public function movies(){
         return $this->belongsToMany('App\Models\Movie', 'cast', 'actress_id', 'movie_id');
     }
+
+    public function tags(){
+        return $this->belongsToMany('App\Models\Tag', 'actress_tag', 'actress_id', 'tag_id');
+    }
 }

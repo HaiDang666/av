@@ -6,7 +6,7 @@
 @endsection
 
 @section('htmlheader_title')
-    Movie
+    Add Movie
 @endsection
 
 @section('contentheader_title')
@@ -45,6 +45,15 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th>Choose Tags</th>
+                                    <td class="form-group">
+                                        {!! \app\UIBuilder\AppTemplate::select($tags,
+                                        ['name' => 'tags[]',
+                                            'id' => 'inputTags',
+                                            'multiple' => 'multiple']) !!}
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th>Note</th>
                                     <td style="padding-right: 17px">
                                            <input type="text" class="form-control"
@@ -52,7 +61,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Choose studio</th>
+                                    <th>Choose Studio</th>
                                     <td>
                                        {!! \app\UIBuilder\AppTemplate::select($studios, ['name' => 'studio_id', 'id' => 'inputStudio']) !!}
                                     </td>

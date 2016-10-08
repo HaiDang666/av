@@ -3,6 +3,8 @@
 @section('page_plugin_css')
     <!-- bootstrap datepicker -->
     <link href="{{ asset('/plugins/datepicker/datepicker3.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Select2 -->
+    <link href="{{ asset('/plugins/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('htmlheader_title')
@@ -62,6 +64,15 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th>Choose Tags</th>
+                                    <td class="form-group">
+                                        {!! \app\UIBuilder\AppTemplate::select($tags,
+                                        ['name' => 'tags[]',
+                                            'id' => 'inputTags',
+                                            'multiple' => 'multiple']) !!}
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th>Note</th>
                                     <td>
                                         <input type="text" class="form-control" name="note"
@@ -106,6 +117,8 @@
     <script src="{{ asset('/js/fileinput.min.js') }}"></script>
     <!-- bootstrap datepicker -->
     <script src="{{ asset('/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('/plugins/select2/select2.full.min.js') }}"></script>
 @endsection
 
 @section('page-style')

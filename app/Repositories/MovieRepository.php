@@ -39,6 +39,11 @@ class MovieRepository extends Repository
             unset($attributes['existActresses']);
         }
 
+        if(isset($attributes['tags'])){
+            $tags = $attributes['tags'];
+            unset($attributes['tags']);
+        }
+
         DB::beginTransaction();
         try{
             // add movie
@@ -51,6 +56,13 @@ class MovieRepository extends Repository
             DB::table('studios')
                 ->where('id', $attributes['studio_id'])
                 ->increment('movie_count');
+
+            // attach tags
+            if(isset($tags)){
+                foreach ($tags as $tag){
+                    $movie->tags()->attach($tag);
+                }
+            }
 
             // attach existed actresses
             if(isset($existActresses)){
@@ -68,7 +80,7 @@ class MovieRepository extends Repository
                 foreach ($newActresses as $actress){
                     $new_actress = Actress::create(['name' => $actress, 'movie_count' => 1]);
                     if($new_actress == NULL){
-                        throw new \Exception('Server error cannot create movie');
+                        throw new \Exception('Server error cannot create actress');
                     }
                     // attach new actress
                     $movie->actresses()->attach($new_actress->id);
@@ -80,6 +92,7 @@ class MovieRepository extends Repository
         }
 
         DB::commit();
+        return $movie;
     }
 
     public function delete($id)
@@ -105,6 +118,7 @@ class MovieRepository extends Repository
             }
 
             $delete_movie->actresses()->sync([]);
+            $delete_movie->tags()->sync([]);
             $delete_movie->delete();
             //$this->log();
         }catch (\Exception $e){
