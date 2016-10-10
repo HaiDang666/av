@@ -35,10 +35,15 @@ trait ValidationTrait
      * @param array $attributes
      * @param array $unique use for add except value for unique rule
      * @return array|bool
+     * @throws \Exception
      */
     public static function validate(array $attributes, $unique =[])
     {
-        $f_rules = static::$rules;
+        try{
+            $f_rules = static::$rules;
+        }catch (\Exception $e){
+            throw new \Exception('$rule variable is not set in model');
+        }
         // modify rules for update unique field
         if (!empty($unique)){
             foreach ($unique as $field => $value){

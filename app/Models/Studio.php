@@ -10,6 +10,7 @@ class Studio extends Model
     use ValidationTrait;
 
     public static $namespace = 'App\Models\Studio';
+    public static $inCacheName = 'studio_list';
 
     protected $table = "studios";
     protected $guarded = ['id'];

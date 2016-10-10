@@ -14,7 +14,8 @@ class Actress extends Model
     protected $table = "actresses";
     protected $guarded = ['id'];
     protected $fillable = [
-        'name', 'alias', 'debut', 'measurements', 'dob', 'rate', 'note',
+        'name', 'alias', 'debut', 'measurements', 'dob', 'pob', 'rate', 'note',
+        'height', 'weight', 'cup_size', 'description', 'jp_name',
         'movie_count', 'image', 'thumbnail',
     ];
     /**

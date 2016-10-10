@@ -60,8 +60,6 @@ desired effect
 
 @yield('page_plugin_js')
 
-@include('bladecss.layout')
-
 @yield('page-style')
 
 @yield('page-script')

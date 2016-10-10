@@ -16,7 +16,7 @@
             <tbody>
             @if($actresses->total() == 0)
                 <tr>
-                    <td colspan="5">No such thing here</td>
+                    <td colspan="6">No such thing here</td>
                 </tr>
             @endif
             @foreach($actresses as $actress)
@@ -25,7 +25,7 @@
                     <td><a href="{{url('actresses/' . $actress->id)}}" target="_blank"><img width="80px" height="100px" alt="act avatar" src="{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}"/></a></td>
                     <td>{{$actress->name}}</td>
                     <td>{{$actress->movie_count}}</td>
-                    <td>{{$actress->updated_at}}</td>
+                    <td>{{$actress->updated_at->format('Y-m-d')}}</td>
                     <td>
                         <button type="button" class="btn-link clear-padding text-red btn-delete-actress" data-id="{{$actress->id}}">
                             <i class="fa fa-trash-o"></i></button>

@@ -14,4 +14,13 @@ return array(
     'image_actress_path' => 'app/upload/img/image/actress/',
     'image_movie_path' => 'app/upload/img/image/movie/',
     'no_image_path' => 'app/default/no_image.png',
+    'cup_size' => [0 => 'A',
+                   1 => 'B',
+                   2 => 'C',
+                   3 => 'D',
+                   4 => 'DD',
+                   5 => 'E',
+                   6 => 'F',
+                   7 => 'G',
+                   8 => 'H'],
 );

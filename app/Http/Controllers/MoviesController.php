@@ -70,9 +70,9 @@ class MoviesController extends Controller
     }
 
     public function create(){
-        $studios = $this->studioRepository->all(['name', 'id']);
+        $studios = $this->studioRepository->allForSelect();
         $actresses = $this->actressRepository->all(['name', 'id']);
-        $tags = $this->tagRepository->all(['name', 'id']);
+        $tags = $this->tagRepository->allForSelect();
 
         return view('movies.create',
             ['studios' => $studios,
@@ -110,6 +110,7 @@ class MoviesController extends Controller
 
             // check stored field
             $data['stored'] = isset($request->stored) ? 1 : 0;
+            $data['length'] = $data['length'] == '' ? 0 : $data['length'];
 
             $movie = $this->movieRepository->create($data, ['validation' => TRUE]);
 
@@ -125,13 +126,29 @@ class MoviesController extends Controller
 
     public function edit($movieID){
         $movie = $this->movieRepository->find($movieID);
-        $studios = $this->studioRepository->all(['name', 'id']);
+        $studios = $this->studioRepository->allForSelect();
         $actresses = $this->actressRepository->all(['name', 'id']);
+        $tags = $this->tagRepository->allForSelect();
+
+        $selectedActresses = [];
+        $selected = $movie->actresses()->get(['id']);
+        foreach ($selected as $actress){
+            $selectedActresses[] = $actress->id;
+        }
+
+        $selectedTag = [];
+        $selected = $movie->tags()->get(['id']);
+        foreach ($selected as $tag){
+            $selectedTag[] = $tag->id;
+        }
 
         return view('movies.edit',[
             'movie' => $movie,
             'studios' => $studios,
-            'actresses' => $actresses]);
+            'tags' => $tags,
+            'actresses' => $actresses,
+            'selectedActresses' => $selectedActresses,
+            'selectedTag' => $selectedTag]);
     }
 
     public function update($movieID, Request $request){
@@ -181,6 +198,7 @@ class MoviesController extends Controller
 
             // check stored field
             $data['stored'] = isset($request->stored) ? 1 : 0;
+            $data['length'] = $data['length'] == '' ? 0 : $data['length'];
 
             // update other attribute
             if (!empty($data)){

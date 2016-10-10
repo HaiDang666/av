@@ -39,7 +39,14 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Birthdate</th>
+                                    <th>Japanese name</th>
+                                    <td>
+                                        <input type="text" class="form-control" name="jp_name" pattern=".*\S.*"
+                                               placeholder="Enter Japanese name">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Birthday</th>
                                     <td>
                                         <div class="input-group date">
                                             <input type="text" class="form-control pull-right" id="datepicker" name="dob"  placeholder="Enter birthday">
@@ -50,10 +57,24 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Debut</th>
+                                    <th>Birthplace</th>
                                     <td>
-                                        <input type="number" class="form-control" name="debut"
-                                               placeholder="Enter debut year">
+                                        <input type="text" class="form-control" name="pob" pattern=".*\S.*"
+                                               placeholder="Enter birthplace">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Height</th>
+                                    <td>
+                                        <input type="number" class="form-control" name="height"
+                                               placeholder="Enter height in cm">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Weight</th>
+                                    <td>
+                                        <input type="number" class="form-control" name="weight"
+                                               placeholder="Enter weight in kg">
                                     </td>
                                 </tr>
                                 <tr>
@@ -64,12 +85,34 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th>Cup size</th>
+                                    <td style="padding-right: 0" class="form-group">
+                                        {!! \app\UIBuilder\AppTemplate::select($cupSizeList,
+                                        ['name' => 'cup_size',
+                                            'id' => 'inputCupSize']) !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Debut</th>
+                                    <td>
+                                        <input type="number" class="form-control" name="debut"
+                                               placeholder="Enter debut year">
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th>Choose Tags</th>
-                                    <td class="form-group">
+                                    <td style="padding-right: 0" class="form-group">
                                         {!! \app\UIBuilder\AppTemplate::select($tags,
                                         ['name' => 'tags[]',
                                             'id' => 'inputTags',
                                             'multiple' => 'multiple']) !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Description</th>
+                                    <td>
+                                        <input type="text" class="form-control" name="description"
+                                               placeholder="Enter description">
                                     </td>
                                 </tr>
                                 <tr>

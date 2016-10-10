@@ -42,10 +42,35 @@ class ActressRepository extends Repository
 
             // attach tags
             if(isset($tags)){
-                foreach ($tags as $tag){
-                    $actress->tags()->attach($tag);
-                }
+                $actress->tags()->sync($tags);
             }
+
+        }catch (\Exception $e){
+            DB::rollBack();
+            throw $e;
+        }
+
+        DB::commit();
+        return $actress;
+    }
+
+    public function updateAtID($id, array $attributes, array $options = [])
+    {
+        $tags = [];
+        if(isset($attributes['tags'])){
+            $tags = $attributes['tags'];
+            unset($attributes['tags']);
+        }
+
+        DB::beginTransaction();
+        try {
+            $actress = parent::updateAtID($id, $attributes, $options);
+
+            if($actress == NULL){
+                throw new \Exception('Server can not update actress');
+            }
+
+            $actress->tags()->sync($tags);
 
         }catch (\Exception $e){
             DB::rollBack();
@@ -79,7 +104,6 @@ class ActressRepository extends Repository
         //$this->log();
         return $detele_actress;
     }
-
 
     /**
      * log all user's action on object

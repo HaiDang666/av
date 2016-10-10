@@ -10,6 +10,7 @@ namespace app\Repositories;
 
 use app\Models\Studio;
 use app\Repositories\BaseClasses\Repository;
+use Illuminate\Support\Facades\Cache;
 
 
 class StudioRepository extends Repository
@@ -24,6 +25,18 @@ class StudioRepository extends Repository
         return Studio::$namespace;
     }
 
+    public function create(array $attributes, array $options = [])
+    {
+        $this->flush();
+        return parent::create($attributes, $options);
+    }
+
+    public function updateAtID($id, array $attributes, array $options = [])
+    {
+        $this->flush();
+        return parent::updateAtID($id, $attributes, $options);
+    }
+
     public function delete($id)
     {
         $delete_studio = Studio::findOrFail($id);
@@ -33,9 +46,14 @@ class StudioRepository extends Repository
             throw new \Exception('Studio '. $delete_studio->name. ' has (a) movie.');
         }
 
+        $this->flush();
         $delete_studio->delete();
         //$this->log();
         return $delete_studio;
+    }
+
+    protected function flush(){
+        Cache::forget(Studio::$inCacheName);
     }
 
     /**

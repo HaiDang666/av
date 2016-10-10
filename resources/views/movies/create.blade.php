@@ -38,10 +38,31 @@
                                    </td>
                                 </tr>
                                 <tr>
+                                    <th>Length</th>
+                                    <td style="padding-right: 17px">
+                                        <input type="number" class="form-control"
+                                              name="length" placeholder="Enter length in min">
+                                   </td>
+                                </tr>
+                                <tr>
                                     <th>Link</th>
                                     <td style="padding-right: 17px">
                                         <input type="text" class="form-control"
                                               name="link" placeholder="Enter link">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Included in</th>
+                                    <td style="padding-right: 17px">
+                                        <input type="text" class="form-control"
+                                              name="included" placeholder="Enter father movie code separate by ;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Contain</th>
+                                    <td style="padding-right: 17px">
+                                        <input type="text" class="form-control"
+                                              name="contain" placeholder="Enter son movie code separate by ;">
                                     </td>
                                 </tr>
                                 <tr>

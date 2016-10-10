@@ -11,17 +11,16 @@
 @section('main-content')
     <div class="container spark-screen">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-3">
                 <div class="box box-info">
-                    <div class="box-body content-center">
-                        <img id="profileImage" class="img-rounded" width="440px" height="480px"
+                    <div class="box-body">
+                        <img id="profileImage" class="img-rounded" style="max-width: 100%;"
                              src="{{url('/image?category=actress&type=image&filename='. $actress->image)}}">
-                        <button id="viewImage" type="button" class="btn btn-clean text-blue"> <i class="fa fa-search"></i>  View Avatar</button>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="box box-info">
                     <div class="box-header"><strong class="custom-box-header">Info</strong></div>
                     <div class="box-body">
@@ -39,24 +38,44 @@
                                 <td>{{$actress->alias}}</td>
                             </tr>
                             <tr>
+                                <th>Japanese name</th>
+                                <td>{{$actress->jp_name}}</td>
+                            </tr>
+                            <tr>
                                 <th>Birthday</th>
                                 <td>@if($actress->dob != '1970-01-01'){{$actress->dob}}@endif</td>
                             </tr>
                             <tr>
-                                <th>Debut</th>
-                                <td>@if($actress->debut != 0){{$actress->debut}}@endif</td>
+                                <th>Birthplace</th>
+                                <td>{{$actress->pob}}</td>
+                            </tr>
+                            <tr>
+                                <th>Height</th>
+                                <td>{{$actress->height}}</td>
+                            </tr>
+                            <tr>
+                                <th>Weight</th>
+                                <td>{{$actress->weight}}</td>
+                            </tr>
+                            <tr>
+                                <th>Cup size</th>
+                                <td>{{$actress->cup_size}}</td>
                             </tr>
                             <tr>
                                 <th>Measurements</th>
                                 <td>{{$actress->measurements}}</td>
                             </tr>
                             <tr>
+                                <th>Debut</th>
+                                <td>{{$actress->debut}}</td>
+                            </tr>
+                            <tr>
                                 <th>Rate</th>
                                 <td>{{$actress->rate}}</td>
                             </tr>
                             <tr>
-                                <th>Tags</th>
-                                <td>@foreach($tags as $tag) {{$tag->name}} @endforeach</td>
+                                <th>Description</th>
+                                <td>{{$actress->description}}</td>
                             </tr>
                             <tr>
                                 <th>Note</th>
@@ -65,6 +84,10 @@
                             <tr>
                                 <th>#movie</th>
                                 <td>{{$actress->movie_count}}</td>
+                            </tr>
+                            <tr>
+                                <th>Tags</th>
+                                <td>@foreach($tags as $tag) {{$tag->name}} @endforeach</td>
                             </tr>
                         </table>
                     </div>

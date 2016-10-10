@@ -20,11 +20,12 @@
                 <div class="box box-info">
                     {!! Form::open(['action'=>['MoviesController@update', $movie->id], 'files'=>true]) !!}
                     <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" name="oldActresses" value="{{json_encode($selectedActresses)}}">
                     <div class="box-body">
                         <table class="table table-form">
                             <tr>
                                 <th width="10%">Code</th>
-                                <td style="padding-right: 17px">
+                                <td class="fix-padding">
                                     <input type="text" class="form-control"
                                            name="code" placeholder="Enter code"
                                            required pattern=".*\S.*" title="at least 1 character"
@@ -33,17 +34,40 @@
                             </tr>
                             <tr>
                                 <th>Name</th>
-                                <td style="padding-right: 17px">
+                                <td class="fix-padding">
                                     <input type="text" class="form-control"
                                            name="name" placeholder="Enter name"
                                            pattern=".*\S.*" title="at least 1 character" value="{{$movie->name}}">
                                 </td>
                             </tr>
                             <tr>
-                                <th>Link</th>
+                                <th>Length</th>
                                 <td style="padding-right: 17px">
+                                    <input type="number" class="form-control"
+                                           name="length" placeholder="Enter length in min" value="@if($movie->length != 0){{$movie->length}}@endif">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Link</th>
+                                <td class="fix-padding">
                                     <input type="text" class="form-control"
                                            name="link" placeholder="Enter link" value="{{$movie->link}}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Included in</th>
+                                <td style="padding-right: 17px">
+                                    <input type="text" class="form-control"
+                                           name="included" placeholder="Enter father movie code separate by ;"
+                                           value="{{$movie->included}}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Contain</th>
+                                <td style="padding-right: 17px">
+                                    <input type="text" class="form-control"
+                                           name="contain" placeholder="Enter son movie code separate by ;"
+                                           value="{{$movie->contain}}">
                                 </td>
                             </tr>
                             <tr>
@@ -57,7 +81,7 @@
                             </tr>
                             <tr>
                                 <th>Note</th>
-                                <td style="padding-right: 17px">
+                                <td class="fix-padding">
                                     <input type="text" class="form-control"
                                            name="note" placeholder="Enter note" value="{{$movie->note}}">
                                 </td>
@@ -78,15 +102,6 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>Add Actresses</th>
-                                <td class="form-group">
-                                    {!! \app\UIBuilder\AppTemplate::select([],
-                                    ['name' => 'newActresses[]',
-                                        'id' => 'inputNewActresses',
-                                        'multiple' => 'multiple']) !!}
-                                </td>
-                            </tr>
-                            <tr>
                                 <th>Store</th>
                                 <td>
                                     <input type="checkbox" class="flat-red" id="inputStored"
@@ -97,7 +112,7 @@
                                 <tr>
                                     <th>Current Thumbnail</th>
                                     <td>
-                                        <img width="60px" height="60px" alt="act avatar"
+                                        <img width="80px" height="100px" alt="act avatar"
                                              src="{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}"/>
                                     </td>
                                 </tr>
@@ -157,6 +172,8 @@
     <script>
         $( document ).ready(function() {
             $('#inputStudio').val({{$movie->studio_id}}).change();
+            $('#inputExistActresses').val({{json_encode($selectedActresses)}}).change();
+            $('#inputTags').val({{json_encode($selectedTag)}}).change();
         });
     </script>
 @endsection

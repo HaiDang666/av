@@ -10,6 +10,7 @@ class Tag extends Model
     use ValidationTrait;
 
     public static $namespace = 'App\Models\Tag';
+    public static $inCacheName = 'tag_list';
 
     protected $table = "tags";
     protected $fillable = [

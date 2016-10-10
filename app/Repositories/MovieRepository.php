@@ -27,8 +27,65 @@ class MovieRepository extends Repository
         return Movie::$namespace;
     }
 
+    public function updateAtID($id, array $attributes, array $options = [])
+    {
+
+        $oldActresses = json_decode($attributes['oldActresses']);
+        $newActresses = [];
+        if(isset($attributes['existActresses'])){
+            $newActresses = $attributes['existActresses'];
+            unset($attributes['existActresses']);
+        }
+
+        $tags = [];
+        if(isset($attributes['tags'])){
+            $tags = $attributes['tags'];
+            unset($attributes['tags']);
+        }
+
+        DB::beginTransaction();
+        try{
+            // add movie
+            $movie = parent::updateAtID($id, $attributes, $options);
+
+            if($movie == NULL){
+                throw new \Exception('Server error cannot update movie');
+            }
+
+            $movie->tags()->sync($tags);
+
+            $syncFlag = true;
+            $attach = array_diff($newActresses, $oldActresses);
+            if(!empty($attach)){
+                DB::table('actresses')
+                    ->whereIn('id', $attach)
+                    ->increment('movie_count');
+                $syncFlag = false;
+            }
+
+            $detach = array_diff($oldActresses, $newActresses);
+            if(!empty($detach)){
+                DB::table('actresses')
+                    ->whereIn('id', $detach)
+                    ->decrement('movie_count');
+                $syncFlag = false;
+            }
+
+            if($syncFlag === false){
+                $movie->actresses()->sync($newActresses);
+            }
+        }catch (\Exception $e){
+            DB::rollBack();
+            throw $e;
+        }
+
+        DB::commit();
+        return $movie;
+    }
+
     public function create(array $attributes, array $options = [])
     {
+        $castList = [];
         if(isset($attributes['newActresses'])){
             $newActresses = $attributes['newActresses'];
             unset($attributes['newActresses']);
@@ -59,17 +116,12 @@ class MovieRepository extends Repository
 
             // attach tags
             if(isset($tags)){
-                foreach ($tags as $tag){
-                    $movie->tags()->attach($tag);
-                }
+                $movie->tags()->sync($tags);
             }
 
             // attach existed actresses
             if(isset($existActresses)){
-                foreach ($existActresses as $actress){
-                    $movie->actresses()->attach($actress);
-                }
-
+                $castList = $existActresses;
                 DB::table('actresses')
                     ->whereIn('id', $existActresses)
                     ->increment('movie_count');
@@ -77,15 +129,19 @@ class MovieRepository extends Repository
 
             // create new actresses
             if(isset($newActresses)){
+                $newList = [];
                 foreach ($newActresses as $actress){
                     $new_actress = Actress::create(['name' => $actress, 'movie_count' => 1]);
                     if($new_actress == NULL){
                         throw new \Exception('Server error cannot create actress');
                     }
-                    // attach new actress
-                    $movie->actresses()->attach($new_actress->id);
+                    $newList[] =  $new_actress->id;
                 }
+
+                $castList = array_merge($castList, $newList);
             }
+
+            $movie->actresses()->sync($castList);
         }catch (\Exception $e){
             DB::rollBack();
             throw $e;
@@ -129,7 +185,6 @@ class MovieRepository extends Repository
         DB::commit();
         return $delete_movie;
     }
-
 
     /**
      * log all user's action on object

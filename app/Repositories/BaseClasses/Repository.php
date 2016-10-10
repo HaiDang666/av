@@ -12,6 +12,7 @@ use app\Repositories\Interfaces\InterfaceRepository;
 use Illuminate\Database\Eloquent\Model;
 use app\Exceptions\RepositoryException;
 use Illuminate\Container\Container as App;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Class Repository
@@ -145,7 +146,12 @@ abstract class Repository implements InterfaceRepository
             throw new RepositoryException("Class {$this->model()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
 
         if (array_key_exists('validation', $options) && $options['validation'] == TRUE){
-            $result = $model::validate($attributes);
+            try{
+                $result = $model::validate($attributes);
+            }catch (\Exception $e){
+                throw $e;
+            }
+
             if ($result !== TRUE){
                 throw new \Exception($result);
             }
@@ -200,7 +206,8 @@ abstract class Repository implements InterfaceRepository
         }
 
         try{
-            $object = $this->find($id)->fill($attributes)->save();
+            $object = $this->find($id);
+            $object->fill($attributes)->save();
         }
         catch (\Exception $e){
             throw $e;
@@ -208,6 +215,39 @@ abstract class Repository implements InterfaceRepository
         //$this->log();
 
         return $object;
+    }
+
+    /**
+     * get data in form for select2 plugin with 2 column id,name
+     * include get from cache
+     *
+     * @return mixed
+     * @throws RepositoryException
+     */
+    public function allForSelect()
+    {
+        $model = $this->app->make($this->model());
+
+        if (!$model instanceof Model){
+            throw new RepositoryException("Class {$this->model()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
+        }
+
+        $cacheName = null;
+        if(isset($model::$inCacheName)){
+            $cacheName = $model::$inCacheName;
+        }
+
+        if ($cacheName == null){
+            return $this->model->get(['id', 'name']);
+        }
+
+        if (Cache::has($cacheName)) {
+            Cache::get($cacheName);
+        }
+
+        $data = $this->model->get(['id', 'name']);
+        Cache::put($cacheName, $data, 60*24);
+        return $data;
     }
 
     /**

@@ -14,7 +14,7 @@ class Movie extends Model
     protected $table = "movies";
     protected $fillable = [
         'name', 'code', 'rate', 'note',
-        'studio_id', 'stored',
+        'studio_id', 'stored', 'length', 'included', 'contain',
         'image', 'thumbnail',
         'link'
     ];

@@ -3,6 +3,8 @@
 @section('page_plugin_css')
     <!-- bootstrap datepicker -->
     <link href="{{ asset('/plugins/datepicker/datepicker3.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Select2 -->
+    <link href="{{ asset('/plugins/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('htmlheader_title')
@@ -38,7 +40,14 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Birthdate</th>
+                                    <th>Japanese name</th>
+                                    <td>
+                                        <input type="text" class="form-control" name="jp_name" pattern=".*\S.*"
+                                               placeholder="Enter Japanese name" value="{{$actress->jp_name}}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Birthday</th>
                                     <td>
                                         <div class="input-group date">
                                             <input type="text" class="form-control pull-right" name="dob" 
@@ -50,10 +59,24 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Debut</th>
+                                    <th>Birthplace</th>
                                     <td>
-                                        <input type="number" class="form-control" name="debut"
-                                               placeholder="Enter debut year" value="@if($actress->debut != 0){{$actress->debut}}@endif">
+                                        <input type="text" class="form-control" name="pob" pattern=".*\S.*"
+                                               placeholder="Enter birthplace" value="{{$actress->pob}}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Height</th>
+                                    <td>
+                                        <input type="number" class="form-control" name="height"
+                                               placeholder="Enter height in cm" value="@if($actress->height != 0){{$actress->height}}@endif">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Weight</th>
+                                    <td>
+                                        <input type="number" class="form-control" name="weight"
+                                               placeholder="Enter weight in kg" value="@if($actress->weight != 0){{$actress->weight}}@endif">
                                     </td>
                                 </tr>
                                 <tr>
@@ -61,6 +84,37 @@
                                     <td>
                                         <input type="text" class="form-control" name="measurements"
                                                placeholder="Enter measurements" value="{{$actress->measurements}}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Cup size</th>
+                                    <td style="padding-right: 0" class="form-group">
+                                        {!! \app\UIBuilder\AppTemplate::select($cupSizeList,
+                                        ['name' => 'cup_size',
+                                            'id' => 'inputCupSize']) !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Debut</th>
+                                    <td>
+                                        <input type="number" class="form-control" name="debut"
+                                               placeholder="Enter debut year" value="@if($actress->debut != 0){{$actress->debut}}@endif">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Choose Tags</th>
+                                    <td style="padding-right: 0" class="form-group">
+                                        {!! \app\UIBuilder\AppTemplate::select($tags,
+                                        ['name' => 'tags[]',
+                                            'id' => 'inputTags',
+                                            'multiple' => 'multiple']) !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Description</th>
+                                    <td>
+                                        <input type="text" class="form-control" name="description"
+                                               placeholder="Enter description" value="{{$actress->description}}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -121,6 +175,8 @@
     <script src="{{ asset('/js/fileinput.min.js') }}"></script>
     <!-- bootstrap datepicker -->
     <script src="{{ asset('/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('/plugins/select2/select2.full.min.js') }}"></script>
 @endsection
 
 @section('page-style')
@@ -128,4 +184,10 @@
 
 @section('page-script')
     @include('bladejs.actress_create')
+    <script>
+        $( document ).ready(function() {
+            $('#inputCupSize').val({{$actress->cup_size}}).change();
+            $('#inputTags').val({{json_encode($selectedTag)}}).change();
+        });
+    </script>
 @endsection

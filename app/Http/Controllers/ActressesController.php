@@ -63,9 +63,10 @@ class ActressesController extends Controller
     }
 
     public function create(){
-        $tags = $this->tagRepository->all(['name', 'id']);
+        $tags = $this->tagRepository->allForSelect();
+        $cupSizeList = config('custom.cup_size');
 
-        return view('actresses.create', ['tags' => $tags]);
+        return view('actresses.create', ['tags' => $tags, 'cupSizeList' => $cupSizeList]);
     }
 
     public function store(Request $request){
@@ -81,6 +82,8 @@ class ActressesController extends Controller
             else $data['dob'] = '1970-01-01';
 
             $data['debut'] = $data['debut'] == '' ? 0 : $data['debut'];
+            $data['height'] = $data['height'] == '' ? 0 : $data['height'];
+            $data['weight'] = $data['weight'] == '' ? 0 : $data['weight'];
 
             // save thumbnail
             if(isset($data['thumbnail'])){
@@ -120,6 +123,14 @@ class ActressesController extends Controller
 
     public function edit($actressID){
         $actress = $this->actressRepository->find($actressID);
+        $tags = $this->tagRepository->allForSelect();
+        $cupSizeList = config('custom.cup_size');
+
+        $selectedTag = [];
+        $selected = $actress->tags()->get(['id']);
+        foreach ($selected as $tag){
+            $selectedTag[] = $tag->id;
+        }
 
         //change dob format
         if ($actress->dob == '1970-01-01'){
@@ -131,7 +142,9 @@ class ActressesController extends Controller
             $actress->dob = $a[2].'-'.$a[1].'-'.$a[0];
         }
 
-        return view('actresses.edit',['actress' => $actress]);
+        return view('actresses.edit',[
+            'actress' => $actress, 'tags' => $tags,
+            'cupSizeList' => $cupSizeList, 'selectedTag' => $selectedTag]);
     }
 
     public function update($actressID, Request $request){
@@ -147,6 +160,8 @@ class ActressesController extends Controller
             else $data['dob'] = '1970-01-01';
 
             $data['debut'] = $data['debut'] == '' ? 0 : $data['debut'];
+            $data['height'] = $data['height'] == '' ? 0 : $data['height'];
+            $data['weight'] = $data['weight'] == '' ? 0 : $data['weight'];
 
             $actress = $this->actressRepository->find($actressID);
 

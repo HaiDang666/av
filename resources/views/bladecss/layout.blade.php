@@ -30,7 +30,13 @@
     .btn-clean{
         background: transparent;
     }
+    .btn-list{
+        margin-bottom: 5px;
+    }
     .content-center{
         text-align: center;
+    }
+    .fix-padding{
+        padding-right: 2% !important;
     }
 </style>

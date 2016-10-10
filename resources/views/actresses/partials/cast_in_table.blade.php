@@ -1,6 +1,6 @@
 <input type="hidden" id="inactionMovie" value="">
 <div class="box box-info">
-    <div class="box-header"><strong class="custom-box-header">Cast in</strong></div>
+    <div class="box-header"><strong class="custom-box-header">Filmography</strong></div>
     <div class="box-body">
         <table class="table table-striped table-bordered table-hover">
             <thead>

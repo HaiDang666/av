@@ -27,5 +27,9 @@
         $('#inputTags').select2({
             placeholder: 'Choose tags'
         });
+
+        $('#inputCupSize').select2({
+            placeholder: 'Choose cup size'
+        });
     });
 </script>
