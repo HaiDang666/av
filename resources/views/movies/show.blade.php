@@ -10,6 +10,7 @@
 
 @section('main-content')
     <div class="container spark-screen">
+        <input type="hidden" id="movieID" value="{{$movie->id}}">
         <div class="row">
             <div class="col-md-9">
                 <div class="box box-info">
@@ -76,7 +77,7 @@
                             </tr>
                             <tr>
                                 <th>Tags</th>
-                                <td>@foreach($tags as $tag) {{$tag->name}} @endforeach</td>
+                                <td>@foreach($tags as $tag)<span class="tags">{{$tag->name}}</span>@endforeach</td>
                             </tr>
                             <tr>
                                 <th>Note</th>
@@ -89,6 +90,24 @@
 
             <div class="col-md-5">
                 @include('movies.partials.cast_table')
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="md-confirm-remove-actress" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Remove Actress</h4>
+                </div>
+                <div class="modal-body">
+                    <h4><i class="fa fa-trash-o fa-2x text-red" aria-hidden="true"></i> Are you sure you want to remove this actress?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btn-confirm-remove-actress">Yes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
             </div>
         </div>
     </div>
@@ -106,12 +125,10 @@
             $('#stickyheader').affix({
                 offset: {
                     top: stickyHeaderTop,
-                    bottom: function () {
-                        return (this.bottom = $('.footer').outerHeight(true))
-                    }
+                    bottom: 10
                 }
-            })
+            });
         });
-
     </script>
+    @include('bladejs.movie_show')
 @endsection

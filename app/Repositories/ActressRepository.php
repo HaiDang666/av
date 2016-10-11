@@ -105,6 +105,26 @@ class ActressRepository extends Repository
         return $detele_actress;
     }
 
+    public function removeMovie($actressID, $movieID){
+        DB::beginTransaction();
+        try {
+            DB::table('actresses')
+                    ->where('id', $actressID)
+                    ->limit(1)
+                    ->decrement('movie_count');
+
+            DB::table('cast')
+                    ->where('actress_id', $actressID)     
+                    ->where('movie_id', $movieID)
+                    ->limit(1)
+                    ->delete();   
+        } catch (\Exception $e) {
+            throw $e;
+            DB::rollBack();       
+        }
+        DB::commit();
+    }
+
     /**
      * log all user's action on object
      *

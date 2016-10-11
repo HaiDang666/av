@@ -33,6 +33,12 @@ Route::group(['middleware' => ['auth']], function (){
 //Image
 Route::get('/image', 'ImagesController@image');
 
+//remove cast
+Route::group(['middleware' => ['auth']], function (){
+	Route::post('/actresses/{actressID}/remove/{movieID}', 'ActressesController@castout');
+	Route::post('/movies/{movieID}/remove/{actressID}', 'MoviesController@castout');
+});
+
 Route::group(['middleware' => ['auth']], function (){
 
     Route::get('/test', 'TestController@get');

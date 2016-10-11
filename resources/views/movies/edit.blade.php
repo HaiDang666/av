@@ -16,16 +16,16 @@
 @section('main-content')
     <div class="container spark-screen">
         <div class="row">
-            <div class="col-md-7">
+            {!! Form::open(['action'=>['MoviesController@update', $movie->id], 'files'=>true]) !!}
+            <div class="col-md-6">
                 <div class="box box-info">
-                    {!! Form::open(['action'=>['MoviesController@update', $movie->id], 'files'=>true]) !!}
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="oldActresses" value="{{json_encode($selectedActresses)}}">
                     <div class="box-body">
                         <table class="table table-form">
                             <tr>
                                 <th width="10%">Code</th>
-                                <td class="fix-padding">
+                                <td>
                                     <input type="text" class="form-control"
                                            name="code" placeholder="Enter code"
                                            required pattern=".*\S.*" title="at least 1 character"
@@ -34,7 +34,7 @@
                             </tr>
                             <tr>
                                 <th>Name</th>
-                                <td class="fix-padding">
+                                <td>
                                     <input type="text" class="form-control"
                                            name="name" placeholder="Enter name"
                                            pattern=".*\S.*" title="at least 1 character" value="{{$movie->name}}">
@@ -42,21 +42,21 @@
                             </tr>
                             <tr>
                                 <th>Length</th>
-                                <td style="padding-right: 17px">
+                                <td>
                                     <input type="number" class="form-control"
                                            name="length" placeholder="Enter length in min" value="@if($movie->length != 0){{$movie->length}}@endif">
                                 </td>
                             </tr>
                             <tr>
                                 <th>Link</th>
-                                <td class="fix-padding">
+                                <td>
                                     <input type="text" class="form-control"
                                            name="link" placeholder="Enter link" value="{{$movie->link}}">
                                 </td>
                             </tr>
                             <tr>
                                 <th>Included in</th>
-                                <td style="padding-right: 17px">
+                                <td>
                                     <input type="text" class="form-control"
                                            name="included" placeholder="Enter father movie code separate by ;"
                                            value="{{$movie->included}}">
@@ -64,12 +64,34 @@
                             </tr>
                             <tr>
                                 <th>Contain</th>
-                                <td style="padding-right: 17px">
+                                <td>
                                     <input type="text" class="form-control"
                                            name="contain" placeholder="Enter son movie code separate by ;"
                                            value="{{$movie->contain}}">
                                 </td>
                             </tr>
+                            <tr>
+                                <th>Note</th>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           name="note" placeholder="Enter note" value="{{$movie->note}}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Store</th>
+                                <td>
+                                    <input type="checkbox" class="flat-red" id="inputStored"
+                                           name="stored" checked>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="box box-info">
+                    <div class="box-body">
+                        <table class="table table-form">
                             <tr>
                                 <th>Choose Tags</th>
                                 <td class="form-group">
@@ -80,14 +102,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>Note</th>
-                                <td class="fix-padding">
-                                    <input type="text" class="form-control"
-                                           name="note" placeholder="Enter note" value="{{$movie->note}}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Choose studio</th>
+                                <th>Choose Studio</th>
                                 <td>
                                     {!! \app\UIBuilder\AppTemplate::select($studios, ['name' => 'studio_id', 'id' => 'inputStudio']) !!}
                                 </td>
@@ -99,13 +114,6 @@
                                     ['name' => 'existActresses[]',
                                         'id' => 'inputExistActresses',
                                         'multiple' => 'multiple']) !!}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Store</th>
-                                <td>
-                                    <input type="checkbox" class="flat-red" id="inputStored"
-                                           name="stored" checked>
                                 </td>
                             </tr>
                             @if($movie->thumbnail != '')
@@ -142,15 +150,11 @@
                                 </td>
                             </tr>
                         </table>
+                        <button style="margin-top: 4%" class="btn btn-success btn-block">Update</button>
                     </div>
-                    <div class="box-footer">
-                        <div class="col-md-4 col-md-offset-8">
-                            <button class="btn btn-primary btn-block">Update</button>
-                        </div>
-                    </div>
-                    {!! Form::close() !!}
                 </div>
             </div>
+            {!! Form::close() !!}
         </div>
     </div>
 @endsection

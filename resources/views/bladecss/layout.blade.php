@@ -39,4 +39,20 @@
     .fix-padding{
         padding-right: 2% !important;
     }
+    .tags{
+        list-style:none;
+        margin: 0 0 0 2px;
+        padding:0 5px 0 5px;
+        background:#0089e0;
+        color:#fff;
+        text-decoration:none;
+        -moz-border-radius-bottomright:4px;
+        -webkit-border-bottom-right-radius:4px;
+        border-bottom-right-radius:4px;
+        -moz-border-radius-topright:4px;
+        -webkit-border-top-right-radius:4px;
+        border-top-right-radius:4px;
+    }
+    .tags:hover{background:#555;}
+    .tags:hover:before{border-color:transparent #555 transparent transparent;}
 </style>

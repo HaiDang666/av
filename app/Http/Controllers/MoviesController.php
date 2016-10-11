@@ -237,4 +237,16 @@ class MoviesController extends Controller
                 'notification' => $notification]);
     }
 
+    public function castout($movieID, $actressID){
+        try {
+            $this->actressRepository->removeMovie($actressID, $movieID);
+            
+            $notification = makeNotification('Remove', 'actress ' . $actressID . ' from movie' . $movieID);
+        } catch (\Exception $e) {
+            $notification = makeNotification('Remove', 'actress ' . $actressID . ' from movie' . $movieID, 0, $e->getMessage());
+        }
+        return response()->json(
+            ['html' => '',
+                'notification' => $notification]);
+    }
 }

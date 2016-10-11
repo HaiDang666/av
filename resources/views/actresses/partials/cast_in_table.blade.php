@@ -21,7 +21,7 @@
                 </tr>
             @endif
             @foreach($movies as $movie)
-                <tr>
+                <tr id="movie{{$movie->id}}">
                     <td>{{$movie->id}}</td>
                     <td><a href="{{url('movies/'. $movie->id)}}" target="_blank"><img width="80px" height="100px" src="{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}" /></a></td>
                     <td>{{$movie->name}}</td>
@@ -29,8 +29,8 @@
                     <td>{{$movie->studio_id}}</td>
                     <td>{{$movie->stored}}</td>
                     <td>
-                        <button type="button" class="btn-link clear-padding text-red btn-delete-movie" data-id="{{$movie->id}}">
-                            <i class="fa fa-trash-o"></i></button>
+                        <button type="button" class="btn btn-block btn-danger clear-padding text-white btn-remove-movie" data-id="{{$movie->id}}">
+                            <i class="fa fa-trash-o"></i> remove</button>
                     </td>
                 </tr>
             @endforeach

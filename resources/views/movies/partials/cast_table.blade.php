@@ -20,15 +20,15 @@
                 </tr>
             @endif
             @foreach($actresses as $actress)
-                <tr>
+                <tr id="actress{{$actress->id}}">
                     <td>{{$actress->id}}</td>
                     <td><a href="{{url('actresses/' . $actress->id)}}" target="_blank"><img width="80px" height="100px" alt="act avatar" src="{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}"/></a></td>
                     <td>{{$actress->name}}</td>
                     <td>{{$actress->movie_count}}</td>
                     <td>{{$actress->updated_at->format('Y-m-d')}}</td>
                     <td>
-                        <button type="button" class="btn-link clear-padding text-red btn-delete-actress" data-id="{{$actress->id}}">
-                            <i class="fa fa-trash-o"></i></button>
+                        <button type="button" class="btn btn-block btn-danger clear-padding text-white btn-remove-actress" data-id="{{$actress->id}}">
+                            <i class="fa fa-trash-o"></i> remove</button>
                     </td>
                 </tr>
             @endforeach
