@@ -22,8 +22,8 @@ function getAVAppConfig($key, $default = NULL){
  *
  * @param $action string should be Add/Create/Update/Delete/Remove
  * @param $object
- * @param int $type      0 = fail; 1 = success; 2 = success with warning (pass in $detail);
- * @param string $detail
+ * @param $type   int    0 = fail; 1 = success; 2 = success with warning (pass in $detail);
+ * @param $detail string
  * @return array
  */
 function makeNotification($action, $object, $type = 1, $detail = ''){
@@ -60,4 +60,28 @@ function addExceptionUniqueRule($fields, $id){
     }
 
     return $result;
+}
+
+/**
+ * Store image in storage folder
+ *
+ * @param $imageFile
+ * @param $imageName
+ * @param $keyPath string key for storage path in config file
+ * @return string image's name
+ * @throws Exception
+ */
+function storeImage($imageFile, $imageName, $keyPath){
+    try{
+        $imageName = str_replace(' ', '_', $imageName).'.'.
+            $imageFile->getClientOriginalExtension();
+
+        $imageFile->move(
+            base_path() . '/storage/'. config($keyPath), $imageName
+        );
+    }catch (\Exception $e){
+        throw $e;
+    }
+
+    return $imageName;
 }

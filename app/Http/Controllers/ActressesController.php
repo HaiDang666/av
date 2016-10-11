@@ -87,26 +87,12 @@ class ActressesController extends Controller
 
             // save thumbnail
             if(isset($data['thumbnail'])){
-                $imageName = str_replace(' ', '_', $data['name']). '_thumbnail' . '.' .
-                    $request->file('thumbnail')->getClientOriginalExtension();
-
-                $request->file('thumbnail')->move(
-                    base_path() . '/storage/'. config('custom.thumbnail_actress_path'), $imageName
-                );
-
-                $data['thumbnail'] = $imageName;
+                $data['thumbnail'] = storeImage($request->file('thumbnail'), $data['name'], 'custom.thumbnail_actress_path');
             }
 
             // save big image
             if(isset($data['image'])){
-                $imageName = str_replace(' ', '_', $data['name']). '_image' . '.' .
-                    $request->file('image')->getClientOriginalExtension();
-
-                $request->file('image')->move(
-                    base_path() . '/storage/'. config('custom.image_actress_path'), $imageName
-                );
-
-                $data['image'] = $imageName;
+                $data['image'] = storeImage($request->file('image'), $data['name'], 'custom.image_actress_path');
             }
 
             $actress = $this->actressRepository->create($data, ['validation' => TRUE]);
@@ -174,14 +160,7 @@ class ActressesController extends Controller
                 }
 
                 // save thumbnail
-                $imageName = str_replace(' ', '_', $actress->name). '_thumbnail' . '.' .
-                    $request->file('thumbnail')->getClientOriginalExtension();
-
-                $request->file('thumbnail')->move(
-                    base_path() . '/storage/'. config('custom.thumbnail_actress_path'), $imageName
-                );
-
-                $data['thumbnail'] = $imageName;
+                $data['thumbnail'] = storeImage($request->file('thumbnail'), $data['name'], 'custom.thumbnail_actress_path');
             }
 
            // check new image
@@ -193,14 +172,7 @@ class ActressesController extends Controller
                 }
 
                 // save big image
-                $imageName = str_replace(' ', '_', $actress->name). '_image' . '.' .
-                    $request->file('image')->getClientOriginalExtension();
-
-                $request->file('image')->move(
-                    base_path() . '/storage/'. config('custom.image_actress_path'), $imageName
-                );
-
-                $data['image'] = $imageName;
+                $data['image'] = storeImage($request->file('image'), $data['name'], 'custom.image_actress_path');
             }
 
             // update other attribute

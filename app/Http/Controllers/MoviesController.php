@@ -59,7 +59,7 @@ class MoviesController extends Controller
     public function show($movieID){
         try{
             $movie = $this->movieRepository->find($movieID);
-            $actresses = $movie->actresses()->paginate(5);
+            $actresses = $movie->actresses;
             $tags = $movie->tags;
         }
         catch (\Exception $e){
@@ -86,26 +86,12 @@ class MoviesController extends Controller
         try{
             // save thumbnail
             if(isset($data['thumbnail'])){
-                $imageName = str_replace(' ', '_', $data['code']). '_thumbnail' . '.' .
-                    $request->file('thumbnail')->getClientOriginalExtension();
-
-                $request->file('thumbnail')->move(
-                    base_path() . '/storage/'. config('custom.thumbnail_movie_path'), $imageName
-                );
-
-                $data['thumbnail'] = $imageName;
+                $data['thumbnail'] = storeImage($request->file('thumbnail'), $data['code'], 'custom.thumbnail_movie_path');
             }
 
             // save big image
             if(isset($data['image'])){
-                $imageName = str_replace(' ', '_', $data['code']). '_image' . '.' .
-                    $request->file('image')->getClientOriginalExtension();
-
-                $request->file('image')->move(
-                    base_path() . '/storage/'. config('custom.image_movie_path'), $imageName
-                );
-
-                $data['image'] = $imageName;
+                $data['image'] = storeImage($request->file('image'), $data['code'], 'custom.image_movie_path');
             }
 
             // check stored field
@@ -167,14 +153,7 @@ class MoviesController extends Controller
                 }
 
                 // save thumbnail
-                $imageName = str_replace(' ', '_', $movie->code). '_thumbnail' . '.' .
-                    $request->file('thumbnail')->getClientOriginalExtension();
-
-                $request->file('thumbnail')->move(
-                    base_path() . '/storage/'. config('custom.thumbnail_movie_path'), $imageName
-                );
-
-                $data['thumbnail'] = $imageName;
+                $data['thumbnail'] = storeImage($request->file('thumbnail'), $data['code'], 'custom.thumbnail_movie_path');
             }
 
             // check new image
@@ -186,14 +165,7 @@ class MoviesController extends Controller
                 }
 
                 // save big image
-                $imageName = str_replace(' ', '_', $movie->code). '_image' . '.' .
-                    $request->file('image')->getClientOriginalExtension();
-
-                $request->file('image')->move(
-                    base_path() . '/storage/'. config('custom.image_movie_path'), $imageName
-                );
-
-                $data['image'] = $imageName;
+                $data['image'] = storeImage($request->file('image'), $data['code'], 'custom.image_movie_path');
             }
 
             // check stored field

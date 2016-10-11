@@ -8,13 +8,13 @@
                 <th style="width: 2%">ID</th>
                 <th>Image</th>
                 <th>Name</th>
-                <th>#movie</th>
+                <th>#m</th>
                 <th>Updated</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
-            @if($actresses->total() == 0)
+            @if(count($actresses) == 0)
                 <tr>
                     <td colspan="6">No such thing here</td>
                 </tr>
@@ -34,8 +34,5 @@
             @endforeach
             </tbody>
         </table>
-    </div>
-    <div class="box-footer clearfix">
-        {{$actresses->render()}}
     </div>
 </div>
