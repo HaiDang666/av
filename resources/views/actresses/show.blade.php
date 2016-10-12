@@ -15,8 +15,8 @@
             <div class="col-md-3">
                 <div class="box box-info">
                     <div class="box-body">
-                        <img id="profileImage" class="img-rounded" style="max-width: 100%;"
-                             src="{{url('/image?category=actress&type=image&filename='. $actress->image)}}">
+                        <img id="profileImage" class="img-rounded" style="max-width: 100%;" alt="actress profile image"
+                             src="@if(substr($actress->image, 0, 7) == 'http://'){{$actress->image}}@else{{url('/image?category=actress&type=image&filename='. $actress->image)}}@endif">
                     </div>
                 </div>
             </div>

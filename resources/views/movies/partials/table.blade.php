@@ -22,7 +22,7 @@
             @foreach($movies as $movie)
                 <tr>
                     <td>{{$movie->id}}</td>
-                    <td><a href="{{url('movies/'. $movie->id)}}" target="_blank"><img width="80px" height="100px" src="{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}" /></a></td>
+                    <td><a href="{{url('movies/'. $movie->id)}}" target="_blank"><img width="80px" height="100px" alt="movie thumbnail" src="@if(substr($movie->thumbnail, 0, 7) == 'http://'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif" /></a></td>
                     <td>{{$movie->code}}</td>
                     <td>{{$movie->name}}</td>
                     <td>{{$movie->studio_id}}</td>

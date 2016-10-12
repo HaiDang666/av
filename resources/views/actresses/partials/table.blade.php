@@ -5,7 +5,7 @@
             <thead>
             <tr>
                 <th style="width: 2%">ID</th>
-                <th>Image</th>
+                <th style="width: 12%">Image</th>
                 <th>Name</th>
                 <th>#movie</th>
                 <th>Updated</th>
@@ -15,13 +15,13 @@
             <tbody>
             @if($actresses->total() == 0)
                 <tr>
-                    <td colspan="5">No such thing here</td>
+                    <td colspan="6">No such thing here</td>
                 </tr>
             @endif
             @foreach($actresses as $actress)
                 <tr>
                     <td>{{$actress->id}}</td>
-                    <td><a href="{{url('actresses/' . $actress->id)}}" target="_blank"><img width="80px" height="100px" alt="act avatar" src="{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}"/></a></td>
+                    <td><a href="{{url('actresses/' . $actress->id)}}" target="_blank"><img width="80px" height="100px" alt="actress avatar" src="@if(substr($actress->thumbnail, 0, 7) == 'http://'){{$actress->thumbnail}}@else{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}@endif"/></a></td>
                     <td>{{$actress->name}}</td>
                     <td>{{$actress->movie_count}}</td>
                     <td>{{$actress->updated_at}}</td>

@@ -120,8 +120,8 @@
                                 <tr>
                                     <th>Current Thumbnail</th>
                                     <td>
-                                        <img width="80px" height="100px" alt="act avatar"
-                                             src="{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}"/>
+                                        <img width="80px" height="100px" alt="movie thumbnail"
+                                             src="@if(substr($movie->thumbnail, 0, 7) == 'http://'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif"/>
                                     </td>
                                 </tr>
                             @endif
@@ -137,8 +137,8 @@
                                 <tr>
                                     <th>Current Image</th>
                                     <td>
-                                        <img width="230px" alt="act image"
-                                             src="{{url('/image?category=movie&type=image&filename='. $movie->image)}}"/>
+                                        <img width="230px" alt="movie image"
+                                             src="@if(substr($movie->image, 0, 7) == 'http://'){{$movie->image}}@else{{url('/image?category=movie&type=image&filename='. $movie->image)}}@endif"/>
                                     </td>
                                 </tr>
                             @endif

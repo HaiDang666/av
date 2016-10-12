@@ -183,6 +183,8 @@ return [
 		* Acacha AdminLTE template provider
 		 */
 		Acacha\AdminLTETemplateLaravel\Providers\AdminLTETemplateServiceProvider::class,
+
+        Kurt\Imgur\ImgurServiceProvider::class,
     ],
 
     /*
@@ -237,6 +239,7 @@ return [
 		*/
 		'AdminLTE' => Acacha\AdminLTETemplateLaravel\Facades\AdminLTE::class,
 
+        'Imgur' => Kurt\Imgur\ImgurServiceProvider::class,
     ],
 
 ];

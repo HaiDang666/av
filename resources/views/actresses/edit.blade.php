@@ -140,8 +140,8 @@
                                 <tr>
                                     <th>Current Avatar</th>
                                     <td>
-                                        <img width="80px" height="100px" alt="act avatar"
-                                             src="{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}"/>
+                                        <img width="80px" height="100px" alt="actress avatar"
+                                             src="@if(substr($actress->thumbnail, 0, 7) == 'http://'){{$actress->thumbnail}}@else{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}@endif"/>
                                     </td>
                                 </tr>
                             @endif
@@ -157,8 +157,8 @@
                                 <tr>
                                     <th>Current Image</th>
                                     <td>
-                                        <img width="230px" alt="act image"
-                                             src="{{url('/image?category=actress&type=image&filename='. $actress->image)}}"/>
+                                        <img width="230px" alt="actress image"
+                                             src="@if(substr($actress->image, 0, 7) == 'http://'){{$actress->image}}@else{{url('/image?category=actress&type=image&filename='. $actress->image)}}@endif"/>
                                     </td>
                                 </tr>
                             @endif
