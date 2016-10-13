@@ -29,7 +29,7 @@ class TagsController extends Controller
             $tags->appends(['q' => $request->q]);
         }
 
-        return view('tags.index', [
+        return view('backend.tags.index', [
             'tags' => $tags,
         ]);
     }
@@ -43,13 +43,13 @@ class TagsController extends Controller
             return view('errors.404');
         }
 
-        return view('tags.show', [
+        return view('backend.tags.show', [
             'tag' => $tag,
             'movies' => $movies]);
     }
 
     public function create(){
-        return view('tags.partials.create');
+        return view('backend.tags.partials.create');
     }
 
     public function store(Request $request){
@@ -63,7 +63,7 @@ class TagsController extends Controller
             $tags = $this->tagRepository->paginate($perPage, $this->indexOrder);
 
             $notification = makeNotification('Add', $data['name']);
-            $html = view('tags.partials.table',[
+            $html = view('backend.tags.partials.table',[
                 'tags' => $tags,
             ])->render();
         }
@@ -85,7 +85,7 @@ class TagsController extends Controller
             return view('errors.404');
         }
 
-        return view('tags.partials.edit',
+        return view('backend.tags.partials.edit',
             ['tag' => $tag]);
     }
 
@@ -100,8 +100,8 @@ class TagsController extends Controller
             $perPage = $request->input('perPage', config('custom.default_load_limit'));
             $tags = $this->tagRepository->paginate($perPage, $this->indexOrder);
 
-            $html['table'] = view('tags.partials.table',['tags' => $tags])->render();
-            $html['form'] = view('tags.partials.create')->render();
+            $html['table'] = view('backend.tags.partials.table',['tags' => $tags])->render();
+            $html['form'] = view('backend.tags.partials.create')->render();
 
         }catch (\Exception $e){
             $notification = makeNotification('Update', $data['name'], 0, $e->getMessage());
@@ -122,7 +122,7 @@ class TagsController extends Controller
             $perPage = $request->input('perPage', config('custom.default_load_limit'));
             $tags = $this->tagRepository->paginate($perPage, $this->indexOrder);
 
-            $html = view('tags.partials.table',['tags' => $tags])->render();
+            $html = view('backend.tags.partials.table',['tags' => $tags])->render();
         }catch (\Exception $e){
             $notification = makeNotification('Delete', isset($deleted_tag->name) ? $deleted_tag->name : 'tag with ID '. $tagID, 0, $e->getMessage());
             $html = '';

@@ -11,16 +11,30 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+$domain = 'localhost';
+if (App::environment() == 'live')
+{
+    $domain = 'sitename.com';
+}
+
+Route::group(['domain' => $domain], function (){
+
+    Route::get('/', 'HomeController@feIndex');
+
+    Route::get('/test', 'TestController@get');
+
+    Route::post('/test', 'TestController@post');
+
 });
 
-Route::group(['middleware' => 'web'], function () {
+Route::group(['middleware' => 'web', 'domain' => 'admin.'.$domain ], function () {
 
     Route::auth();
+    Route::get('/', 'AdminController@index');
 });
 
-Route::group(['middleware' => ['auth']], function (){
+Route::group(['middleware' => ['auth'], 'domain' => 'admin.'.$domain ], function (){
 
     Route::get('/dashboard', 'HomeController@index');
 
@@ -34,14 +48,7 @@ Route::group(['middleware' => ['auth']], function (){
 Route::get('/image', 'ImagesController@image');
 
 //remove cast
-Route::group(['middleware' => ['auth']], function (){
+Route::group(['middleware' => ['auth'], 'domain' => 'admin.'.$domain], function (){
 	Route::post('/actresses/{actressID}/remove/{movieID}', 'ActressesController@castout');
 	Route::post('/movies/{movieID}/remove/{actressID}', 'MoviesController@castout');
-});
-
-Route::group(['middleware' => ['auth']], function (){
-
-    Route::get('/test', 'TestController@get');
-
-    Route::post('/test', 'TestController@post');
 });

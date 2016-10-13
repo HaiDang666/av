@@ -50,7 +50,7 @@ class ActressesController extends Controller
             $actresses->appends(['q' => $request->q]);
         }
 
-        return view('actresses.index', [
+        return view('backend.actresses.index', [
             'actresses' => $actresses,
         ]);
     }
@@ -65,14 +65,14 @@ class ActressesController extends Controller
             return view('errors.404');
         }
 
-        return view('actresses.show', ['actress' => $actress, 'movies' => $movies, 'tags' => $tags]);
+        return view('backend.actresses.show', ['actress' => $actress, 'movies' => $movies, 'tags' => $tags]);
     }
 
     public function create(){
         $tags = $this->tagRepository->allForSelect();
         $cupSizeList = config('custom.cup_size');
 
-        return view('actresses.create', ['tags' => $tags, 'cupSizeList' => $cupSizeList]);
+        return view('backend.actresses.create', ['tags' => $tags, 'cupSizeList' => $cupSizeList]);
     }
 
     public function store(Request $request){
@@ -146,7 +146,7 @@ class ActressesController extends Controller
             $actress->dob = $a[2].'-'.$a[1].'-'.$a[0];
         }
 
-        return view('actresses.edit',[
+        return view('backend.actresses.edit',[
             'actress' => $actress, 'tags' => $tags,
             'cupSizeList' => $cupSizeList, 'selectedTag' => $selectedTag]);
     }
@@ -240,7 +240,7 @@ class ActressesController extends Controller
             $perPage = $request->input('perPage', config('custom.default_load_limit'));
             $actresses = $this->actressRepository->paginate($perPage, $this->indexOrder);
 
-            $html = view('actresses.partials.table',['actresses' => $actresses,])->render();
+            $html = view('backend.actresses.partials.table',['actresses' => $actresses,])->render();
         }catch (\Exception $e){
             $notification = makeNotification('Delete', isset($deleted_actress->name) ? $deleted_actress->name : 'actress with ID '. $actressID, 0, $e->getMessage());
             $html = '';

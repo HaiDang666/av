@@ -59,7 +59,7 @@ class MoviesController extends Controller
             $movies->appends(['q' => $request->q]);
         }
 
-        return view('movies.index', [
+        return view('backend.movies.index', [
             'movies' => $movies,
         ]);
     }
@@ -74,7 +74,7 @@ class MoviesController extends Controller
             return view('errors.404');
         }
 
-        return view('movies.show', ['actresses' => $actresses, 'movie' => $movie, 'tags' => $tags]);
+        return view('backend.movies.show', ['actresses' => $actresses, 'movie' => $movie, 'tags' => $tags]);
     }
 
     public function create(){
@@ -82,7 +82,7 @@ class MoviesController extends Controller
         $actresses = $this->actressRepository->all(['name', 'id']);
         $tags = $this->tagRepository->allForSelect();
 
-        return view('movies.create',
+        return view('backend.movies.create',
             ['studios' => $studios,
             'actresses' => $actresses,
             'tags' => $tags]);
@@ -148,7 +148,7 @@ class MoviesController extends Controller
             $selectedTag[] = $tag->id;
         }
 
-        return view('movies.edit',[
+        return view('backend.movies.edit',[
             'movie' => $movie,
             'studios' => $studios,
             'tags' => $tags,
@@ -230,7 +230,7 @@ class MoviesController extends Controller
             $perPage = $request->input('perPage', config('custom.default_load_limit'));
             $movies = $this->movieRepository->paginate($perPage, $this->indexOrder);
 
-            $html = view('movies.partials.table',['movies' => $movies,])->render();
+            $html = view('backend.movies.partials.table',['movies' => $movies,])->render();
         }catch (\Exception $e){
             $notification = makeNotification('Delete', isset($deleted_movie->code) ? $deleted_movie->code : 'movie with code '. $movieID, 0, $e->getMessage());
             $html = '';

@@ -27,6 +27,9 @@ class HomeController extends Controller
         $this->actressRepository = $actressRepo;
     }
 
+    public function feIndex(){
+        return view('frontend.home');
+    }
 
     public function index()
     {

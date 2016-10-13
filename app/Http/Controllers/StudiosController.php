@@ -27,7 +27,7 @@ class StudiosController extends Controller
             $studios->appends(['q' => $request->q]);
         }
 
-        return view('studios.index', [
+        return view('backend.studios.index', [
             'studios' => $studios,
         ]);
     }
@@ -41,13 +41,13 @@ class StudiosController extends Controller
             return view('errors.404');
         }
 
-        return view('studios.show', [
+        return view('backend.studios.show', [
             'studio' => $studio,
             'movies' => $movies]);    
     }
 
     public function create(){
-        return view('studios.partials.create');
+        return view('backend.studios.partials.create');
     }
 
     public function store(Request $request){
@@ -61,7 +61,7 @@ class StudiosController extends Controller
             $studios = $this->studioRepository->paginate($perPage, $this->indexOrder);
 
             $notification = makeNotification('Add', $data['name']);
-            $html = view('studios.partials.table',[
+            $html = view('backend.studios.partials.table',[
                 'studios' => $studios,
             ])->render();
         }
@@ -83,7 +83,7 @@ class StudiosController extends Controller
             return view('errors.404');
         }
 
-        return view('studios.partials.edit',
+        return view('backend.studios.partials.edit',
             ['studio' => $studio]);
     }
 
@@ -98,8 +98,8 @@ class StudiosController extends Controller
             $perPage = $request->input('perPage', config('custom.default_load_limit'));
             $studios = $this->studioRepository->paginate($perPage, $this->indexOrder);
 
-            $html['table'] = view('studios.partials.table',['studios' => $studios])->render();
-            $html['form'] = view('studios.partials.create')->render();
+            $html['table'] = view('backend.studios.partials.table',['studios' => $studios])->render();
+            $html['form'] = view('backend.studios.partials.create')->render();
 
         }catch (\Exception $e){
             $notification = makeNotification('Update', $data['name'], 0, $e->getMessage());
@@ -120,7 +120,7 @@ class StudiosController extends Controller
             $perPage = $request->input('perPage', config('custom.default_load_limit'));
             $studios = $this->studioRepository->paginate($perPage, $this->indexOrder);
 
-            $html = view('studios.partials.table',['studios' => $studios])->render();
+            $html = view('backend.studios.partials.table',['studios' => $studios])->render();
         }catch (\Exception $e){
             $notification = makeNotification('Delete', isset($deleted_studio->name) ? $deleted_studio->name : 'studio with ID '. $studioID, 0, $e->getMessage());
             $html = '';

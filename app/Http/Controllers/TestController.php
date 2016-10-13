@@ -8,12 +8,7 @@ use Illuminate\Http\Request;
 class TestController extends Controller
 {
     public function get(){
-        $data['aa'] = 1;
-        $data['bb'] = 1;
-        unset($data['aa']);
-        unset($data['bb']);
-
-        dd(empty($data));
+        return view('frontend.home');
     }
 
     public function post(){

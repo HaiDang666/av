@@ -60,9 +60,7 @@ desired effect
 
 @yield('page_plugin_js')
 
-@yield('page-style')
-
-@yield('page-script')
+@yield('page_script')
 
 </body>
 </html>
