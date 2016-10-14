@@ -186,6 +186,40 @@ class MovieRepository extends Repository
         return $delete_movie;
     }
 
+    public function bannerMovies(){
+        return Movie::inRandomOrder()
+            ->limit(6)
+            ->get();
+    }
+
+    public function latestMovies(){
+        return Movie::select('id', 'code', 'name', 'note', 'rate', 'thumbnail', 'views')
+            ->orderBy('release', 'desc')
+            ->limit(18)
+            ->get();
+    }
+
+    public function topViewedMovies(){
+        return Movie::select('id', 'code', 'name', 'note', 'rate', 'thumbnail', 'views')
+            ->orderBy('views', 'desc')
+            ->limit(18)
+            ->get();
+    }
+
+    public function topRatingMovies(){
+        return Movie::select('id', 'code', 'name', 'note', 'rate', 'thumbnail', 'views')
+            ->orderBy('rate', 'desc')
+            ->limit(18)
+            ->get();
+    }
+
+    public function recentlyAddedMovies(){
+        return Movie::select('id', 'code', 'name', 'note', 'rate', 'thumbnail', 'views')
+            ->orderBy('created_at', 'desc')
+            ->limit(18)
+            ->get();
+    }
+
     /**
      * log all user's action on object
      *

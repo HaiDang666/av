@@ -13,7 +13,7 @@
             <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
                 <nav>
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="{{url('home')}}">Home</a></li>
+                        <li class=""><a href="{{url('home')}}">Home</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
                             <ul class="dropdown-menu multi-column columns-3">
@@ -53,42 +53,10 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="series.html">tv - series</a></li>
-                        <li><a href="news.html">news</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Country <b class="caret"></b></a>
-                            <ul class="dropdown-menu multi-column columns-3">
-                                <li>
-                                    <div class="col-sm-4">
-                                        <ul class="multi-column-dropdown">
-                                            <li><a href="genres.html">Asia</a></li>
-                                            <li><a href="genres.html">France</a></li>
-                                            <li><a href="genres.html">Taiwan</a></li>
-                                            <li><a href="genres.html">United States</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <ul class="multi-column-dropdown">
-                                            <li><a href="genres.html">China</a></li>
-                                            <li><a href="genres.html">HongCong</a></li>
-                                            <li><a href="genres.html">Japan</a></li>
-                                            <li><a href="genres.html">Thailand</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <ul class="multi-column-dropdown">
-                                            <li><a href="genres.html">Euro</a></li>
-                                            <li><a href="genres.html">India</a></li>
-                                            <li><a href="genres.html">Korea</a></li>
-                                            <li><a href="genres.html">United Kingdom</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="short-codes.html">Short Codes</a></li>
-                        <li><a href="list.html">A - z list</a></li>
+                        <li><a href="{{url('movies/list')}}">Movies</a></li>
+                        <li><a href="{{url('actresses/list')}}">Actresses</a></li>
+                        <li><a href="#">Call C50</a></li>
+                        <li><a href="#">Report 2 mom</a></li>
                     </ul>
                 </nav>
             </div>

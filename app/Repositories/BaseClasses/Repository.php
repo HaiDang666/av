@@ -94,7 +94,7 @@ abstract class Repository implements InterfaceRepository
      */
     public function findBy($attribute, $value, $operator = '=', $columns = array('*'))
     {
-        return $this->model->where($attribute, $operator, $value)->first($columns);
+        return $this->model->where($attribute, $operator, $value)->firstOrFail($columns);
     }
 
     /**

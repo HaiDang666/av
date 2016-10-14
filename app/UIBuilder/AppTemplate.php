@@ -51,4 +51,17 @@ class AppTemplate
         $html .= '</select>';
         return $html;
     }
+
+    public static function stars($rate){
+        $html = '<div class="block-stars"><ul class="w3l-ratings">';
+        for ($x = 0; $x < $rate; $x++) {
+            $html .= '<li><i class="fa fa-star" aria-hidden="true"></i></li>';
+        }
+        for ($x = $rate; $x < 5; $x++) {
+            $html .= '<li><i class="fa fa-star-o" aria-hidden="true"></i></li>';
+        }
+        $html .= '</ul></div>';
+
+        return $html;
+    }
 }

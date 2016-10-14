@@ -13,12 +13,12 @@
                 </div>
             </div>
             <div class="col-md-6 w3ls_footer_grid_right">
-                <a href="index.html"><h2>One<span>Movies</span></h2></a>
+                <a href="{{url('home')}}"><h2>JAV<span>Database</span></h2></a>
             </div>
             <div class="clearfix"> </div>
         </div>
         <div class="col-md-5 w3ls_footer_grid1_left">
-            <p>&copy; 2016 One Movies. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+            <p>&copy; 2016 One Movies. All rights reserved</p>
         </div>
         <div class="col-md-7 w3ls_footer_grid1_right">
             <ul>
