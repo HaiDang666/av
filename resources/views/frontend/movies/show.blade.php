@@ -53,6 +53,10 @@
                                                 <td>{{$movie->code}}</td>
                                             </tr>
                                             <tr>
+                                                <th>Length</th>
+                                                <td>{{$movie->length}} min</td>
+                                            </tr>
+                                            <tr>
                                                 <th>Studio</th>
                                                 <td>{{$movie->studio_id}}</td>
                                             </tr>
@@ -62,7 +66,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Actresses</th>
-                                                <td>@foreach($actresses as $actress)<span class="tags">{{$actress->name}}</span>@endforeach</td>
+                                                <td>@foreach($actresses as $actress)<a href="{{url('actresses/' . str_replace(' ', '_', $actress->name) . '?id='. $actress->id)}}">{{$actress->name}}</a>&nbsp;@endforeach</td>
                                             </tr>
                                             <tr>
                                                 <th>Tags</th>

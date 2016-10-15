@@ -30,7 +30,9 @@ class MoviesController extends Controller
     protected $imgurAllow;
 
     protected $indexOrder = ['order' => ['col' => 'updated_at',
-        'dir' => 'desc']];
+        'dir' => 'desc'],
+        'select' => ['code', 'id', 'thumbnail', 'name', 'studio_id', 'stored']
+    ];
 
     public function __construct(MovieRepository $movieRepo,
                                 StudioRepository $studioRepo,

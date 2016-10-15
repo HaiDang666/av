@@ -13,7 +13,6 @@ use App\Models\Movie;
 use app\Repositories\BaseClasses\Repository;
 use Illuminate\Support\Facades\DB;
 
-
 class MovieRepository extends Repository
 {
 
@@ -188,6 +187,7 @@ class MovieRepository extends Repository
 
     public function bannerMovies(){
         return Movie::inRandomOrder()
+            ->select('image', 'code', 'name')
             ->limit(6)
             ->get();
     }

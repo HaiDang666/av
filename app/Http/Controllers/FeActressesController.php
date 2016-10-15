@@ -14,7 +14,9 @@ class FeActressesController extends Controller
     protected $tagRepository;
 
     protected $indexOrder = ['order' => ['col' => 'created_at',
-        'dir' => 'desc']];
+        'dir' => 'desc'],
+        'select' => ['name', 'id', 'thumbnail', 'dob', 'rate']
+    ];
 
     public function __construct(ActressRepository $actressRepo, TagRepository $tagRepo)
     {
@@ -50,8 +52,8 @@ class FeActressesController extends Controller
         }
         try{
             $actress = $this->actressRepository->findBy($attribute,$value);
-            $movies = $actress->movies()->paginate(24);
-            $tags = $actress->tags;
+            $movies = $actress->movies()->select('code', 'id', 'thumbnail', 'name', 'rate', 'note')->paginate(24);
+            $tags = $actress->tags()->select('id', 'name');
         }
         catch (\Exception $e){
             return view('frontend.errors.404');

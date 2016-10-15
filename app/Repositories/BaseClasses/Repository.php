@@ -108,6 +108,10 @@ abstract class Repository implements InterfaceRepository
     {
         $this->makeModel();
 
+        if (isset($option['select'])){
+            $this->model->select($option['select']);
+        }
+
         if (isset($option['order'])){
             $direction = 'asc';
             if (isset($option['order']['dir'])){

@@ -18,7 +18,9 @@ class FeMoviesController extends Controller
     protected $tagRepository;
 
     protected $indexOrder = ['order' => ['col' => 'release',
-        'dir' => 'desc']];
+        'dir' => 'desc'],
+        'select' => ['code', 'id', 'thumbnail', 'name', 'rate', 'note']
+    ];
 
     public function __construct(MovieRepository $movieRepo,
                                 StudioRepository $studioRepo,
@@ -58,8 +60,8 @@ class FeMoviesController extends Controller
         }
         try{
             $movie = $this->movieRepository->findBy($attribute, $value);
-            $actresses = $movie->actresses;
-            $tags = $movie->tags;
+            $actresses = $movie->actresses()->select('name', 'id')->get();
+            $tags = $movie->tags()->select('name', 'id')->get();
         }catch (\Exception $e){
             return view('frontend.errors.404');
         }

@@ -26,7 +26,9 @@ class ActressesController extends Controller
     protected $imgurAllow;
 
     protected $indexOrder = ['order' => ['col' => 'updated_at',
-        'dir' => 'desc']];
+        'dir' => 'desc'],
+        'select' => ['name', 'id', 'thumbnail', 'updated_at', 'movie_count']
+];
 
     public function __construct(ActressRepository $actressRepo, TagRepository $tagRepo, Imgur $imgur)
     {
