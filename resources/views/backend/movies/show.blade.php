@@ -56,6 +56,10 @@
                                 <td>{{$movie->name}}</td>
                             </tr>
                             <tr>
+                                <th>Release</th>
+                                <td>{{$movie->release}}</td>
+                            </tr>
+                            <tr>
                                 <th>Length</th>
                                 <td>{{$movie->length}}</td>
                             </tr>

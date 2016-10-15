@@ -94,26 +94,36 @@ class ActressesController extends Controller
             $data['weight'] = $data['weight'] == '' ? 0 : $data['weight'];
 
             // save thumbnail
-            if(isset($data['thumbnail'])){
-                if ($this->imgurAllow){
-                    $imageModel = $this->imgurService->upload($request->file('thumbnail'));
-                    $data['thumbnail'] = $imageModel->getLink();
+            if($data['thumbnaillink'] == ''){
+                if(isset($data['thumbnail'])){
+                    if ($this->imgurAllow){
+                        $imageModel = $this->imgurService->upload($request->file('thumbnail'));
+                        $data['thumbnail'] = $imageModel->getLink();
+                    }
+                    else{
+                        $data['thumbnail'] = storeImage($request->file('thumbnail'), $data['name'], 'custom.thumbnail_actress_path');
+                    }
                 }
-                else{
-                    $data['thumbnail'] = storeImage($request->file('thumbnail'), $data['name'], 'custom.thumbnail_actress_path');
-                }
+            }else{
+                $data['thumbnail'] = $data['thumbnaillink'];
             }
+            unset($data['thumbnaillink']);
 
             // save big image
-            if(isset($data['image'])){
-                if ($this->imgurAllow){
-                    $imageModel = $this->imgurService->upload($request->file('image'));
-                    $data['image'] = $imageModel->getLink();
+            if($data['imagelink'] == ''){
+                if(isset($data['image'])){
+                    if ($this->imgurAllow){
+                        $imageModel = $this->imgurService->upload($request->file('image'));
+                        $data['image'] = $imageModel->getLink();
+                    }
+                    else {
+                        $data['image'] = storeImage($request->file('image'), $data['name'], 'custom.image_actress_path');
+                    }
                 }
-                else {
-                    $data['image'] = storeImage($request->file('image'), $data['name'], 'custom.image_actress_path');
-                }
+            }else{
+                $data['image'] = $data['imagelink'];
             }
+            unset($data['imagelink']);
 
             $actress = $this->actressRepository->create($data, ['validation' => TRUE]);
 
@@ -172,40 +182,48 @@ class ActressesController extends Controller
             $actress = $this->actressRepository->find($actressID);
 
             // check new thumbnail
-            if(isset($data['thumbnail'])){
-                if ($this->imgurAllow){
-                    $imageModel = $this->imgurService->upload($request->file('thumbnail'));
-                    $data['thumbnail'] = $imageModel->getLink();
-                }
-                else {
-                    // remove old thumbnail
-                    if ($actress->thumbnail != '') {
-                        $storagePath = storage_path(config('custom.thumbnail_actress_path') . $actress->thumbnail);
-                        File::delete($storagePath);
-                    }
+            if($data['thumbnaillink'] == '') {
+                if (isset($data['thumbnail'])) {
+                    if ($this->imgurAllow) {
+                        $imageModel = $this->imgurService->upload($request->file('thumbnail'));
+                        $data['thumbnail'] = $imageModel->getLink();
+                    } else {
+                        // remove old thumbnail
+                        if ($actress->thumbnail != '') {
+                            $storagePath = storage_path(config('custom.thumbnail_actress_path') . $actress->thumbnail);
+                            File::delete($storagePath);
+                        }
 
-                    // save thumbnail
-                    $data['thumbnail'] = storeImage($request->file('thumbnail'), $data['name'], 'custom.thumbnail_actress_path');
+                        // save thumbnail
+                        $data['thumbnail'] = storeImage($request->file('thumbnail'), $data['name'], 'custom.thumbnail_actress_path');
+                    }
                 }
+            }else{
+                $data['thumbnail'] = $data['thumbnaillink'];
             }
+            unset($data['thumbnaillink']);
 
            // check new image
-            if(isset($data['image'])){
-                if ($this->imgurAllow){
-                    $imageModel = $this->imgurService->upload($request->file('image'));
-                    $data['image'] = $imageModel->getLink();
-                }
-                else {
-                    // remove old image
-                    if ($actress->image != '') {
-                        $storagePath = storage_path(config('custom.image_actress_path') . $actress->image);
-                        File::delete($storagePath);
-                    }
+            if($data['imagelink'] == '') {
+                if (isset($data['image'])) {
+                    if ($this->imgurAllow) {
+                        $imageModel = $this->imgurService->upload($request->file('image'));
+                        $data['image'] = $imageModel->getLink();
+                    } else {
+                        // remove old image
+                        if ($actress->image != '') {
+                            $storagePath = storage_path(config('custom.image_actress_path') . $actress->image);
+                            File::delete($storagePath);
+                        }
 
-                    // save big image
-                    $data['image'] = storeImage($request->file('image'), $data['name'], 'custom.image_actress_path');
+                        // save big image
+                        $data['image'] = storeImage($request->file('image'), $data['name'], 'custom.image_actress_path');
+                    }
                 }
+            }else{
+                $data['image'] = $data['imagelink'];
             }
+            unset($data['imagelink']);
 
             // update other attribute
             if (!empty($data)){

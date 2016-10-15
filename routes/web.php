@@ -14,7 +14,7 @@
 $domain = 'localhost';
 if (App::environment() == 'live')
 {
-    $domain = 'sitename.com';
+    $domain = 'javdb.com';
 }
 
 /* Front-end ****************************************************************************************/

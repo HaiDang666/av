@@ -85,6 +85,20 @@
                                            placeholder="Enter note">
                                 </td>
                             </tr>
+                            <tr>
+                                <th>Avatar Link</th>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           name="thumbnaillink" placeholder="Enter link">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Image Link</th>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           name="imagelink" placeholder="Enter link">
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>

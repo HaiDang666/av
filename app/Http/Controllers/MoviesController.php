@@ -94,27 +94,43 @@ class MoviesController extends Controller
         $data = $request->all();
         unset($data['_token']);
         try{
-            // save thumbnail
-            if(isset($data['thumbnail'])){
-                if ($this->imgurAllow){
-                    $imageModel = $this->imgurService->upload($request->file('thumbnail'));
-                    $data['thumbnail'] = $imageModel->getLink();
-                }
-                else {
-                    $data['thumbnail'] = storeImage($request->file('thumbnail'), $data['code'], 'custom.thumbnail_movie_path');
-                }
+            if($data['release'] != '')
+            {
+                $a = explode('-', $data['release']);
+                $data['release'] = $a[2].'-'.$a[1].'-'.$a[0];
             }
+            else $data['release'] = '1970-01-01';
+
+            // save thumbnail
+            if($data['thumbnaillink'] == '') {
+                if (isset($data['thumbnail'])) {
+                    if ($this->imgurAllow) {
+                        $imageModel = $this->imgurService->upload($request->file('thumbnail'));
+                        $data['thumbnail'] = $imageModel->getLink();
+                    } else {
+                        $data['thumbnail'] = storeImage($request->file('thumbnail'), $data['code'], 'custom.thumbnail_movie_path');
+                    }
+                }
+            }else{
+                $data['thumbnail'] = $data['thumbnaillink'];
+            }
+            unset($data['thumbnaillink']);
 
             // save big image
-            if(isset($data['image'])){
-                if ($this->imgurAllow){
-                    $imageModel = $this->imgurService->upload($request->file('image'));
-                    $data['image'] = $imageModel->getLink();
+            if($data['imagelink'] == ''){
+                if(isset($data['image'])){
+                    if ($this->imgurAllow){
+                        $imageModel = $this->imgurService->upload($request->file('image'));
+                        $data['image'] = $imageModel->getLink();
+                    }
+                    else {
+                        $data['image'] = storeImage($request->file('image'), $data['code'], 'custom.image_movie_path');
+                    }
                 }
-                else {
-                    $data['image'] = storeImage($request->file('image'), $data['code'], 'custom.image_movie_path');
-                }
+            }else{
+                $data['image'] = $data['imagelink'];
             }
+            unset($data['imagelink']);
 
             // check stored field
             $data['stored'] = isset($request->stored) ? 1 : 0;
@@ -150,6 +166,16 @@ class MoviesController extends Controller
             $selectedTag[] = $tag->id;
         }
 
+        //change release format
+        if ($movie->release == '1970-01-01'){
+            $movie->release = '';
+        }
+        else if($movie->release != '')
+        {
+            $a = explode('-', $movie->release);
+            $movie->release = $a[2].'-'.$a[1].'-'.$a[0];
+        }
+
         return view('backend.movies.edit',[
             'movie' => $movie,
             'studios' => $studios,
@@ -164,43 +190,58 @@ class MoviesController extends Controller
         unset($data['_token']);
 
         try{
+            if($data['release'] != '')
+            {
+                $a = explode('-', $data['release']);
+                $data['release'] = $a[2].'-'.$a[1].'-'.$a[0];
+            }
+            else $data['release'] = '1970-01-01';
+
             $movie = $this->movieRepository->find($movieID);
 
             // check new thumbnail
-            if(isset($data['thumbnail'])){
-                if ($this->imgurAllow){
-                    $imageModel = $this->imgurService->upload($request->file('thumbnail'));
-                    $data['thumbnail'] = $imageModel->getLink();
-                }
-                else {
-                    // remove old thumbnail
-                    if ($movie->thumbnail != '') {
-                        $storagePath = storage_path(config('custom.thumbnail_movie_path') . $movie->thumbnail);
-                        File::delete($storagePath);
-                    }
+            if($data['thumbnaillink'] == '') {
+                if (isset($data['thumbnail'])) {
+                    if ($this->imgurAllow) {
+                        $imageModel = $this->imgurService->upload($request->file('thumbnail'));
+                        $data['thumbnail'] = $imageModel->getLink();
+                    } else {
+                        // remove old thumbnail
+                        if ($movie->thumbnail != '') {
+                            $storagePath = storage_path(config('custom.thumbnail_movie_path') . $movie->thumbnail);
+                            File::delete($storagePath);
+                        }
 
-                    // save thumbnail
-                    $data['thumbnail'] = storeImage($request->file('thumbnail'), $data['code'], 'custom.thumbnail_movie_path');
+                        // save thumbnail
+                        $data['thumbnail'] = storeImage($request->file('thumbnail'), $data['code'], 'custom.thumbnail_movie_path');
+                    }
                 }
+            }else{
+                $data['thumbnail'] = $data['thumbnaillink'];
             }
+            unset($data['thumbnaillink']);
 
             // check new image
-            if(isset($data['image'])){
-                if ($this->imgurAllow){
-                    $imageModel = $this->imgurService->upload($request->file('image'));
-                    $data['image'] = $imageModel->getLink();
-                }
-                else {
-                    // remove old image
-                    if ($movie->image != '') {
-                        $storagePath = storage_path(config('custom.image_movie_path') . $movie->image);
-                        File::delete($storagePath);
-                    }
+            if($data['imagelink'] == '') {
+                if (isset($data['image'])) {
+                    if ($this->imgurAllow) {
+                        $imageModel = $this->imgurService->upload($request->file('image'));
+                        $data['image'] = $imageModel->getLink();
+                    } else {
+                        // remove old image
+                        if ($movie->image != '') {
+                            $storagePath = storage_path(config('custom.image_movie_path') . $movie->image);
+                            File::delete($storagePath);
+                        }
 
-                    // save big image
-                    $data['image'] = storeImage($request->file('image'), $data['code'], 'custom.image_movie_path');
+                        // save big image
+                        $data['image'] = storeImage($request->file('image'), $data['code'], 'custom.image_movie_path');
+                    }
                 }
+            }else{
+                $data['image'] = $data['imagelink'];
             }
+            unset($data['imagelink']);
 
             // check stored field
             $data['stored'] = isset($request->stored) ? 1 : 0;

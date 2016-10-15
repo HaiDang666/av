@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('page_plugin_css')
+    <!-- bootstrap datepicker -->
+    <link href="{{ asset('/plugins/datepicker/datepicker3.css') }}" rel="stylesheet" type="text/css" />
     <!-- Select2 -->
     <link href="{{ asset('/plugins/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
@@ -41,6 +43,18 @@
                                 </td>
                             </tr>
                             <tr>
+                                <th>Release</th>
+                                <td>
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control pull-right" name="release"
+                                               id="datepicker" placeholder="Enter Release" value="{{$movie->release}}">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
                                 <th>Length</th>
                                 <td>
                                     <input type="number" class="form-control"
@@ -75,6 +89,22 @@
                                 <td>
                                     <input type="text" class="form-control"
                                            name="note" placeholder="Enter note" value="{{$movie->note}}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Thumbnail Link</th>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           name="thumbnaillink" placeholder="Enter link"
+                                           value="@if(substr($movie->thumbnail, 0, 7) == 'http://'){{$movie->thumbnail}}@endif">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Image Link</th>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           name="imagelink" placeholder="Enter link"
+                                           value="@if(substr($movie->image, 0, 7) == 'http://'){{$movie->image}}@endif">
                                 </td>
                             </tr>
                             <tr>
@@ -162,6 +192,8 @@
 @section('page_plugin_js')
     <!-- Select2 -->
     <script src="{{ asset('/plugins/select2/select2.full.min.js') }}"></script>
+    <!-- bootstrap datepicker -->
+    <script src="{{ asset('/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
     <!-- iCheck -->
     <script src="{{ asset('/plugins/iCheck/icheck.min.js') }}"></script>
     <!-- Upload file -->

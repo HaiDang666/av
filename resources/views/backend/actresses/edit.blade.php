@@ -87,6 +87,22 @@
                                            placeholder="Enter note" value="{{$actress->note}}">
                                 </td>
                             </tr>
+                            <tr>
+                                <th>Avatar Link</th>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           name="thumbnaillink" placeholder="Enter link"
+                                           value="@if(substr($actress->thumbnail, 0, 7) == 'http://'){{$actress->thumbnail}}@endif">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Image Link</th>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           name="imagelink" placeholder="Enter link"
+                                           value="@if(substr($actress->image, 0, 7) == 'http://'){{$actress->image}}@endif">
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>
