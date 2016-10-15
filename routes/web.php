@@ -14,7 +14,7 @@
 $domain = 'localhost';
 if (App::environment() == 'live')
 {
-    $domain = 'javdb.com';
+    $domain = 'javdatabase.herokuapp.com';
 }
 
 /* Front-end ****************************************************************************************/
