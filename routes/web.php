@@ -43,13 +43,13 @@ Route::group(['domain' => $domain], function (){
 
 /* Back-end ****************************************************************************************/
 
-Route::group(['middleware' => 'web', 'domain' => 'admin.'.$domain ], function () {
+Route::group(['middleware' => 'web', 'prefix' => 'admin'], function () {
 
     Route::auth();
     Route::get('/', 'AdminController@index');
 });
 
-Route::group(['middleware' => ['auth'], 'domain' => 'admin.'.$domain ], function (){
+Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function (){
 
     Route::get('/dashboard', 'HomeController@index');
 
@@ -60,7 +60,7 @@ Route::group(['middleware' => ['auth'], 'domain' => 'admin.'.$domain ], function
 });
 
 //remove cast
-Route::group(['middleware' => ['auth'], 'domain' => 'admin.'.$domain], function (){
+Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function (){
 	Route::post('/actresses/{actressID}/remove/{movieID}', 'ActressesController@castout');
 	Route::post('/movies/{movieID}/remove/{actressID}', 'MoviesController@castout');
 });
