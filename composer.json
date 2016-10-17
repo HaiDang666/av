@@ -24,6 +24,7 @@
         ],
         "files": [
             "app/Helpers/helpers.php",
+            "app/Custom/Http/Request.php",
             "app/UIBuilder/AppTemplate.php"
         ],
         "psr-4": {
