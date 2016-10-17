@@ -25,7 +25,7 @@
                             @foreach($actresses as $actress)
                                 <div class="col-md-2 w3l-movie-gride-agile">
                                     <a href="{{url('actresses/' . str_replace(' ', '_', $actress->name) . '?id='. $actress->id)}}" class="hvr-shutter-out-horizontal">
-                                        <img src="@if(substr($actress->thumbnail, 0, 7) == 'http://'){{$actress->thumbnail}}@else{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}@endif"
+                                        <img src="@if($actress->thumbnail == ''){{asset('img/no_image.png')}}@elseif(substr($actress->thumbnail, 0, 7) == 'http://'){{$actress->thumbnail}}@else{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}@endif"
                                              title="{{$actress->name}}" class="img-responsive" alt=" " />
                                     </a>
                                     <div class="mid-1 agileits_w3layouts_mid_1_home">
