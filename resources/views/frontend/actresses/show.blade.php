@@ -27,7 +27,7 @@
                                 <div class="media" style="margin-bottom: 0">
                                     <div class="media-left">
                                         <a href="#">
-                                            <img src="@if(substr($actress->image, 0, 7) == 'http://'){{$actress->image}}@else{{url('/image?category=actress&type=image&filename='. $actress->image)}}@endif"
+                                            <img src="@if(substr($actress->thumbnail, 0, 7) == 'http://'){{$actress->thumbnail}}@else{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}@endif"
                                                  title="{{$actress->name}}" alt=" " class="img-rounded" />
                                         </a>
                                     </div>
