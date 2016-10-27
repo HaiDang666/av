@@ -26,7 +26,7 @@
                                 <div class="col-md-2 w3l-movie-gride-agile">
                                     <a href="{{url('movies/' . $movie->code . '?id='. $movie->id)}}" class="hvr-shutter-out-horizontal">
                                         <img src="@if(substr($movie->thumbnail, 0, 7) == 'http://'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif"
-                                             title="{{$movie->note}}" class="img-responsive" alt=" " />
+                                             title="{{$movie->note}}" class="img-responsive img-thumbnail-size" alt="" />
                                         <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
                                     </a>
                                     <div class="mid-1 agileits_w3layouts_mid_1_home">
@@ -53,7 +53,7 @@
                             <div class="col-md-2 w3l-movie-gride-agile">
                                 <a href="{{url('movies/' . $movie->code . '?id='. $movie->id)}}" class="hvr-shutter-out-horizontal">
                                     <img src="@if(substr($movie->thumbnail, 0, 7) == 'http://'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif"
-                                         title="{{$movie->note}}" class="img-responsive" alt=" " />
+                                         title="{{$movie->note}}" class="img-responsive img-thumbnail-size" alt="" />
                                     <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
                                 </a>
                                 <div class="mid-1 agileits_w3layouts_mid_1_home">
@@ -109,7 +109,7 @@
                             <div class="col-md-2 w3l-movie-gride-agile">
                                 <a href="{{url('movies/' . $movie->code . '?id='. $movie->id)}}" class="hvr-shutter-out-horizontal">
                                     <img src="@if(substr($movie->thumbnail, 0, 7) == 'http://'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif"
-                                         title="{{$movie->note}}" class="img-responsive" alt=" " />
+                                         title="{{$movie->note}}" class="img-responsive img-thumbnail-size" alt="" />
                                     <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
                                 </a>
                                 <div class="mid-1 agileits_w3layouts_mid_1_home">

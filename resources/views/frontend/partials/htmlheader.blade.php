@@ -23,4 +23,11 @@
     @yield('page_plugin_css')
 
     @yield('page_style')
+
+    <style>
+        .img-thumbnail-size{
+            height: 238px !important;
+            width: 175px !important;
+        }
+    </style>
 </head>
