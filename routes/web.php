@@ -51,6 +51,7 @@ Route::group(['middleware' => 'web', 'domain' => 'admin.'.$domain ], function ()
 
 Route::group(['middleware' => ['auth'], 'domain' => 'admin.'.$domain ], function (){
 
+    Route::get('/logout', 'Auth\LoginController@logout');
     Route::get('/dashboard', 'HomeController@index');
 
     Route::resource('studios', 'StudiosController');

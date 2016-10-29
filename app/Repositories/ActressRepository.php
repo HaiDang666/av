@@ -125,6 +125,13 @@ class ActressRepository extends Repository
         DB::commit();
     }
 
+    public function recentlyActresses(){
+        return Actress::select('name', 'id', 'thumbnail', 'dob', 'rate')
+            ->orderBy('updated_at', 'desc')
+            ->limit(6)
+            ->get();
+    }
+
     /**
      * log all user's action on object
      *

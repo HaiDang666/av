@@ -36,12 +36,12 @@ desired effect
 
     @include('layouts.partials.sidebar')
 
-    <!-- Content Wrapper. Contains page content -->
+    {{-- Content Wrapper. Contains page content --}}
     <div class="content-wrapper" style="background: white">
 
         @include('layouts.partials.contentheader')
 
-        <!-- Main content -->
+        {{-- Main content --}}
         <section class="content" style="background: white;">
             <!-- Your Page Content Here -->
             @yield('main-content')

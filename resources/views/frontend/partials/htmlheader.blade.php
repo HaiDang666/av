@@ -29,5 +29,11 @@
             height: 238px !important;
             width: 175px !important;
         }
+        .img-image-size{
+            max-height: 420px !important;
+        }
+        .img-slide-size{
+            max-height: 312px !important;
+        }
     </style>
 </head>

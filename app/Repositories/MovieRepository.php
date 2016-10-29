@@ -220,6 +220,14 @@ class MovieRepository extends Repository
             ->get();
     }
 
+    public function todayMovies(){
+        return Movie::inRandomOrder()
+            ->select('id', 'code', 'name', 'rate', 'image', 'release', 'included', 'contain')
+            ->orderBy('created_at', 'desc')
+            ->limit(3)
+            ->get();
+    }
+
     /**
      * log all user's action on object
      *

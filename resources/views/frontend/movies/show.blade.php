@@ -18,28 +18,26 @@
             <div class="single-page-agile-info">
                 <div class="show-top-grids-w3lagile">
                     <div class="col-sm-8 single-left">
-                        <div class="song">
-                            <div class="song-info">
-                                <h3>{{$movie->code}} - {{$movie->name}}</h3>
-                            </div>
-                            <div class="video-grid-single-page-agileits">
-                                <div data-video="dLmKio67pVQ" id="video">
-                                    <img src="@if(substr($movie->image, 0, 7) == 'http://'){{$movie->image}}@else{{url('/image?category=movie&type=image&filename='. $movie->image)}}@endif"
-                                         alt="" class="img-responsive" />
+                        <div class="all-comments" style="margin-top: 0">
+                            <div class="all-comments-info"></div>
+                            <div class="song">
+                                <div class="song-info">
+                                    <h3>{{$movie->code}} - {{$movie->name}}</h3>
+                                </div>
+                                <div class="video-grid-single-page-agileits">
+                                    <div data-video="dLmKio67pVQ" id="video">
+                                        <img src="@if(substr($movie->image, 0, 7) == 'http://'){{$movie->image}}@else{{url('/image?category=movie&type=image&filename='. $movie->image)}}@endif"
+                                             alt="" class="img-responsive img-image-size" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="song-grid-right"></div>
-
-                        <div class="all-comments">
-                            <div class="all-comments-info"></div>
                             <div class="media-grids" style="margin-top: 0">
                                 <div class="media" style="margin-bottom: 0">
-                                    <h5>MOVIE DETAIL</h5>
+                                    <h5>Movie Information</h5>
                                     <div class="media-left">
                                         <a href="#">
-                                            <img src="@if(substr($movie->thumbnail, 0, 7) == 'http://'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif" title="One movies" alt=" " />
+                                            <img src="@if(substr($movie->thumbnail, 0, 7) == 'http://'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif"
+                                                 class="img-thumbnail-size" title="One movies" alt=" " />
                                         </a>
                                     </div>
                                     <div class="media-body">
@@ -55,6 +53,10 @@
                                             <tr>
                                                 <th>Length</th>
                                                 <td>{{$movie->length}} min</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Release</th>
+                                                <td>{{$movie->release}}</td>
                                             </tr>
                                             <tr>
                                                 <th>Studio</th>

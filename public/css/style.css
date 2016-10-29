@@ -209,8 +209,11 @@ ul.dropdown-menu.multi-column ul li a:hover{
 }
 /*-- //banner-bottom --*/
 /*-- general --*/
-.general,.Latest-tv-series,.faq{
-    padding: 3em 0;
+.Latest-tv-series,.faq{
+    padding: 0 0 3em 0;
+}
+.general{
+    padding: 1.5em 0 0 0;
 }
 .w3_latest_text {
     margin-left: 3em;
@@ -241,7 +244,7 @@ p.fexi_header{
     padding-bottom: 1em;
 }
 p.fexi_header_para{
-	margin-top:.8em;
+	margin-top:.2em;
 	color:#fff;
 	line-height:1.5em;
 	position:relative;

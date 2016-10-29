@@ -22,15 +22,26 @@ class FeHomeController extends Controller
     public function index(){
         $bannerMovies = $this->movieRepository->bannerMovies();
         $latestMovies = $this->movieRepository->latestMovies();
-        $topViewedMovies = $this->movieRepository->topViewedMovies();
+        $topViewedMovies = null;//$this->movieRepository->topViewedMovies();
         $topRatingMovies = null;//$this->movieRepository->topRatingMovies();
         $recentlyAddedMovies = $this->movieRepository->recentlyAddedMovies();
+
+        $recentlyActresses = $this->actressRepository->recentlyActresses();
+
+        $todayMovies = $this->movieRepository->todayMovies();
+        foreach ($todayMovies as $index => $movie)
+        {
+            $todayMovies[$index]->included = $movie->actresses()->select('name', 'id')->get();
+            $todayMovies[$index]->contain = $movie->tags()->select('name', 'id')->get();
+        }
 
         return view('frontend.home',[
             'bannerMovies' => $bannerMovies,
             'latestMovies' => $latestMovies,
             'topViewedMovies' => $topViewedMovies,
             'topRatingMovies' => $topRatingMovies,
-            'recentlyAddedMovies' => $recentlyAddedMovies]);
+            'recentlyAddedMovies' => $recentlyAddedMovies,
+            'todayMovies' => $todayMovies,
+            'recentlyActresses' => $recentlyActresses]);
     }
 }
