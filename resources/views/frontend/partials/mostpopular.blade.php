@@ -20,16 +20,16 @@
                             <div class="col-md-6 agile_tv_series_grid_right">
                                 <p class="fexi_header">{{$movie->code}} - {{$movie->name}}</p>
                                 <p class="fexi_header_para">
-                                    <span>Actresses: </span>
+                                    <span>Starting: </span>
                                     @foreach($movie->included as $actress)
-                                        <a href="{{url('actresses/' . str_replace(' ', '_', $actress->name) . '?id='. $actress->id)}}">{{$actress->name}}</a> |
+                                        <a href="{{url('actresses/' . str_replace(' ', '_', $actress->name) . '?id='. $actress->id)}}">{{$actress->name}}&nbsp;</a>
                                     @endforeach
                                 </p><br />
                                 <p class="fexi_header_para"><span>Date of Release: </span> {{$movie->release}} </p><br />
                                 <p class="fexi_header_para">
                                     <span>Genres: </span>
                                     @foreach($movie->contain as $tag)
-                                        <a href="{{url('tags/' . str_replace(' ', '_', $tag->name) . '?id='. $tag->id)}}">{{$tag->name}}</a> |
+                                        <a href="{{url('tags/' . str_replace(' ', '_', $tag->name) . '?id='. $tag->id)}}">{{$tag->name}}&nbsp;</a>
                                     @endforeach
                                 </p> <br />
                                 <p class="fexi_header_para"><span>Star Rating: </span>

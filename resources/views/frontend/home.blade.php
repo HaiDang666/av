@@ -187,9 +187,6 @@
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
-                                    <div class="ribben">
-                                        <p>NEW</p>
-                                    </div>
                                 </div>
                             @endforeach
                             <div class="clearfix"> </div>

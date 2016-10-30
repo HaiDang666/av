@@ -17,7 +17,7 @@
 
             <div class="single-page-agile-info">
                 <div class="show-top-grids-w3lagile">
-                    <div class="col-sm-8 single-left">
+                    <div class="col-sm-12 single-left">
                         <div class="all-comments" style="margin-top: 0">
                             <div style="margin-bottom: 10px">
                                 <h2>{{$actress->name}} Information</h2>
@@ -28,15 +28,15 @@
                                     <div class="media-left">
                                         <a href="#">
                                             <img src="@if($actress->thumbnail == ''){{asset('img/no_image.png')}}@elseif(substr($actress->thumbnail, 0, 7) == 'http://'){{$actress->thumbnail}}@else{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}@endif"
-                                                 title="{{$actress->name}}" alt=" " class="img-rounded" />
+                                                 title="{{$actress->name}}" alt=" " class="img-rounded img-avatar-size" />
                                         </a>
                                     </div>
                                     <div class="media-body">
                                         <table class="table-info table">
                                             <tr>
-                                                <th>Name</th>
-                                                <td>{{$actress->name}}</td>
-                                                <th>Rate</th>
+                                                <th width="20%">Name</th>
+                                                <td width="20%">{{$actress->name}}</td>
+                                                <th width="20%">Rate</th>
                                                 <td>{{$actress->rate}}</td>
                                             </tr>
                                             <tr>
@@ -117,22 +117,6 @@
                         <div class="clearfix"></div>
                     </div>
 
-                    <div class="col-md-4 single-right">
-                        <h3>Up Next</h3>
-                        <div class="single-grid-right">
-                            <div class="single-right-grids">
-                                <div class="col-md-4 single-right-grid-left">
-                                    <a href="single.html"><img src="{{asset('img/m1.jpg')}}" alt="" /></a>
-                                </div>
-                                <div class="col-md-8 single-right-grid-right">
-                                    <a href="single.html" class="title"> Nullam interdum metus</a>
-                                    <p class="author"><a href="#" class="author">John Maniya</a></p>
-                                    <p class="views">2,114,200 views</p>
-                                </div>
-                                <div class="clearfix"> </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="clearfix"></div>
                 </div>
             </div>
@@ -149,8 +133,18 @@
 
 @section('page_style')
     <style>
+        .table-info{
+            margin-left: 50px;
+        }
         .table-info th, .table-info td {
             padding: 2px !important;
+        }
+        .single-left{
+            padding-right: 0 !important;
+        }
+        .img-avatar-size{
+            width: 175px !important;
+            height: 238px !important;
         }
     </style>
 @endsection
