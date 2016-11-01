@@ -16,7 +16,7 @@
                 <div class="box box-info">
                     <div class="box-body content-center">
                         <img id="profileImage" width="800px" height="450px" alt="movie image"
-                             src="@if(substr($movie->image, 0, 7) == 'http://'){{$movie->image}}@else{{url('/image?category=movie&type=image&filename='. $movie->image)}}@endif">
+                             src="@if(substr($movie->image, 0, 4) == 'http'){{$movie->image}}@else{{url('/image?category=movie&type=image&filename='. $movie->image)}}@endif">
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 <div class="box box-info" >
                     <div class="box-body content-center">
                         <img id="profileImage" class="img-rounded" style="max-width: 100%;" alt="movie thumbnail"
-                             src="@if(substr($movie->thumbnail, 0, 7) == 'http://'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif">
+                             src="@if(substr($movie->thumbnail, 0, 4) == 'http'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif">
                         <br /><br />
                         <a href="{{url('movies/create')}}"><button class="btn btn-warning btn-block btn-list"><i class="fa fa-plus"></i>  Add Movie</button></a>
                         <a href="#information"><button class="btn btn-primary btn-block btn-list"><i class="fa fa-search"></i> Information</button></a>

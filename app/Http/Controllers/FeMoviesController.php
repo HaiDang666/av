@@ -62,6 +62,7 @@ class FeMoviesController extends Controller
             $movie = $this->movieRepository->findBy($attribute, $value);
             $actresses = $movie->actresses()->select('name', 'id')->get();
             $tags = $movie->tags()->select('name', 'id')->get();
+            $movies = $this->movieRepository->bannerMovies();
         }catch (\Exception $e){
             return view('frontend.errors.404');
         }
@@ -69,6 +70,7 @@ class FeMoviesController extends Controller
         return view('frontend.movies.show', [
             'actresses' => $actresses,
             'movie' => $movie,
+            'movies' => $movies,
             'tags' => $tags]);
     }
 }

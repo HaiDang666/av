@@ -25,7 +25,7 @@
                             @foreach($latestMovies as $movie)
                                 <div class="col-md-2 w3l-movie-gride-agile">
                                     <a href="{{url('movies/' . $movie->code . '?id='. $movie->id)}}" class="hvr-shutter-out-horizontal">
-                                        <img src="@if(substr($movie->thumbnail, 0, 7) == 'http://'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif"
+                                        <img src="@if(substr($movie->thumbnail, 0, 4) == 'http'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif"
                                              title="{{$movie->note}}" class="img-responsive img-thumbnail-size" alt="" />
                                         <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
                                     </a>
@@ -52,7 +52,7 @@
                         {{--@foreach($topViewedMovies as $movie)
                             <div class="col-md-2 w3l-movie-gride-agile">
                                 <a href="{{url('movies/' . $movie->code . '?id='. $movie->id)}}" class="hvr-shutter-out-horizontal">
-                                    <img src="@if(substr($movie->thumbnail, 0, 7) == 'http://'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif"
+                                    <img src="@if(substr($movie->thumbnail, 0, 4) == 'http'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif"
                                          title="{{$movie->note}}" class="img-responsive img-thumbnail-size" alt="" />
                                     <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
                                 </a>
@@ -135,7 +135,7 @@
                         @foreach($recentlyAddedMovies as $movie)
                             <div class="col-md-2 w3l-movie-gride-agile">
                                 <a href="{{url('movies/' . $movie->code . '?id='. $movie->id)}}" class="hvr-shutter-out-horizontal">
-                                    <img src="@if(substr($movie->thumbnail, 0, 7) == 'http://'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif"
+                                    <img src="@if(substr($movie->thumbnail, 0, 4) == 'http'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif"
                                          title="{{$movie->note}}" class="img-responsive img-thumbnail-size" alt="" />
                                     <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
                                 </a>
@@ -174,7 +174,7 @@
                             @foreach($recentlyActresses as $actress)
                                 <div class="col-md-2 w3l-movie-gride-agile">
                                     <a href="{{url('actresses/' . str_replace(' ', '_', $actress->name) . '?id='. $actress->id)}}" class="hvr-shutter-out-horizontal">
-                                        <img src="@if($actress->thumbnail == ''){{asset('img/no_image.png')}}@elseif(substr($actress->thumbnail, 0, 7) == 'http://'){{$actress->thumbnail}}@else{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}@endif"
+                                        <img src="@if($actress->thumbnail == ''){{asset('img/no_image.png')}}@elseif(substr($actress->thumbnail, 0, 4) == 'http'){{$actress->thumbnail}}@else{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}@endif"
                                              title="{{$actress->name}}" class="img-responsive img-thumbnail-size" alt="" />
                                     </a>
                                     <div class="mid-1 agileits_w3layouts_mid_1_home">
@@ -214,8 +214,6 @@
     <script src="{{ asset('js/jquery.dotdotdot.min.js') }}"></script>
     <!-- pop-up-box -->
     <script src="{{ asset('js/jquery.magnific-popup.js') }}" type="text/javascript"></script>
-    <!-- bottom-banner -->
-    <script src="{{ asset('js/owl.carousel.js') }}" type="text/javascript"></script>
 
     {{-- Most movie --}}
     <!-- flexSlider -->
@@ -247,17 +245,6 @@
 
     <script>
         $(document).ready(function() {
-            <!-- bottom-banner -->
-            $('#owl-demo').owlCarousel({
-
-                autoPlay: 3000, //Set AutoPlay to 3 seconds
-
-                items : 5,
-                itemsDesktop : [640,4],
-                itemsDesktopSmall : [414,3]
-
-            });
-
             $('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
                 type: 'inline',
                 fixedContentPos: false,

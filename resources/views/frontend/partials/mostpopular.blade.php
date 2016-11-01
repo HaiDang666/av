@@ -10,7 +10,7 @@
                         <div class="agile_tv_series_grid">
                             <div class="col-md-6 agile_tv_series_grid_left">
                                 <div class="w3ls_market_video_grid1">
-                                    <img src="@if(substr($movie->image, 0, 7) == 'http://'){{$movie->image}}@else{{url('/image?category=movie&type=image&filename='. $movie->image)}}@endif"
+                                    <img src="@if(substr($movie->image, 0, 4) == 'http'){{$movie->image}}@else{{url('/image?category=movie&type=image&filename='. $movie->image)}}@endif"
                                          alt="" class="img-responsive img-slide-size" />
                                     <a class="w3_play_icon" href="#small-dialog">
                                         <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
@@ -18,7 +18,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 agile_tv_series_grid_right">
-                                <p class="fexi_header">{{$movie->code}} - {{$movie->name}}</p>
+                                <p class="fexi_header">{{$movie->code}} - {{$movie->note}}</p>
                                 <p class="fexi_header_para">
                                     <span>Starting: </span>
                                     @foreach($movie->included as $actress)

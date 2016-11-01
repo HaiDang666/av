@@ -85,14 +85,21 @@ class MovieRepository extends Repository
     public function create(array $attributes, array $options = [])
     {
         $castList = [];
-        if(isset($attributes['newActresses'])){
-            $newActresses = $attributes['newActresses'];
-            unset($attributes['newActresses']);
-        }
+        $autoNameFlag = false;
 
         if(isset($attributes['existActresses'])){
             $existActresses = $attributes['existActresses'];
             unset($attributes['existActresses']);
+
+            if (count($existActresses) == 1){
+                $autoNameFlag = true;
+            }
+        }
+
+        if(isset($attributes['newActresses'])){
+            $newActresses = $attributes['newActresses'];
+            unset($attributes['newActresses']);
+            $autoNameFlag = false;
         }
 
         if(isset($attributes['tags'])){
@@ -102,6 +109,17 @@ class MovieRepository extends Repository
 
         DB::beginTransaction();
         try{
+            //naming movie by actress's name
+            if($attributes['name'] == ''){
+                if($autoNameFlag){
+                    $actress = Actress::where('id', '=', $existActresses[0])
+                        ->select('name')
+                        ->limit(1)
+                        ->get();
+                    $attributes['name'] = $actress[0]->name;
+                }
+            }
+
             // add movie
             $movie = parent::create($attributes, ['validation' => TRUE]);
 

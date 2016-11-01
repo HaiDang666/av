@@ -258,3 +258,20 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        <!-- bottom-banner -->
+        $('#owl-demo').owlCarousel({
+
+            autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+            items: 5,
+            itemsDesktop: [640, 4],
+            itemsDesktopSmall: [414, 3]
+
+        });
+    });
+</script>
+<!-- bottom-banner -->
+<script src="{{ asset('js/owl.carousel.js') }}" type="text/javascript"></script>

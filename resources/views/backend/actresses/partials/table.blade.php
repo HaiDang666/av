@@ -21,7 +21,7 @@
             @foreach($actresses as $actress)
                 <tr>
                     <td>{{$actress->id}}</td>
-                    <td><a href="{{url('actresses/' . $actress->id)}}" target="_blank"><img width="80px" height="100px" alt="actress avatar" src="@if($actress->thumbnail == ''){{asset('img/no_image.png')}}@elseif(substr($actress->thumbnail, 0, 7) == 'http://'){{$actress->thumbnail}}@else{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}@endif"/></a></td>
+                    <td><a href="{{url('actresses/' . $actress->id)}}" target="_blank"><img width="80px" height="100px" alt="actress avatar" src="@if($actress->thumbnail == ''){{asset('img/no_image.png')}}@elseif(substr($actress->thumbnail, 0, 4) == 'http'){{$actress->thumbnail}}@else{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}@endif"/></a></td>
                     <td>{{$actress->name}}</td>
                     <td>{{$actress->movie_count}}</td>
                     <td>{{$actress->updated_at}}</td>

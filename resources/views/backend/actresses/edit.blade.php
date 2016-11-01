@@ -92,7 +92,7 @@
                                 <td>
                                     <input type="text" class="form-control"
                                            name="thumbnaillink" placeholder="Enter link"
-                                           value="@if(substr($actress->thumbnail, 0, 7) == 'http://'){{$actress->thumbnail}}@endif">
+                                           value="@if(substr($actress->thumbnail, 0, 4) == 'http'){{$actress->thumbnail}}@endif">
                                 </td>
                             </tr>
                             <tr>
@@ -100,7 +100,7 @@
                                 <td>
                                     <input type="text" class="form-control"
                                            name="imagelink" placeholder="Enter link"
-                                           value="@if(substr($actress->image, 0, 7) == 'http://'){{$actress->image}}@endif">
+                                           value="@if(substr($actress->image, 0, 4) == 'http'){{$actress->image}}@endif">
                                 </td>
                             </tr>
                         </table>
@@ -157,7 +157,7 @@
                                     <th>Current Avatar</th>
                                     <td>
                                         <img width="80px" height="100px" alt="actress avatar"
-                                             src="@if(substr($actress->thumbnail, 0, 7) == 'http://'){{$actress->thumbnail}}@else{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}@endif"/>
+                                             src="@if(substr($actress->thumbnail, 0, 4) == 'http'){{$actress->thumbnail}}@else{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}@endif"/>
                                     </td>
                                 </tr>
                             @endif
@@ -174,7 +174,7 @@
                                     <th>Current Image</th>
                                     <td>
                                         <img width="230px" alt="actress image"
-                                             src="@if(substr($actress->image, 0, 7) == 'http://'){{$actress->image}}@else{{url('/image?category=actress&type=image&filename='. $actress->image)}}@endif"/>
+                                             src="@if(substr($actress->image, 0, 4) == 'http'){{$actress->image}}@else{{url('/image?category=actress&type=image&filename='. $actress->image)}}@endif"/>
                                     </td>
                                 </tr>
                             @endif

@@ -17,26 +17,26 @@
 
             <div class="single-page-agile-info">
                 <div class="show-top-grids-w3lagile">
-                    <div class="col-sm-8 single-left">
+                    <div class="col-sm-12 single-left">
                         <div class="all-comments" style="margin-top: 0">
                             <div class="all-comments-info"></div>
                             <div class="song">
                                 <div class="song-info">
-                                    <h3>{{$movie->code}} - {{$movie->name}}</h3>
+                                    <h2>{{$movie->code}} - {{$movie->name}}</h2>
                                 </div>
-                                <div class="video-grid-single-page-agileits">
+                                <div class="video-grid-single-page-agileits" align="center">
                                     <div data-video="dLmKio67pVQ" id="video">
-                                        <img src="@if(substr($movie->image, 0, 7) == 'http://'){{$movie->image}}@else{{url('/image?category=movie&type=image&filename='. $movie->image)}}@endif"
+                                        <img src="@if(substr($movie->image, 0, 4) == 'http'){{$movie->image}}@else{{url('/image?category=movie&type=image&filename='. $movie->image)}}@endif"
                                              alt="" class="img-responsive img-image-size" />
                                     </div>
                                 </div>
                             </div>
                             <div class="media-grids" style="margin-top: 0">
                                 <div class="media" style="margin-bottom: 0">
-                                    <h5>Movie Information</h5>
+                                    <h2>Movie Information</h2>
                                     <div class="media-left">
                                         <a href="#">
-                                            <img src="@if(substr($movie->thumbnail, 0, 7) == 'http://'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif"
+                                            <img src="@if(substr($movie->thumbnail, 0, 4) == 'http'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif"
                                                  class="img-thumbnail-size" title="One movies" alt=" " />
                                         </a>
                                     </div>
@@ -44,11 +44,15 @@
                                         <table class="table-info table">
                                             <tr>
                                                 <th width="15%">Name</th>
-                                                <td>{{$movie->name}}</td>
+                                                <td>{{$movie->note}}</td>
                                             </tr>
                                             <tr>
                                                 <th>Code</th>
                                                 <td>{{$movie->code}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Starting</th>
+                                                <td>@foreach($actresses as $actress)<a href="{{url('actresses/' . str_replace(' ', '_', $actress->name) . '?id='. $actress->id)}}">{{$actress->name}}</a>&nbsp;@endforeach</td>
                                             </tr>
                                             <tr>
                                                 <th>Length</th>
@@ -67,48 +71,44 @@
                                                 <td>{{$movie->rate}}</td>
                                             </tr>
                                             <tr>
-                                                <th>Starting</th>
-                                                <td>@foreach($actresses as $actress)<a href="{{url('actresses/' . str_replace(' ', '_', $actress->name) . '?id='. $actress->id)}}">{{$actress->name}}</a>&nbsp;@endforeach</td>
-                                            </tr>
-                                            <tr>
                                                 <th>Tags</th>
                                                 <td>@foreach($tags as $tag)<span class="tags">{{$tag->name}}&nbsp;</span>@endforeach</td>
-                                            </tr>
-                                            <tr>
-                                                <th colspan="2">Description</th>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">{{$movie->note}}</td>
                                             </tr>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
+                            <hr>
+                            <div style="margin-bottom: 10px; margin-top: 20px">
+                                <h2>Related Movies</h2>
+                            </div>
 
-                    <div class="col-md-4 single-right">
-                        <h3>Up Next</h3>
-                        <div class="single-grid-right">
-                            <div class="single-right-grids">
-                                <div class="col-md-4 single-right-grid-left">
-                                    <a href="single.html"><img src="{{asset('img/m1.jpg')}}" alt="" /></a>
-                                </div>
-                                <div class="col-md-8 single-right-grid-right">
-                                    <a href="single.html" class="title"> Nullam interdum metus</a>
-                                    <p class="author"><a href="#" class="author">John Maniya</a></p>
-                                    <p class="views">2,114,200 views</p>
-                                </div>
+                            <div class="w3_agile_featured_movies">
+                                @foreach($movies as $movie)
+                                    <div class="col-md-2 w3l-movie-gride-agile">
+                                        <a href="{{url('movies/' . $movie->code . '?id='. $movie->id)}}" class="hvr-shutter-out-horizontal">
+                                            <img src="@if(substr($movie->thumbnail, 0, 4) == 'http'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif"
+                                                 title="{{$movie->note}}" class="img-responsive img-movie-thumbnail-small" alt=" " />
+                                            <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                        </a>
+                                        <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                            <div class="w3l-movie-text">
+                                                <h6><a href="{{url('movies/' . $movie->code)}}">{{$movie->code}}</a></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
                                 <div class="clearfix"> </div>
                             </div>
                         </div>
+                        <div class="clearfix"></div>
                     </div>
                     <div class="clearfix"></div>
                 </div>
             </div>
         </div>
     </div>
+
     <a href="#" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 0;"></span>To Top</a>
 @endsection
 
@@ -120,8 +120,14 @@
 
 @section('page_style')
     <style>
+        .table-info{
+            margin-left: 30px;
+        }
         .table-info th, .table-info td {
             padding: 2px !important;
+        }
+        .single-left{
+            padding-right: 0 !important;
         }
     </style>
 @endsection
