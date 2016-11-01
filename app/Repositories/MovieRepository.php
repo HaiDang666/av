@@ -205,7 +205,7 @@ class MovieRepository extends Repository
 
     public function bannerMovies(){
         return Movie::inRandomOrder()
-            ->select('image', 'code', 'name')
+            ->select('image', 'code', 'name', 'thumbnail')
             ->limit(6)
             ->get();
     }
