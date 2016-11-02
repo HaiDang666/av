@@ -16,7 +16,7 @@
                 <div class="box box-info">
                     <div class="box-body">
                         <img id="profileImage" class="img-rounded" style="max-width: 100%;" alt="actress profile image"
-                             src="@if($actress->thumbnail == ''){{asset('img/no_image.png')}}@elseif(substr($actress->thumbnail, 0, 7) == 'http://'){{$actress->thumbnail}}@else{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}@endif">
+                             src="@if($actress->thumbnail == ''){{asset('img/no_image.png')}}@elseif(substr($actress->thumbnail, 0, 4) == 'http'){{$actress->thumbnail}}@else{{url('/image?category=actress&type=thumbnail&filename='. $actress->thumbnail)}}@endif">
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                             <tr>
                                 <th>Birthday</th>
                                 <td>@if($actress->dob != '1970-01-01'){{$actress->dob}}@endif</td>
-                                <th>Rate</th>
+                                <th>Point</th>
                                 <td>{{$actress->rate}}</td>
                             </tr>
                             <tr>

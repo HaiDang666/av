@@ -76,7 +76,7 @@
                                 <td>{{$movie->studio_id}}</td>
                             </tr>
                             <tr>
-                                <th>Rate</th>
+                                <th>Point</th>
                                 <td>{{$movie->rate}}</td>
                             </tr>
                             <tr>

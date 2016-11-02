@@ -29,6 +29,11 @@ class MoviesController extends Controller
     protected $imgurService;
     protected $imgurAllow;
 
+    protected $crbLink = 'http://www.caribbeancom.com/moviepages/';
+    protected $crbPrLink = 'http://www.caribbeancompr.com/moviepages/';
+    protected $crbPrThumbnail = '/images/main_b.jpg';
+    protected $crbImage = '/images/l_l.jpg';
+
     protected $indexOrder = ['order' => ['col' => 'updated_at',
         'dir' => 'desc'],
         'select' => ['code', 'id', 'thumbnail', 'name', 'studio_id', 'stored']
@@ -94,6 +99,16 @@ class MoviesController extends Controller
         $data = $request->all();
         unset($data['_token']);
         try{
+            $code = $data['code'];
+            switch ($data['studio_id']){
+                case '1':
+                    $code = str_replace('_', '-', $code);
+                    break;
+                case '5';
+                    $code = str_replace('-', '_', $code);
+                    break;
+            }
+            $data['code'] = $code;
             if($data['release'] != '')
             {
                 $a = explode('-', $data['release']);
@@ -110,6 +125,14 @@ class MoviesController extends Controller
                     } else {
                         $data['thumbnail'] = storeImage($request->file('thumbnail'), $data['code'], 'custom.thumbnail_movie_path');
                     }
+                }else {
+                    switch ($data['studio_id']){
+                        case '1':
+                            break;
+                        case '5':
+                            $data['thumbnail'] = $this->crbPrLink . $code . $this->crbPrThumbnail;
+                            break;
+                    }
                 }
             }else{
                 $data['thumbnail'] = $data['thumbnaillink'];
@@ -125,6 +148,15 @@ class MoviesController extends Controller
                     }
                     else {
                         $data['image'] = storeImage($request->file('image'), $data['code'], 'custom.image_movie_path');
+                    }
+                }else {
+                    switch ($data['studio_id']){
+                        case '1':
+                            $data['image'] = $this->crbLink . $code . $this->crbImage;
+                            break;
+                        case '5':
+                            $data['image'] = $this->crbPrLink . $code . $this->crbImage;
+                            break;
                     }
                 }
             }else{

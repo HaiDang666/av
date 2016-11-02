@@ -246,7 +246,7 @@ abstract class Repository implements InterfaceRepository
         }
 
         if (Cache::has($cacheName)) {
-            Cache::get($cacheName);
+            return Cache::get($cacheName);
         }
 
         $data = $this->model->get(['id', 'name']);

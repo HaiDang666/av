@@ -12,6 +12,7 @@ use App\Models\Actress;
 use App\Models\Movie;
 use app\Repositories\BaseClasses\Repository;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class MovieRepository extends Repository
 {
@@ -204,10 +205,18 @@ class MovieRepository extends Repository
     }
 
     public function bannerMovies(){
-        return Movie::inRandomOrder()
+        $key = 'banner_movies';
+        if (Cache::has($key)) {
+            return Cache::get($key);
+        }
+
+        $data = Movie::inRandomOrder()
             ->select('image', 'code', 'name', 'thumbnail')
             ->limit(6)
             ->get();
+        Cache::put($key, $data, 60*24);
+
+        return $data;
     }
 
     public function latestMovies(){
@@ -239,11 +248,19 @@ class MovieRepository extends Repository
     }
 
     public function todayMovies(){
-        return Movie::inRandomOrder()
-            ->select('id', 'code', 'name', 'rate', 'image', 'release', 'included', 'contain')
+        $key = 'today_movies';
+        if (Cache::has($key)) {
+            return Cache::get($key);
+        }
+
+        $data = Movie::inRandomOrder()
+            ->select('id', 'code', 'name', 'rate', 'image', 'release', 'included', 'contain', 'note')
             ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get();
+        Cache::put($key, $data, 60*24);
+
+        return $data;
     }
 
     /**

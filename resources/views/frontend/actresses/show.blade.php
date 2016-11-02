@@ -36,7 +36,7 @@
                                             <tr>
                                                 <th width="20%">Name</th>
                                                 <td width="20%">{{$actress->name}}</td>
-                                                <th width="20%">Rate</th>
+                                                <th width="20%">Point</th>
                                                 <td>{{$actress->rate}}</td>
                                             </tr>
                                             <tr>
