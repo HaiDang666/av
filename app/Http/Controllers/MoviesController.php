@@ -114,6 +114,10 @@ class MoviesController extends Controller
                 $a = explode('-', $data['release']);
                 $data['release'] = $a[2].'-'.$a[1].'-'.$a[0];
             }
+            elseif (strlen($code) > 6){
+                $date = str_split(substr($code, 0, 6),2);
+                $data['release'] = '20'. $date[2] .'-'. $date[0] .'-'. $date[1];
+            }
             else $data['release'] = '1970-01-01';
 
             // save thumbnail
