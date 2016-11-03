@@ -29,7 +29,6 @@ class MovieRepository extends Repository
 
     public function updateAtID($id, array $attributes, array $options = [])
     {
-
         $oldActresses = json_decode($attributes['oldActresses']);
         $newActresses = [];
         if(isset($attributes['existActresses'])){
@@ -53,6 +52,12 @@ class MovieRepository extends Repository
             }
 
             $movie->tags()->sync($tags);
+
+            if(isset($attributes['series_id']) && $attributes['series_id'] != 0){
+                DB::table('series')
+                    ->where('id', $attributes['series_id'])
+                    ->increment('movie_count');
+            }
 
             $syncFlag = true;
             $attach = array_diff($newActresses, $oldActresses);
@@ -131,6 +136,12 @@ class MovieRepository extends Repository
             DB::table('studios')
                 ->where('id', $attributes['studio_id'])
                 ->increment('movie_count');
+
+            if(isset($attributes['series_id'])){
+                DB::table('series')
+                    ->where('id', $attributes['series_id'])
+                    ->increment('movie_count');
+            }
 
             // attach tags
             if(isset($tags)){

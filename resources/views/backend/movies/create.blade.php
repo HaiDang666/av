@@ -125,6 +125,12 @@
                                 </td>
                             </tr>
                             <tr>
+                                <th>Choose Series</th>
+                                <td>
+                                    {!! \app\UIBuilder\AppTemplate::select($series, ['name' => 'series_id', 'id' => 'inputSeries']) !!}
+                                </td>
+                            </tr>
+                            <tr>
                                 <th>Choose Studio</th>
                                 <td>
                                     {!! \app\UIBuilder\AppTemplate::select($studios, ['name' => 'studio_id', 'id' => 'inputStudio']) !!}
@@ -188,5 +194,8 @@
 
 @section('page_script')
     @include('bladejs.movie_create')
+    <script>
+        $('#inputSeries').val(0).change();
+    </script>
 @endsection
 

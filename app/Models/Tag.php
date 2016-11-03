@@ -12,7 +12,7 @@ class Tag extends Model
     public static $namespace = 'App\Models\Tag';
     public static $inCacheName = 'tag_list';
 
-    protected $table = "tags";
+    protected $table = 'tags';
     protected $fillable = [
         'name',
     ];

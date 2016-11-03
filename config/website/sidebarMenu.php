@@ -66,6 +66,9 @@ return array(
                     'Tag' => [
                         'route' => 'tags'
                     ],
+                    'Series' => [
+                        'route' => 'series'
+                    ],
                 ]
             ],
         ],

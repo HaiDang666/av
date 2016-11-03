@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use app\Repositories\ActressRepository;
 use app\Repositories\MovieRepository;
+use app\Repositories\SeriesRepository;
 use app\Repositories\StudioRepository;
 use app\Repositories\TagRepository;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ class MoviesController extends Controller
 {
     protected $movieRepository;
     protected $studioRepository;
+    protected $seriesRepository;
     protected $actressRepository;
     protected $tagRepository;
 
@@ -41,12 +43,14 @@ class MoviesController extends Controller
 
     public function __construct(MovieRepository $movieRepo,
                                 StudioRepository $studioRepo,
+                                SeriesRepository $seriesRepo,
                                 ActressRepository $actressRepo,
                                 TagRepository $tagRepo,
                                 Imgur $imgur)
     {
         $this->movieRepository = $movieRepo;
         $this->studioRepository = $studioRepo;
+        $this->seriesRepository = $seriesRepo;
         $this->actressRepository = $actressRepo;
         $this->tagRepository = $tagRepo;
         $this->imgurService = $imgur;
@@ -88,10 +92,12 @@ class MoviesController extends Controller
         $studios = $this->studioRepository->allForSelect();
         $actresses = $this->actressRepository->all(['name', 'id']);
         $tags = $this->tagRepository->allForSelect();
+        $series = $this->seriesRepository->allForSelect();
 
         return view('backend.movies.create',
             ['studios' => $studios,
             'actresses' => $actresses,
+            'series' => $series,
             'tags' => $tags]);
     }
 
@@ -189,6 +195,7 @@ class MoviesController extends Controller
         $studios = $this->studioRepository->allForSelect();
         $actresses = $this->actressRepository->all(['name', 'id']);
         $tags = $this->tagRepository->allForSelect();
+        $series = $this->seriesRepository->allForSelect();
 
         $selectedActresses = [];
         $selected = $movie->actresses()->get(['id']);
@@ -216,6 +223,7 @@ class MoviesController extends Controller
             'movie' => $movie,
             'studios' => $studios,
             'tags' => $tags,
+            'series' => $series,
             'actresses' => $actresses,
             'selectedActresses' => $selectedActresses,
             'selectedTag' => $selectedTag]);
@@ -234,6 +242,12 @@ class MoviesController extends Controller
             else $data['release'] = '1970-01-01';
 
             $movie = $this->movieRepository->find($movieID);
+
+            if(isset($data['series_id'])){
+                if ($data['series_id'] == $movie->series){
+                    unset($data['series_id']);
+                }
+            }
 
             // check new thumbnail
             if($data['thumbnaillink'] == '') {

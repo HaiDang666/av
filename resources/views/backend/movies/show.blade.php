@@ -72,6 +72,10 @@
                                 <td>{{$movie->contain}}</td>
                             </tr>
                             <tr>
+                                <th>Series</th>
+                                <td>{{$movie->series_id}}</td>
+                            </tr>
+                            <tr>
                                 <th>Studio</th>
                                 <td>{{$movie->studio_id}}</td>
                             </tr>

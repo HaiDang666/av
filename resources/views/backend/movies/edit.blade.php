@@ -132,6 +132,12 @@
                                 </td>
                             </tr>
                             <tr>
+                                <th>Choose Series</th>
+                                <td>
+                                    {!! \app\UIBuilder\AppTemplate::select($series, ['name' => 'series_id', 'id' => 'inputSeries']) !!}
+                                </td>
+                            </tr>
+                            <tr>
                                 <th>Choose Studio</th>
                                 <td>
                                     {!! \app\UIBuilder\AppTemplate::select($studios, ['name' => 'studio_id', 'id' => 'inputStudio']) !!}
@@ -208,6 +214,7 @@
     <script>
         $( document ).ready(function() {
             $('#inputStudio').val({{$movie->studio_id}}).change();
+            $('#inputSeries').val({{$movie->series_id}}).change();
             $('#inputExistActresses').val({{json_encode($selectedActresses)}}).change();
             $('#inputTags').val({{json_encode($selectedTag)}}).change();
         });
