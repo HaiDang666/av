@@ -222,7 +222,7 @@ class MovieRepository extends Repository
         }
 
         $data = Movie::inRandomOrder()
-            ->select('image', 'code', 'name', 'thumbnail')
+            ->select('id', 'image', 'code', 'name', 'thumbnail')
             ->limit(6)
             ->get();
         Cache::put($key, $data, 60*24);

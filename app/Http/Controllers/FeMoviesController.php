@@ -17,6 +17,9 @@ class FeMoviesController extends Controller
     protected $actressRepository;
     protected $tagRepository;
 
+    protected $crbReviewLink = 'http://www.caribbeancom.com/moviepages/';
+    protected $crbPrReviewLink = 'http://www.caribbeancompr.com/moviepages/';
+
     protected $indexOrder = ['order' => ['col' => 'release',
         'dir' => 'desc'],
         'select' => ['code', 'id', 'thumbnail', 'name', 'rate', 'note']
@@ -63,6 +66,7 @@ class FeMoviesController extends Controller
             $actresses = $movie->actresses()->select('name', 'id')->get();
             $tags = $movie->tags()->select('name', 'id')->get();
             $movies = $this->movieRepository->bannerMovies();
+            $imageLink = $movie->studio_id == 1 ? $this->crbReviewLink : $this->crbPrReviewLink;
         }catch (\Exception $e){
             return view('frontend.errors.404');
         }
@@ -71,6 +75,7 @@ class FeMoviesController extends Controller
             'actresses' => $actresses,
             'movie' => $movie,
             'movies' => $movies,
+            'imageLink' => $imageLink,
             'tags' => $tags]);
     }
 }

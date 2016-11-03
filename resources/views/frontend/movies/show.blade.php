@@ -82,22 +82,36 @@
                                     </div>
                                 </div>
                             </div>
+                            @if($movie->studio_id == 1 || $movie->studio_id == 5)
+                            <hr>
+                            <div style="margin-bottom: 10px; margin-top: 20px">
+                                <h2>Images review</h2>
+                                <div class="table-images-review">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr id="images_review">
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            @endif
                             <hr>
                             <div style="margin-bottom: 10px; margin-top: 20px">
                                 <h2>Related Movies</h2>
                             </div>
 
                             <div class="w3_agile_featured_movies">
-                                @foreach($movies as $movie)
+                                @foreach($movies as $movie_)
                                     <div class="col-md-2 w3l-movie-gride-agile">
-                                        <a href="{{url('movies/' . $movie->code . '?id='. $movie->id)}}" class="hvr-shutter-out-horizontal">
-                                            <img src="@if(substr($movie->thumbnail, 0, 4) == 'http'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif"
-                                                 title="{{$movie->note}}" class="img-responsive img-movie-thumbnail-small" alt=" " />
+                                        <a href="{{url('movies/' . $movie_->code . '?id='. $movie_->id)}}" class="hvr-shutter-out-horizontal">
+                                            <img src="@if(substr($movie_->thumbnail, 0, 4) == 'http'){{$movie_->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie_->thumbnail)}}@endif"
+                                                 title="{{$movie_->note}}" class="img-responsive img-movie-thumbnail-small" alt=" " />
                                             <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
                                         </a>
                                         <div class="mid-1 agileits_w3layouts_mid_1_home">
                                             <div class="w3l-movie-text">
-                                                <h6><a href="{{url('movies/' . $movie->code)}}">{{$movie->code}}</a></h6>
+                                                <h6><a href="{{url('movies/' . $movie_->code)}}">{{$movie_->code}}</a></h6>
                                             </div>
                                         </div>
                                     </div>
@@ -133,8 +147,15 @@
         .single-left{
             padding-right: 0 !important;
         }
+        .table-images-review td{
+            height: 130px;
+            width: 130px;
+            padding: 0;
+            text-align: center;
+        }
     </style>
 @endsection
 
 @section('page_script')
+    @include('bladejs.movie_show_fe')
 @endsection
