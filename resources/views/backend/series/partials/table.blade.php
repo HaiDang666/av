@@ -22,9 +22,9 @@
                     <td><a href="{{url('series/'.$seri->id)}}" target="_blank">{{$seri->name}}</a></td>
                     <td>{{$seri->movie_count}}</td>
                     <td>
-                        <button type="button" class="btn-link clear-padding btn-edit-seri" data-id="{{$seri->id}}">
+                        <button type="button" class="btn-link clear-padding btn-edit-series" data-id="{{$seri->id}}">
                             <i class="fa fa-pencil"></i></button>
-                        <button type="button" class="btn-link clear-padding text-red btn-delete-seri" data-id="{{$seri->id}}" data-toggle="modal">
+                        <button type="button" class="btn-link clear-padding text-red btn-delete-series" data-id="{{$seri->id}}" data-toggle="modal">
                             <i class="fa fa-trash-o"></i></button>
                     </td>
                 </tr>
