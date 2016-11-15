@@ -17,7 +17,7 @@
 
         //Date picker
         $('#datepicker').datepicker({
-            format: 'dd-mm-yyyy',
+            format: 'yyyy/mm/dd',
             autoclose: true
         });
 

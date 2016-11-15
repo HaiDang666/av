@@ -80,12 +80,10 @@ class ActressesController extends Controller
     public function store(Request $request){
         $data = $request->all();
         unset($data['_token']);
-
         try{
             if($data['dob'] != '')
             {
-                $a = explode('-', $data['dob']);
-                $data['dob'] = $a[2].'-'.$a[1].'-'.$a[0];
+               $data['dob'] = str_replace('/', '-', $data['dob']);
             }
             else $data['dob'] = '1970-01-01';
 
@@ -154,8 +152,7 @@ class ActressesController extends Controller
         }
         else if($actress->dob != '')
         {
-            $a = explode('-', $actress->dob);
-            $actress->dob = $a[2].'-'.$a[1].'-'.$a[0];
+            $actress->dob = $data['dob'] = str_replace('-', '/', $actress->dob);
         }
 
         return view('backend.actresses.edit',[
@@ -170,8 +167,7 @@ class ActressesController extends Controller
         try{
             if($data['dob'] != '')
             {
-                $a = explode('-', $data['dob']);
-                $data['dob'] = $a[2].'-'.$a[1].'-'.$a[0];
+                $data['dob'] = str_replace('/', '-', $data['dob']);
             }
             else $data['dob'] = '1970-01-01';
 

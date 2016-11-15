@@ -176,7 +176,7 @@ class MoviesController extends Controller
 
             // check stored field
             $data['stored'] = isset($request->stored) ? 1 : 0;
-            $data['length'] = $data['length'] == '' ? 0 : $data['length'];
+            $data['length'] = $data['length'] == '' ? 61 : $data['length'];
 
             $movie = $this->movieRepository->create($data, ['validation' => TRUE]);
 
