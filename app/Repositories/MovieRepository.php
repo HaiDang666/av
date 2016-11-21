@@ -53,12 +53,6 @@ class MovieRepository extends Repository
 
             $movie->tags()->sync($tags);
 
-            if(isset($attributes['series_id']) && $attributes['series_id'] != 0){
-                DB::table('series')
-                    ->where('id', $attributes['series_id'])
-                    ->increment('movie_count');
-            }
-
             $syncFlag = true;
             $attach = array_diff($newActresses, $oldActresses);
             if(!empty($attach)){
