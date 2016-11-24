@@ -87,6 +87,14 @@ class ActressesController extends Controller
             }
             else $data['dob'] = '1970-01-01';
 
+            if ($data['measurements'] != '')
+            {
+                $measurements = $data['measurements'];
+                $measurements = str_replace(':W', '-', $measurements);
+                $measurements = str_replace(':H', '-', $measurements);
+                $data['measurements'] = $measurements;
+            }
+
             $data['debut'] = $data['debut'] == '' ? 0 : $data['debut'];
             $data['height'] = $data['height'] == '' ? 0 : $data['height'];
             $data['weight'] = $data['weight'] == '' ? 0 : $data['weight'];
