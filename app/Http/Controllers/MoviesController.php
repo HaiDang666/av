@@ -31,6 +31,9 @@ class MoviesController extends Controller
     protected $imgurService;
     protected $imgurAllow;
 
+    protected $heyLink = 'http://www.heyzo.com/contents/3000/';
+    protected $heyImage = '/images/player_thumbnail.jpg';
+
     protected $crbLink = 'http://www.caribbeancom.com/moviepages/';
     protected $crbPrLink = 'http://www.caribbeancompr.com/moviepages/';
     protected $crbPrThumbnail = '/images/main_b.jpg';
@@ -163,6 +166,9 @@ class MoviesController extends Controller
                     switch ($data['studio_id']){
                         case '1':
                             $data['image'] = $this->crbLink . $code . $this->crbImage;
+                            break;
+                        case '2':
+                            $data['image'] = $this->heyLink . $code . $this->heyImage;
                             break;
                         case '5':
                             $data['image'] = $this->crbPrLink . $code . $this->crbImage;

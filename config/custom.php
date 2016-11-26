@@ -23,5 +23,12 @@ return array(
                    6 => 'F',
                    7 => 'G',
                    8 => 'H',
-                   9 => 'M'],
+                   9 => 'M',
+                   10 => 'K',
+                   11 => 'J'],
+    'studio' => [1 => 'caribbeancom',
+                2 => 'heyzo',
+                3 => '10musume',
+                4 => '1pondo',
+                5 => 'caribbeanccmpr'],
 );
