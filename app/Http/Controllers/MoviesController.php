@@ -34,6 +34,10 @@ class MoviesController extends Controller
     protected $heyLink = 'http://www.heyzo.com/contents/3000/';
     protected $heyImage = '/images/player_thumbnail.jpg';
 
+    protected $ponLink = 'http://www.1pondo.tv/assets/sample/';
+    protected $ponImage = '/str.jpg';
+    protected $ponThumbnail = '/thum_b.jpg';
+
     protected $crbLink = 'http://www.caribbeancom.com/moviepages/';
     protected $crbPrLink = 'http://www.caribbeancompr.com/moviepages/';
     protected $crbPrThumbnail = '/images/main_b.jpg';
@@ -113,15 +117,15 @@ class MoviesController extends Controller
                 case '1':
                     $code = str_replace('_', '-', $code);
                     break;
-                case '5';
+                case '4':
+                case '5':
                     $code = str_replace('-', '_', $code);
                     break;
             }
             $data['code'] = $code;
             if($data['release'] != '')
             {
-                $a = explode('-', $data['release']);
-                $data['release'] = $a[2].'-'.$a[1].'-'.$a[0];
+
             }
             elseif (strlen($code) > 6){
                 $date = str_split(substr($code, 0, 6),2);
@@ -141,6 +145,9 @@ class MoviesController extends Controller
                 }else {
                     switch ($data['studio_id']){
                         case '1':
+                            break;
+                        case '4':
+                            $data['thumbnail'] = $this->ponLink . $code . $this->ponThumbnail;
                             break;
                         case '5':
                             $data['thumbnail'] = $this->crbPrLink . $code . $this->crbPrThumbnail;
@@ -169,6 +176,9 @@ class MoviesController extends Controller
                             break;
                         case '2':
                             $data['image'] = $this->heyLink . $code . $this->heyImage;
+                            break;
+                        case '4':
+                            $data['image'] = $this->ponLink . $code . $this->ponImage;
                             break;
                         case '5':
                             $data['image'] = $this->crbPrLink . $code . $this->crbImage;
