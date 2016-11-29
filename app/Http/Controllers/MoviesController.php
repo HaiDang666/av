@@ -39,8 +39,11 @@ class MoviesController extends Controller
     protected $ponThumbnail = '/thum_b.jpg';
 
     protected $crbLink = 'http://www.caribbeancom.com/moviepages/';
+    protected $crbThumbnail = '/images/jacket.jpg';
+
     protected $crbPrLink = 'http://www.caribbeancompr.com/moviepages/';
     protected $crbPrThumbnail = '/images/main_b.jpg';
+
     protected $crbImage = '/images/l_l.jpg';
 
     protected $indexOrder = ['order' => ['col' => 'updated_at',
@@ -145,6 +148,7 @@ class MoviesController extends Controller
                 }else {
                     switch ($data['studio_id']){
                         case '1':
+                            $data['thumbnail'] = $this->crbLink . $code . $this->crbThumbnail;
                             break;
                         case '4':
                             $data['thumbnail'] = $this->ponLink . $code . $this->ponThumbnail;
