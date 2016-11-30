@@ -33,7 +33,26 @@
                             </div>
                             <div class="media-grids" style="margin-top: 0">
                                 <div class="media" style="margin-bottom: 0">
-                                    <h2>Movie Information</h2>
+                                    <h2>Movie Information - <?php
+                                        switch ($movie->studio_id){
+                                            case 1:
+                                                $link = 'http://www.caribbeancom.com/moviepages/'.$movie->code.'/index.html';
+                                                break;
+                                            case 2:
+                                                $link = 'http://www.heyzo.com/moviepages/'.$movie->code.'/index.html';
+                                                break;
+                                            case 3:
+                                                $link = 'http://www.10musume.com/moviepages/'.$movie->code.'/index.html';
+                                                break;
+                                            case 4:
+                                                $link = 'http://www.1pondo.tv/movies/'.$movie->code.'/';
+                                                break;
+                                            case 5:
+                                                $link = 'http://www.caribbeancompr.com/moviepages/'.$movie->code.'/index.html';
+                                                break;
+                                        }
+                                        echo '<a href='.$link.'>Official link</a>';
+                                        ?></h2>
                                     <div class="media-left">
                                         <a href="#">
                                             <img src="@if(substr($movie->thumbnail, 0, 4) == 'http'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif"
@@ -82,7 +101,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @if($movie->studio_id == 1 || $movie->studio_id == 5)
+                            @if(!$movie->studio_id == 5)
                             <hr>
                             <div style="margin-bottom: 10px; margin-top: 20px">
                                 <h2>Images review</h2>

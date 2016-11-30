@@ -183,6 +183,14 @@ class ActressesController extends Controller
             $data['height'] = $data['height'] == '' ? 0 : $data['height'];
             $data['weight'] = $data['weight'] == '' ? 0 : $data['weight'];
 
+            if ($data['measurements'] != '')
+            {
+                $measurements = $data['measurements'];
+                $measurements = str_replace(':W', '-', $measurements);
+                $measurements = str_replace(':H', '-', $measurements);
+                $data['measurements'] = $measurements;
+            }
+
             $actress = $this->actressRepository->find($actressID);
 
             // check new thumbnail

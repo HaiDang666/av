@@ -19,6 +19,9 @@ class FeMoviesController extends Controller
 
     protected $crbReviewLink = 'http://www.caribbeancom.com/moviepages/';
     protected $crbPrReviewLink = 'http://www.caribbeancompr.com/moviepages/';
+    protected $heyReviewLink = 'http://www.heyzo.com/contents/3000/';
+    protected $ponReviewLink = 'http://www.1pondo.tv/assets/sample/';
+    protected $musumeReviewLink = 'http://www.10musume.com/moviepages/';
 
     protected $indexOrder = ['order' => ['col' => 'release',
         'dir' => 'desc'],
@@ -66,7 +69,25 @@ class FeMoviesController extends Controller
             $actresses = $movie->actresses()->select('name', 'id')->get();
             $tags = $movie->tags()->select('name', 'id')->get();
             $movies = $this->movieRepository->bannerMovies();
-            $imageLink = $movie->studio_id == 1 ? $this->crbReviewLink : $this->crbPrReviewLink;
+            $imageLink = 0;
+            switch ($movie->studio_id){
+                case 1:
+                    $imageLink = $this->crbReviewLink;
+                    break;
+                case 2:
+                    $imageLink = $this->heyReviewLink;
+                    break;
+                case 3:
+                    $imageLink = $this->musumeReviewLink;
+                    break;
+                case 4:
+                    $imageLink = $this->ponReviewLink;
+                    break;
+                case 5:
+                    $imageLink = $this->crbPrReviewLink;
+                    break;
+            }
+
         }catch (\Exception $e){
             return view('frontend.errors.404');
         }

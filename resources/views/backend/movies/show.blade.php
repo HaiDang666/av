@@ -8,6 +8,14 @@
     {{$movie->code}} - {{$movie->name}}
 @endsection
 
+<?php
+$domain = '';
+if (App::environment() == 'live')
+{
+    $domain = 'www';
+}
+?>
+
 @section('main-content')
     <div class="container spark-screen">
         <input type="hidden" id="movieID" value="{{$movie->id}}">
@@ -28,6 +36,27 @@
                              src="@if(substr($movie->thumbnail, 0, 4) == 'http'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif">
                         <br /><br />
                         <a href="{{url('movies/create')}}"><button class="btn btn-warning btn-block btn-list"><i class="fa fa-plus"></i>  Add Movie</button></a>
+                        <a href="{{url($domain.'/movies/' . $movie->code . '?id='. $movie->id)}}"><button class="btn btn-success btn-block btn-list"><i class="fa fa-search"></i> View Page</button></a>
+                        <?php
+                        switch ($movie->studio_id){
+                            case 1:
+                                $link = 'http://www.caribbeancom.com/moviepages/'.$movie->code.'/index.html';
+                                break;
+                            case 2:
+                                $link = 'http://www.heyzo.com/moviepages/'.$movie->code.'/index.html';
+                                break;
+                            case 3:
+                                $link = 'http://www.10musume.com/moviepages/'.$movie->code.'/index.html';
+                                break;
+                            case 4:
+                                $link = 'http://www.1pondo.tv/movies/'.$movie->code.'/';
+                                break;
+                            case 5:
+                                $link = 'http://www.caribbeancompr.com/moviepages/'.$movie->code.'/index.html';
+                                break;
+                        }
+                        echo '<a href='.$link.'><button class="btn btn-success btn-block btn-list"><i class="fa fa-search"></i> Official</button></a>';
+                        ?>
                         <a href="#information"><button class="btn btn-primary btn-block btn-list"><i class="fa fa-search"></i> Information</button></a>
                         <a href="{{url('movies/' . $movie->id . '/edit')}}"><button class="btn btn-primary btn-block btn-list"><i class="fa fa-pencil-square-o"></i>  Edit information</button></a>
                         <br />
