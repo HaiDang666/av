@@ -101,7 +101,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @if(!$movie->studio_id == 5)
+                            @if($movie->studio_id != 5)
                             <hr>
                             <div style="margin-bottom: 10px; margin-top: 20px">
                                 <h2>Images review</h2>
