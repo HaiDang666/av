@@ -61,7 +61,7 @@ if (App::environment() == 'live')
                         <a href="{{url('movies/' . $movie->id . '/edit')}}"><button class="btn btn-primary btn-block btn-list"><i class="fa fa-pencil-square-o"></i>  Edit information</button></a>
                         <br />
                         @if($flaged)
-                            <button id="btn-unflag" type="button" class="btn btn-danger btn-block btn-list"><i class="fa fa-flag-o"></i> Flaged</button><br />
+                            <button id="btn-unflag" type="button" class="btn btn-warning btn-block btn-list"><i class="fa fa-flag-o"></i> Flaged</button><br />
                         @else
                             <button id="btn-flag" type="button" class="btn btn-danger btn-block btn-list"><i class="fa fa-flag-o"></i> Flag</button><br />
                         @endif

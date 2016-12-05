@@ -89,7 +89,7 @@
                 <br />
                 <a href="https://www.google.com/search?q={{str_replace(' ', '+', $actress->name)}}+jav" target="_blank"><button class="btn btn-success btn-block"><i class="fa fa-search"></i>  Google her</button></a><br />
                 @if($flaged)
-                    <button id="btn-unflag" type="button" class="btn btn-danger btn-block btn-list"><i class="fa fa-flag-o"></i> Flaged</button><br />
+                    <button id="btn-unflag" type="button" class="btn btn-warning btn-block btn-list"><i class="fa fa-flag-o"></i> Flaged</button><br />
                 @else
                     <button id="btn-flag" type="button" class="btn btn-danger btn-block btn-list"><i class="fa fa-flag-o"></i> Flag</button><br />
                 @endif

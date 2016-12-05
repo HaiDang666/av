@@ -30,7 +30,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/movies/' + $('#movieID').val() + '/flag/',
+                url: '/movies/' + $('#movieID').val() + '/flag',
                 data: {_token: '{{csrf_token()}}', name: '{{$movie->name}}'},
                 dataType: 'JSON',
                 success: function (data) {
@@ -46,7 +46,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/movies/' + $('#movieID').val() + '/unflag/',
+                url: '/movies/' + $('#movieID').val() + '/unflag',
                 data: {_token: '{{csrf_token()}}'},
                 dataType: 'JSON',
                 success: function (data) {
