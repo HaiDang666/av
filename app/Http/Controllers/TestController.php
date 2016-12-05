@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TestController extends Controller
 {
     public function get(){
-        return view('frontend.home');
+        $res = DB::table('missing')
+            ->where('id', 85)
+            ->where('type', 1)
+            ->limit(1)
+            ->count();
+
+        dd($res);
     }
 
     public function post(){

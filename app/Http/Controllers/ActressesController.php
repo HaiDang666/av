@@ -62,12 +62,14 @@ class ActressesController extends Controller
             $actress = $this->actressRepository->find($actressID);
             $movies = $actress->movies()->paginate(5);
             $tags = $actress->tags;
+
+            $flaged = $this->actressRepository->checkMissing($actress->id, 0);
         }
         catch (\Exception $e){
             return view('errors.404');
         }
 
-        return view('backend.actresses.show', ['actress' => $actress, 'movies' => $movies, 'tags' => $tags]);
+        return view('backend.actresses.show', ['actress' => $actress, 'movies' => $movies, 'tags' => $tags, 'flaged' => $flaged]);
     }
 
     public function create(){
@@ -294,5 +296,24 @@ class ActressesController extends Controller
         return response()->json(
             ['html' => '',
                 'notification' => $notification]);
+    }
+
+    public function flag($actressID, Request $request){
+        $data = $request->all();
+        $this->actressRepository->addMissing($actressID, $data['name'], 0);
+        return response()->json(
+            ['res' => 1]);
+    }
+
+    public function unflag($actressID){
+        $this->actressRepository->removeMissing($actressID, 0);
+        return response()->json(
+            ['res' => 1]);
+    }
+
+    public function missing(){
+        $result = $this->actressRepository->getMissingList(0);
+
+        return view('backend.actresses.missing', ['actresses' => $result]);
     }
 }

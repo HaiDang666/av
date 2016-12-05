@@ -31,4 +31,6 @@ return array(
                 3 => '10musume',
                 4 => '1pondo',
                 5 => 'caribbeanccmpr'],
+    'type' => [0 => 'actress',
+               1 => 'movie'],
 );

@@ -59,6 +59,14 @@ Route::group(['middleware' => ['auth'], 'domain' => 'admin.'.$domain ], function
     Route::resource('tags', 'TagsController');
     Route::resource('actresses', 'ActressesController');
     Route::resource('movies', 'MoviesController');
+
+    Route::get('actresses/missing/list', 'ActressesController@missing');
+    Route::post('actresses/{id}/flag', 'ActressesController@flag');
+    Route::post('actresses/{id}/unflag', 'ActressesController@unflag');
+
+    Route::get('movies/missing/list', 'MoviesController@missing');
+    Route::post('movies/{id}/flag', 'MoviesController@flag');
+    Route::post('movies/{id}/unflag', 'MoviesController@unflag');
 });
 
 //remove cast

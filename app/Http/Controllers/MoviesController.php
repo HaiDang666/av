@@ -33,6 +33,7 @@ class MoviesController extends Controller
 
     protected $heyLink = 'http://www.heyzo.com/contents/3000/';
     protected $heyImage = '/images/player_thumbnail.jpg';
+    protected $heyThumbnail = '/images/thumbnail.jpg';
 
     protected $ponLink = 'http://www.1pondo.tv/assets/sample/';
     protected $ponImage = '/str.jpg';
@@ -90,12 +91,14 @@ class MoviesController extends Controller
             $movie = $this->movieRepository->find($movieID);
             $actresses = $movie->actresses;
             $tags = $movie->tags;
+
+            $flaged = $this->movieRepository->checkMissing($movie->id, 1);
         }
         catch (\Exception $e){
             return view('errors.404');
         }
 
-        return view('backend.movies.show', ['actresses' => $actresses, 'movie' => $movie, 'tags' => $tags]);
+        return view('backend.movies.show', ['actresses' => $actresses, 'movie' => $movie, 'tags' => $tags, 'flaged' => $flaged]);
     }
 
     public function create(){
@@ -149,6 +152,9 @@ class MoviesController extends Controller
                     switch ($data['studio_id']){
                         case '1':
                             $data['thumbnail'] = $this->crbLink . $code . $this->crbThumbnail;
+                            break;
+                        case '2':
+                            $data['thumbnail'] = $this->heyLink . $code . $this->heyThumbnail;
                             break;
                         case '4':
                             $data['thumbnail'] = $this->ponLink . $code . $this->ponThumbnail;
@@ -365,5 +371,24 @@ class MoviesController extends Controller
         return response()->json(
             ['html' => '',
                 'notification' => $notification]);
+    }
+
+    public function flag($movieID, Request $request){
+        $data = $request->all();
+        $this->movieRepository->addMissing($movieID, $data['name'], 1);
+        return response()->json(
+            ['res' => 1]);
+    }
+
+    public function unflag($movieID){
+        $this->movieRepository->removeMissing($movieID, 1);
+        return response()->json(
+            ['res' => 1]);
+    }
+
+    public function missing(){
+        $result = $this->movieRepository->getMissingList(1);
+
+        return view('backend.movies.missing', ['movies' => $result]);
     }
 }

@@ -55,11 +55,16 @@ if (App::environment() == 'live')
                                 $link = 'http://www.caribbeancompr.com/moviepages/'.$movie->code.'/index.html';
                                 break;
                         }
-                        echo '<a href='.$link.'><button class="btn btn-success btn-block btn-list"><i class="fa fa-search"></i> Official</button></a>';
+                        echo '<a href='.$link.'><button class="btn btn-success btn-block btn-list"><i class="fa fa-search"></i> Official Page</button></a>';
                         ?>
                         <a href="#information"><button class="btn btn-primary btn-block btn-list"><i class="fa fa-search"></i> Information</button></a>
                         <a href="{{url('movies/' . $movie->id . '/edit')}}"><button class="btn btn-primary btn-block btn-list"><i class="fa fa-pencil-square-o"></i>  Edit information</button></a>
                         <br />
+                        @if($flaged)
+                            <button id="btn-unflag" type="button" class="btn btn-danger btn-block btn-list"><i class="fa fa-flag-o"></i> Flaged</button><br />
+                        @else
+                            <button id="btn-flag" type="button" class="btn btn-danger btn-block btn-list"><i class="fa fa-flag-o"></i> Flag</button><br />
+                        @endif
                         @if($movie->link != "")
                             <a href="{{$movie->link}}" target="_blank"><button class="btn btn-success btn-block"><i class="fa fa-play"></i>  Watch online</button></a>
                         @endif

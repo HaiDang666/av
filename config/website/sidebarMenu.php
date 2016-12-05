@@ -46,6 +46,9 @@ return array(
                     'Add movie' => [
                         'route' => 'movies/create'
                     ],
+                    'Missing' => [
+                        'route' => 'actresses/missing/list'
+                    ],
                 ]
             ],
             'Actresses' => [
@@ -55,6 +58,9 @@ return array(
                     ],
                     'Add actress' => [
                         'route' => 'actresses/create'
+                    ],
+                    'Missing' => [
+                        'route' => 'actresses/missing/list'
                     ],
                 ]
             ],
