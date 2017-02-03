@@ -104,7 +104,7 @@
                                 <th>Store</th>
                                 <td>
                                     <input type="checkbox" class="flat-red" id="inputStored"
-                                           name="stored" checked>
+                                           name="stored">
                                 </td>
                             </tr>
                         </table>

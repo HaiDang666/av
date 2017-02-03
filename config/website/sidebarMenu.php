@@ -47,7 +47,7 @@ return array(
                         'route' => 'movies/create'
                     ],
                     'Missing' => [
-                        'route' => 'actresses/missing/list'
+                        'route' => 'movies/missing/list'
                     ],
                 ]
             ],
