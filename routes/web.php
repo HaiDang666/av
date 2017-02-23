@@ -19,7 +19,7 @@ if (App::environment() == 'live')
 
 /* Front-end ****************************************************************************************/
 
-Route::group(['domain' => $domain, 'middleware' => ['auth']], function (){
+Route::group(['domain' => $domain ], function (){
 
     Route::get('/', 'FeHomeController@index');
     Route::get('/home', 'FeHomeController@index');
