@@ -22,7 +22,7 @@ class FeHomeController extends Controller
     public function index(){
         $bannerMovies = $this->movieRepository->bannerMovies();
         $latestMovies = $this->movieRepository->latestMovies();
-        $topViewedMovies = null;//$this->movieRepository->topViewedMovies();
+        $topViewedMovies = $this->movieRepository->topViewedMovies();
         $topRatingMovies = null;//$this->movieRepository->topRatingMovies();
         $recentlyAddedMovies = $this->movieRepository->recentlyAddedMovies();
 

@@ -54,8 +54,8 @@
                             </ul>
                         </li>
                         <li><a href="{{url('movies/list')}}">Movies</a></li>
+                        <li><a href="{{url('movies/available/list')}}">Free Movies</a></li>
                         <li><a href="{{url('actresses/list')}}">Actresses</a></li>
-                        <li><a href="#">Call C50</a></li>
                         <li><a href="#">Report 2 mom</a></li>
                     </ul>
                 </nav>

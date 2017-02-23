@@ -1,4 +1,5 @@
 <script>
+    var utubeID = '{{$movie->link}}';
     var studio = '{{$movie->studio_id}}';
     var imageLinkS, imageLinkL, quantity;
     switch (studio){
@@ -50,5 +51,45 @@
                 IsValidImageUrl(imageLinkL + i + ext, i, myCallback);
             }
         }
+        $("#video").click(function () {
+            if(utubeID == ''){
+                alert('dek co phim coi');
+                return;
+            }
+
+            var token = "{!! csrf_token() !!}";
+            var formData = {
+                id: utubeID,
+                _token: token
+            };
+            $.ajax({
+                type: 'POST',
+                url: '/movies/unlock',
+                data: formData,
+                success: function (data) {
+                    if(data.code == '1'){
+                        $("#video").remove();
+                        $("#player").append('<iframe width="100%" height="600px" src="https://www.youtube.com/embed/'+utubeID+'?controls=1&autoplay=1"></iframe>');
+                        setTimeout(function () {
+                            var token = "{!! csrf_token() !!}";
+                            var formData = {
+                                id: utubeID,
+                                _token: token
+                            };
+                            $.ajax({
+                                type: 'POST',
+                                url: '/movies/lock',
+                                data: formData,
+                                success: function (data) {},
+                                error: function () {}
+                            });
+                        },10000);
+                    }
+                },
+                error: function () {
+                    alert("dek cho coi");
+                }
+            });
+        });
     });
 </script>

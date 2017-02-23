@@ -19,14 +19,17 @@ if (App::environment() == 'live')
 
 /* Front-end ****************************************************************************************/
 
-Route::group(['domain' => $domain], function (){
+Route::group(['domain' => $domain, 'middleware' => ['auth']], function (){
 
     Route::get('/', 'FeHomeController@index');
     Route::get('/home', 'FeHomeController@index');
     /*Movie*/
     Route::get('/movies', 'FeMoviesController@index');
     Route::get('/movies/list', 'FeMoviesController@index');
+    Route::get('/movies/available/list', 'FeMoviesController@index2');
     Route::get('/movies/{code}', 'FeMoviesController@show');
+    Route::post('/movies/unlock', 'FeMoviesController@unlock');
+    Route::post('/movies/lock', 'FeMoviesController@lock');
     /*Actress*/
     Route::get('/actresses', 'FeActressesController@index');
     Route::get('/actresses/list', 'FeActressesController@index');

@@ -123,12 +123,19 @@ abstract class Repository implements InterfaceRepository
         }
 
         if(isset($option['q'])){
-            $value = $option['q']['value'];
-            $field = $option['q']['field'];
+            if (isset($option['q']['value'])){
+                $value = $option['q']['value'];
+                $field = $option['q']['field'];
 
-            $this->model->where($field, 'like' ,'%'.$value)
-                ->orWhere($field, 'like' ,$value.'%')
-                ->orWhere($field, 'like' ,'%'.$value.'%');
+                $this->model->where($field, 'like' ,'%'.$value)
+                    ->orWhere($field, 'like' ,$value.'%')
+                    ->orWhere($field, 'like' ,'%'.$value.'%');
+
+            }
+
+            if(isset($option['q']['stored'])){
+                $this->model->where('stored', 1);
+            }
         }
 
         return $this->model->paginate($perPage);

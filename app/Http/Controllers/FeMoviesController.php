@@ -1,17 +1,25 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use app\Repositories\ActressRepository;
 use app\Repositories\MovieRepository;
 use app\Repositories\StudioRepository;
 use app\Repositories\TagRepository;
+use Google_Client;
+use Google_Exception;
+use Google_Service_Exception;
+use Google_Service_YouTube;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
 class FeMoviesController extends Controller
 {
+
+    protected $OAUTH2_CLIENT_ID = '955281492660-bido0e8o6cubevav2eoe4qgfp75vb4k3.apps.googleusercontent.com';
+    protected $OAUTH2_CLIENT_SECRET = 'WhaVodO_3NV4dBUKXBB3JzSJ';
+    protected $refresh_token = '1/OpezOjAj9eaMyKjauYQQw08K7lXfcjMcXcHvFDPXYUw';
+
     protected $movieRepository;
     protected $studioRepository;
     protected $actressRepository;
@@ -45,6 +53,25 @@ class FeMoviesController extends Controller
             $this->indexOrder['q'] = ['field' => 'code',
                 'value' => $request->q];
         }
+
+        $movies = $this->movieRepository->paginate($perPage, $this->indexOrder);
+
+        if(isset($request->q)){
+            $movies->appends(['q' => $request->q]);
+        }
+
+        return view('frontend.movies.index', [
+            'movies' => $movies,
+        ]);
+    }
+
+    public function index2(Request $request){
+        $perPage = $request->input('perPage', 24);
+        if(isset($request->q)){
+            $this->indexOrder['q'] = ['field' => 'code',
+                'value' => $request->q];
+        }
+        $this->indexOrder['q']['stored'] = 1;
 
         $movies = $this->movieRepository->paginate($perPage, $this->indexOrder);
 
@@ -98,5 +125,133 @@ class FeMoviesController extends Controller
             'movies' => $movies,
             'imageLink' => $imageLink,
             'tags' => $tags]);
+    }
+
+    public function unlock(Request $request){
+        $client = new Google_Client();
+        $client->setClientId($this->OAUTH2_CLIENT_ID);
+        $client->setClientSecret($this->OAUTH2_CLIENT_SECRET);
+        $client->setAccessType("offline");        // offline access
+        $client->setIncludeGrantedScopes(true);   // incremental auth
+        $client->setScopes('https://www.googleapis.com/auth/youtube');
+
+        $redirect = filter_var('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
+        $client->setRedirectUri($redirect);
+
+        // Define an object that will be used to make all API requests.
+        $youtube = new Google_Service_YouTube($client);
+
+        // Check if an auth token exists for the required scopes
+        $tokenSessionKey = 'token-' . $client->prepareScopes();
+
+        if (isset($this->refresh_token))
+        {
+            $client->refreshToken($this->refresh_token);
+            session([$tokenSessionKey => $client->getAccessToken()]);
+            header('Location: ' . $redirect);
+        }
+
+        // Check to ensure that the access token was successfully acquired.
+        if ($client->getAccessToken()) {
+            try {
+                // REPLACE this value with the video ID of the video being updated.
+                $videoId = $request->id;
+                // Call the API's videos.list method to retrieve the video resource.
+                $listResponse = $youtube->videos->listVideos('status',
+                    array('id' => $videoId));
+
+                // If $listResponse is empty, the specified video was not found.
+                if (empty($listResponse)) {
+                    return response()->json(
+                        ['code' => 1]);
+                } else {
+                    // Since the request specified a video ID, the response only
+                    // contains one video resource.
+                    $video = $listResponse[0];
+                    $videoStatus = $video['status'];
+                    //Then you set the video status. Valid values are 'private', 'public', 'unlisted'.
+                    $videoStatus->privacyStatus = 'unlisted';
+                    //Finally you update the status & then video
+                    $video->setStatus($videoStatus);
+                    $updateResponse = $youtube->videos->update('status', $video);
+                }
+
+            } catch (Google_Service_Exception $e) {
+                dd(htmlspecialchars($e->getMessage()));
+            } catch (Google_Exception $e) {
+                dd(htmlspecialchars($e->getMessage()));
+            }
+            session([$tokenSessionKey => $client->getAccessToken()]);
+        }
+        else {
+            dd('ko');
+        }
+
+        return response()->json(
+            ['code' => 1]);
+    }
+
+    public function lock(Request $request){
+        $client = new Google_Client();
+        $client->setClientId($this->OAUTH2_CLIENT_ID);
+        $client->setClientSecret($this->OAUTH2_CLIENT_SECRET);
+        $client->setAccessType("offline");        // offline access
+        $client->setIncludeGrantedScopes(true);   // incremental auth
+        $client->setScopes('https://www.googleapis.com/auth/youtube');
+
+        $redirect = filter_var('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
+        $client->setRedirectUri($redirect);
+
+        // Define an object that will be used to make all API requests.
+        $youtube = new Google_Service_YouTube($client);
+        // Check if an auth token exists for the required scopes
+        $tokenSessionKey = 'token-' . $client->prepareScopes();
+
+        if (isset($this->refresh_token))
+        {
+            $client->refreshToken($this->refresh_token);
+            session([$tokenSessionKey => $client->getAccessToken()]);
+            header('Location: ' . $redirect);
+            //$client->setAccessToken($_SESSION[$tokenSessionKey]);
+        }
+
+        // Check to ensure that the access token was successfully acquired.
+        if ($client->getAccessToken()) {
+            try {
+                // REPLACE this value with the video ID of the video being updated.
+                $videoId = $request->id;
+                // Call the API's videos.list method to retrieve the video resource.
+                $listResponse = $youtube->videos->listVideos("status",
+                    array('id' => $videoId));
+
+                // If $listResponse is empty, the specified video was not found.
+                if (empty($listResponse)) {
+                    return response()->json(
+                        ['code' => 1]);
+                } else {
+                    // Since the request specified a video ID, the response only
+                    // contains one video resource.
+                    $video = $listResponse[0];
+                    $videoStatus = $video['status'];
+                    //Then you set the video status. Valid values are 'private', 'public', 'unlisted'.
+                    $videoStatus->privacyStatus = 'private';
+                    //Finally you update the status & then video
+                    $video->setStatus($videoStatus);
+                    $updateResponse = $youtube->videos->update('status', $video);
+                }
+
+            } catch (Google_Service_Exception $e) {
+                dd(htmlspecialchars($e->getMessage()));
+            } catch (Google_Exception $e) {
+                dd(htmlspecialchars($e->getMessage()));
+            }
+            session([$tokenSessionKey => $client->getAccessToken()]);
+        }
+        else {
+            dd('dek co authenticate dc');
+        }
+
+        return response()->json(
+            ['code' => 1]);
     }
 }

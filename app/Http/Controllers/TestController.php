@@ -9,13 +9,7 @@ use Illuminate\Support\Facades\DB;
 class TestController extends Controller
 {
     public function get(){
-        $res = DB::table('missing')
-            ->where('id', 85)
-            ->where('type', 1)
-            ->limit(1)
-            ->count();
-
-        dd($res);
+        return view('test');
     }
 
     public function post(){

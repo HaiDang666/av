@@ -24,10 +24,11 @@
                                 <div class="song-info">
                                     <h2>{{$movie->code}} - {{$movie->name}}</h2>
                                 </div>
-                                <div class="video-grid-single-page-agileits" align="center">
-                                    <div data-video="dLmKio67pVQ" id="video">
+                                <div class="video-grid-single-page-agileits" align="center" id="player">
+                                    <div data-video="{{$movie->link}}" id="video">
                                         <img src="@if(substr($movie->image, 0, 4) == 'http'){{$movie->image}}@else{{url('/image?category=movie&type=image&filename='. $movie->image)}}@endif"
-                                             alt="" class="img-responsive img-image-size" />
+                                             alt="" class="img-responsive img-image-size"  width="100%" height="600px"/>
+                                        <div href="#"></div>
                                     </div>
                                 </div>
                             </div>
@@ -172,6 +173,16 @@
             padding: 0;
             text-align: center;
         }
+        #video div {
+             position: absolute;
+             display: block;
+             background: url('{{ asset('img/play-button.png') }}');
+             height: 77px;
+             width: 77px;
+             top: 50%;
+             left: 50%;
+             margin: -20px 0 0 -20px;
+         }
     </style>
 @endsection
 
