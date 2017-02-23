@@ -61,51 +61,6 @@
             "time": "2016-05-26 18:35:55"
         },
         {
-            "name": "adyg/php-imgur-api-client",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Adyg/php-imgur-api-client.git",
-                "reference": "9b617984faf66bde400d028289c3794529cbbc99"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Adyg/php-imgur-api-client/zipball/9b617984faf66bde400d028289c3794529cbbc99",
-                "reference": "9b617984faf66bde400d028289c3794529cbbc99",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "guzzle/guzzle": ">=3.7",
-                "php": ">=5.3.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Imgur\\": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Adrian Ghiuta",
-                    "email": "adrian.ghiuta@gmail.com",
-                    "homepage": "http://adyg.github.com"
-                }
-            ],
-            "description": "Imgur API v3 client",
-            "homepage": "https://github.com/Adyg/php-imgur-api-client",
-            "keywords": [
-                "api",
-                "imgur"
-            ],
-            "abandoned": "j0k3r/php-imgur-api-client",
-            "time": "2014-02-18 13:57:27"
-        },
-        {
             "name": "classpreloader/classpreloader",
             "version": "3.1.0",
             "source": {
@@ -1407,52 +1362,6 @@
                 "php"
             ],
             "time": "2017-02-10 20:20:03"
-        },
-        {
-            "name": "ozankurt/imgur-laravel",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/OzanKurt/ImgurLaravel.git",
-                "reference": "2f0dcbf4145c0b812b9ac66f4ca104b7d2d2e093"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/OzanKurt/ImgurLaravel/zipball/2f0dcbf4145c0b812b9ac66f4ca104b7d2d2e093",
-                "reference": "2f0dcbf4145c0b812b9ac66f4ca104b7d2d2e093",
-                "shasum": ""
-            },
-            "require": {
-                "adyg/php-imgur-api-client": "^1.0",
-                "intervention/image": "^2.3"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Kurt\\Imgur\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ozan Kurt",
-                    "email": "ozankurt2@gmail.com"
-                }
-            ],
-            "description": "A wrap-up package to make works easier with imgur.",
-            "keywords": [
-                "api",
-                "imgur",
-                "laravel",
-                "wrapper"
-            ],
-            "time": "2016-04-20 18:50:22"
         },
         {
             "name": "paragonie/random_compat",
