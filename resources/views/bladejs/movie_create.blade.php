@@ -21,7 +21,7 @@
 
         //Date picker
         $('#datepicker').datepicker({
-            format: 'dd-mm-yyyy',
+            format: 'yyyy-mm-dd',
             autoclose: true
         });
 
@@ -42,7 +42,11 @@
         });
 
         $('#inputStudio').select2({
-            placeholder: 'Choose studio',
+            placeholder: 'Choose studio'
+        });
+
+        $('#inputSeries').select2({
+            placeholder: 'Choose series'
         });
 
         $('#inputNewActresses').select2({

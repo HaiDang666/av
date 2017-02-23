@@ -5,14 +5,14 @@ namespace App\Models;
 use app\Models\Traits\ValidationTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Studio extends Model
+class Series extends Model
 {
     use ValidationTrait;
 
-    public static $namespace = 'App\Models\Studio';
-    public static $inCacheName = 'studio_list';
+    public static $namespace = 'App\Models\Series';
+    public static $inCacheName = 'series_list';
 
-    protected $table = 'studios';
+    protected $table = 'series';
     protected $guarded = ['id'];
     protected $fillable = [
         'name',
@@ -23,13 +23,13 @@ class Studio extends Model
      * for ValidationTrait
      * @var array
      */
-    protected static $rules = ['name' => 'bail|required|unique:studios,name'];
+    protected static $rules = ['name' => 'bail|required|unique:series,name'];
 
     /**
      * Relationship
      */
     public function movies(){
-        return $this->hasMany('App\Models\Movie', 'studio_id');
+        return $this->hasMany('App\Models\Movie', 'series_id');
     }
 
     /**

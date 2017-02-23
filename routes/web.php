@@ -19,14 +19,17 @@ if (App::environment() == 'live')
 
 /* Front-end ****************************************************************************************/
 
-Route::group(['domain' => $domain], function (){
+Route::group(['domain' => $domain ], function (){
 
     Route::get('/', 'FeHomeController@index');
     Route::get('/home', 'FeHomeController@index');
     /*Movie*/
     Route::get('/movies', 'FeMoviesController@index');
     Route::get('/movies/list', 'FeMoviesController@index');
+    Route::get('/movies/available/list', 'FeMoviesController@index2');
     Route::get('/movies/{code}', 'FeMoviesController@show');
+    Route::post('/movies/unlock', 'FeMoviesController@unlock');
+    Route::post('/movies/lock', 'FeMoviesController@lock');
     /*Actress*/
     Route::get('/actresses', 'FeActressesController@index');
     Route::get('/actresses/list', 'FeActressesController@index');
@@ -51,12 +54,22 @@ Route::group(['middleware' => 'web', 'prefix' => 'admin'], function () {
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function (){
 
+    Route::get('/logout', 'Auth\LoginController@logout');
     Route::get('/dashboard', 'HomeController@index');
 
     Route::resource('studios', 'StudiosController');
+    Route::resource('series', 'SeriesController');
     Route::resource('tags', 'TagsController');
     Route::resource('actresses', 'ActressesController');
     Route::resource('movies', 'MoviesController');
+
+    Route::get('actresses/missing/list', 'ActressesController@missing');
+    Route::post('actresses/{id}/flag', 'ActressesController@flag');
+    Route::post('actresses/{id}/unflag', 'ActressesController@unflag');
+
+    Route::get('movies/missing/list', 'MoviesController@missing');
+    Route::post('movies/{id}/flag', 'MoviesController@flag');
+    Route::post('movies/{id}/unflag', 'MoviesController@unflag');
 });
 
 //remove cast

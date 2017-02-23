@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use app\Exceptions\RepositoryException;
 use Illuminate\Container\Container as App;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class Repository
@@ -122,12 +123,19 @@ abstract class Repository implements InterfaceRepository
         }
 
         if(isset($option['q'])){
-            $value = $option['q']['value'];
-            $field = $option['q']['field'];
+            if (isset($option['q']['value'])){
+                $value = $option['q']['value'];
+                $field = $option['q']['field'];
 
-            $this->model->where($field, 'like' ,'%'.$value)
-                ->orWhere($field, 'like' ,$value.'%')
-                ->orWhere($field, 'like' ,'%'.$value.'%');
+                $this->model->where($field, 'like' ,'%'.$value)
+                    ->orWhere($field, 'like' ,$value.'%')
+                    ->orWhere($field, 'like' ,'%'.$value.'%');
+
+            }
+
+            if(isset($option['q']['stored'])){
+                $this->model->where('stored', 1);
+            }
         }
 
         return $this->model->paginate($perPage);
@@ -246,7 +254,7 @@ abstract class Repository implements InterfaceRepository
         }
 
         if (Cache::has($cacheName)) {
-            Cache::get($cacheName);
+            return Cache::get($cacheName);
         }
 
         $data = $this->model->get(['id', 'name']);
@@ -298,5 +306,33 @@ abstract class Repository implements InterfaceRepository
     public function getDefaultValidation()
     {
         return $this->getModel()->getDefaultValidation();
+    }
+
+    public function addMissing($id, $name, $type){
+        DB::table('missing')->insert(
+            ['id' => $id, 'type' => $type, 'name' => $name]
+        );
+    }
+
+    public function removeMissing($id, $type){
+        DB::table('missing')
+            ->where('id', '=', $id)
+            ->where('type', '=', $type)
+            ->take(1)
+            ->delete();
+    }
+
+    public function checkMissing($id, $type){
+        return DB::table('missing')
+            ->where('id', $id)
+            ->where('type', $type)
+            ->limit(1)
+            ->count();
+    }
+
+    public function getMissingList($type){
+        return DB::table('missing')
+            ->where('type', $type)
+            ->get();
     }
 }

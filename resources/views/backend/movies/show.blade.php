@@ -8,6 +8,14 @@
     {{$movie->code}} - {{$movie->name}}
 @endsection
 
+<?php
+$domain = '';
+if (App::environment() == 'live')
+{
+    $domain = 'www';
+}
+?>
+
 @section('main-content')
     <div class="container spark-screen">
         <input type="hidden" id="movieID" value="{{$movie->id}}">
@@ -16,7 +24,7 @@
                 <div class="box box-info">
                     <div class="box-body content-center">
                         <img id="profileImage" width="800px" height="450px" alt="movie image"
-                             src="@if(substr($movie->image, 0, 7) == 'http://'){{$movie->image}}@else{{url('/image?category=movie&type=image&filename='. $movie->image)}}@endif">
+                             src="@if(substr($movie->image, 0, 4) == 'http'){{$movie->image}}@else{{url('/image?category=movie&type=image&filename='. $movie->image)}}@endif">
                     </div>
                 </div>
             </div>
@@ -25,12 +33,38 @@
                 <div class="box box-info" >
                     <div class="box-body content-center">
                         <img id="profileImage" class="img-rounded" style="max-width: 100%;" alt="movie thumbnail"
-                             src="@if(substr($movie->thumbnail, 0, 7) == 'http://'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif">
+                             src="@if(substr($movie->thumbnail, 0, 4) == 'http'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif">
                         <br /><br />
                         <a href="{{url('movies/create')}}"><button class="btn btn-warning btn-block btn-list"><i class="fa fa-plus"></i>  Add Movie</button></a>
+                        <a href="{{url($domain.'/movies/' . $movie->code . '?id='. $movie->id)}}"><button class="btn btn-success btn-block btn-list"><i class="fa fa-search"></i> View Page</button></a>
+                        <?php
+                        switch ($movie->studio_id){
+                            case 1:
+                                $link = 'http://www.caribbeancom.com/moviepages/'.$movie->code.'/index.html';
+                                break;
+                            case 2:
+                                $link = 'http://www.heyzo.com/moviepages/'.$movie->code.'/index.html';
+                                break;
+                            case 3:
+                                $link = 'http://www.10musume.com/moviepages/'.$movie->code.'/index.html';
+                                break;
+                            case 4:
+                                $link = 'http://www.1pondo.tv/movies/'.$movie->code.'/';
+                                break;
+                            case 5:
+                                $link = 'http://www.caribbeancompr.com/moviepages/'.$movie->code.'/index.html';
+                                break;
+                        }
+                        echo '<a href='.$link.'><button class="btn btn-success btn-block btn-list"><i class="fa fa-search"></i> Official Page</button></a>';
+                        ?>
                         <a href="#information"><button class="btn btn-primary btn-block btn-list"><i class="fa fa-search"></i> Information</button></a>
                         <a href="{{url('movies/' . $movie->id . '/edit')}}"><button class="btn btn-primary btn-block btn-list"><i class="fa fa-pencil-square-o"></i>  Edit information</button></a>
                         <br />
+                        @if($flaged)
+                            <button id="btn-unflag" type="button" class="btn btn-warning btn-block btn-list"><i class="fa fa-flag-o"></i> Flaged</button><br />
+                        @else
+                            <button id="btn-flag" type="button" class="btn btn-danger btn-block btn-list"><i class="fa fa-flag-o"></i> Flag</button><br />
+                        @endif
                         @if($movie->link != "")
                             <a href="{{$movie->link}}" target="_blank"><button class="btn btn-success btn-block"><i class="fa fa-play"></i>  Watch online</button></a>
                         @endif
@@ -72,11 +106,15 @@
                                 <td>{{$movie->contain}}</td>
                             </tr>
                             <tr>
+                                <th>Series</th>
+                                <td>{{$movie->series_id}}</td>
+                            </tr>
+                            <tr>
                                 <th>Studio</th>
                                 <td>{{$movie->studio_id}}</td>
                             </tr>
                             <tr>
-                                <th>Rate</th>
+                                <th>Point</th>
                                 <td>{{$movie->rate}}</td>
                             </tr>
                             <tr>

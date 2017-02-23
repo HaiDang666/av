@@ -59,7 +59,7 @@
                             <tr>
                                 <th>Birthday</th>
                                 <td>@if($actress->dob != '1970-01-01'){{$actress->dob}}@endif</td>
-                                <th>Rate</th>
+                                <th>Point</th>
                                 <td>{{$actress->rate}}</td>
                             </tr>
                             <tr>
@@ -87,7 +87,12 @@
                 <a href="{{url('actresses/create')}}"><button style="margin-bottom: 5px;" class="btn btn-warning btn-block"><i class="fa fa-plus"></i>  Add Actress</button></a>
                 <a href="{{url('actresses/' . $actress->id . '/edit')}}"><button class="btn btn-primary btn-block"><i class="fa fa-pencil-square-o"></i>  Edit profile</button></a>
                 <br />
-                <a href="https://www.google.com/search?q={{str_replace(' ', '+', $actress->name)}}+jav" target="_blank"><button class="btn btn-success btn-block"><i class="fa fa-search"></i>  Google her</button></a>
+                <a href="https://www.google.com/search?q={{str_replace(' ', '+', $actress->name)}}+jav" target="_blank"><button class="btn btn-success btn-block"><i class="fa fa-search"></i>  Google her</button></a><br />
+                @if($flaged)
+                    <button id="btn-unflag" type="button" class="btn btn-warning btn-block btn-list"><i class="fa fa-flag-o"></i> Flaged</button><br />
+                @else
+                    <button id="btn-flag" type="button" class="btn btn-danger btn-block btn-list"><i class="fa fa-flag-o"></i> Flag</button><br />
+                @endif
             </div>
 
             <div class="col-md-9">
@@ -116,6 +121,13 @@
 @endsection
 
 @section('page_style')
+    <style>
+        #profileImage{
+            width: 175px !important;
+            height: 238px !important;
+            margin-left: 15%;
+        }
+    </style>
 @endsection
 
 @section('page_script')

@@ -4,8 +4,8 @@
             <a href="{{url('home')}}"><h1>JAV<span>Database</span></h1></a>
         </div>
         <div class="w3_search">
-            <form action="#" method="post">
-                <input type="text" name="Search" placeholder="Search" required="">
+            <form action="#" method="get">
+                <input type="text" name="q" placeholder="Search" required="">
                 <input type="submit" value="Go">
             </form>
         </div>

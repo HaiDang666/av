@@ -96,7 +96,7 @@
                                 <td>
                                     <input type="text" class="form-control"
                                            name="thumbnaillink" placeholder="Enter link"
-                                           value="@if(substr($movie->thumbnail, 0, 7) == 'http://'){{$movie->thumbnail}}@endif">
+                                           value="@if(substr($movie->thumbnail, 0, 4) == 'http'){{$movie->thumbnail}}@endif">
                                 </td>
                             </tr>
                             <tr>
@@ -104,14 +104,14 @@
                                 <td>
                                     <input type="text" class="form-control"
                                            name="imagelink" placeholder="Enter link"
-                                           value="@if(substr($movie->image, 0, 7) == 'http://'){{$movie->image}}@endif">
+                                           value="@if(substr($movie->image, 0, 4) == 'http'){{$movie->image}}@endif">
                                 </td>
                             </tr>
                             <tr>
                                 <th>Store</th>
                                 <td>
                                     <input type="checkbox" class="flat-red" id="inputStored"
-                                           name="stored" checked>
+                                           name="stored"  @if($movie->stored == 1)checked @endif>
                                 </td>
                             </tr>
                         </table>
@@ -129,6 +129,12 @@
                                     ['name' => 'tags[]',
                                         'id' => 'inputTags',
                                         'multiple' => 'multiple']) !!}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Choose Series</th>
+                                <td>
+                                    {!! \app\UIBuilder\AppTemplate::select($series, ['name' => 'series_id', 'id' => 'inputSeries']) !!}
                                 </td>
                             </tr>
                             <tr>
@@ -151,7 +157,7 @@
                                     <th>Current Thumbnail</th>
                                     <td>
                                         <img width="80px" height="100px" alt="movie thumbnail"
-                                             src="@if(substr($movie->thumbnail, 0, 7) == 'http://'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif"/>
+                                             src="@if(substr($movie->thumbnail, 0, 4) == 'http'){{$movie->thumbnail}}@else{{url('/image?category=movie&type=thumbnail&filename='. $movie->thumbnail)}}@endif"/>
                                     </td>
                                 </tr>
                             @endif
@@ -168,7 +174,7 @@
                                     <th>Current Image</th>
                                     <td>
                                         <img width="230px" alt="movie image"
-                                             src="@if(substr($movie->image, 0, 7) == 'http://'){{$movie->image}}@else{{url('/image?category=movie&type=image&filename='. $movie->image)}}@endif"/>
+                                             src="@if(substr($movie->image, 0, 4) == 'http'){{$movie->image}}@else{{url('/image?category=movie&type=image&filename='. $movie->image)}}@endif"/>
                                     </td>
                                 </tr>
                             @endif
@@ -208,6 +214,7 @@
     <script>
         $( document ).ready(function() {
             $('#inputStudio').val({{$movie->studio_id}}).change();
+            $('#inputSeries').val({{$movie->series_id}}).change();
             $('#inputExistActresses').val({{json_encode($selectedActresses)}}).change();
             $('#inputTags').val({{json_encode($selectedTag)}}).change();
         });

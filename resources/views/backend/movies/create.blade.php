@@ -104,7 +104,7 @@
                                 <th>Store</th>
                                 <td>
                                     <input type="checkbox" class="flat-red" id="inputStored"
-                                           name="stored" checked>
+                                           name="stored">
                                 </td>
                             </tr>
                         </table>
@@ -122,6 +122,12 @@
                                     ['name' => 'tags[]',
                                         'id' => 'inputTags',
                                         'multiple' => 'multiple']) !!}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Choose Series</th>
+                                <td>
+                                    {!! \app\UIBuilder\AppTemplate::select($series, ['name' => 'series_id', 'id' => 'inputSeries']) !!}
                                 </td>
                             </tr>
                             <tr>
@@ -188,5 +194,8 @@
 
 @section('page_script')
     @include('bladejs.movie_create')
+    <script>
+        $('#inputSeries').val(0).change();
+    </script>
 @endsection
 

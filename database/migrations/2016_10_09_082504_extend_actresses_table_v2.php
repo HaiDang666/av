@@ -16,7 +16,7 @@ class ExtendActressesTableV2 extends Migration
         Schema::table('actresses', function (Blueprint $table) {
             $table->smallInteger('height')->default(0);
             $table->smallInteger('weight')->default(0);
-            $table->string('cup_size', 1)->default(0);
+            $table->string('cup_size', 2)->default(0);
             $table->string('pob', 100)->default('')->after('dob');
             $table->string('description', 300)->default('');
             $table->string('jp_name', 50)->default('');

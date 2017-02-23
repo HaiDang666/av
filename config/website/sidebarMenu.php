@@ -46,6 +46,9 @@ return array(
                     'Add movie' => [
                         'route' => 'movies/create'
                     ],
+                    'Missing' => [
+                        'route' => 'movies/missing/list'
+                    ],
                 ]
             ],
             'Actresses' => [
@@ -56,6 +59,9 @@ return array(
                     'Add actress' => [
                         'route' => 'actresses/create'
                     ],
+                    'Missing' => [
+                        'route' => 'actresses/missing/list'
+                    ],
                 ]
             ],
             'Studios' => [
@@ -65,6 +71,9 @@ return array(
                 'submenu' => [
                     'Tag' => [
                         'route' => 'tags'
+                    ],
+                    'Series' => [
+                        'route' => 'series'
                     ],
                 ]
             ],

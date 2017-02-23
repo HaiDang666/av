@@ -62,12 +62,14 @@ class ActressesController extends Controller
             $actress = $this->actressRepository->find($actressID);
             $movies = $actress->movies()->paginate(5);
             $tags = $actress->tags;
+
+            $flaged = $this->actressRepository->checkMissing($actress->id, 0);
         }
         catch (\Exception $e){
             return view('errors.404');
         }
 
-        return view('backend.actresses.show', ['actress' => $actress, 'movies' => $movies, 'tags' => $tags]);
+        return view('backend.actresses.show', ['actress' => $actress, 'movies' => $movies, 'tags' => $tags, 'flaged' => $flaged]);
     }
 
     public function create(){
@@ -80,14 +82,20 @@ class ActressesController extends Controller
     public function store(Request $request){
         $data = $request->all();
         unset($data['_token']);
-
         try{
             if($data['dob'] != '')
             {
-                $a = explode('-', $data['dob']);
-                $data['dob'] = $a[2].'-'.$a[1].'-'.$a[0];
+               $data['dob'] = str_replace('/', '-', $data['dob']);
             }
             else $data['dob'] = '1970-01-01';
+
+            if ($data['measurements'] != '')
+            {
+                $measurements = $data['measurements'];
+                $measurements = str_replace(':W', '-', $measurements);
+                $measurements = str_replace(':H', '-', $measurements);
+                $data['measurements'] = $measurements;
+            }
 
             $data['debut'] = $data['debut'] == '' ? 0 : $data['debut'];
             $data['height'] = $data['height'] == '' ? 0 : $data['height'];
@@ -154,8 +162,7 @@ class ActressesController extends Controller
         }
         else if($actress->dob != '')
         {
-            $a = explode('-', $actress->dob);
-            $actress->dob = $a[2].'-'.$a[1].'-'.$a[0];
+            $actress->dob = $data['dob'] = str_replace('-', '/', $actress->dob);
         }
 
         return view('backend.actresses.edit',[
@@ -170,14 +177,21 @@ class ActressesController extends Controller
         try{
             if($data['dob'] != '')
             {
-                $a = explode('-', $data['dob']);
-                $data['dob'] = $a[2].'-'.$a[1].'-'.$a[0];
+                $data['dob'] = str_replace('/', '-', $data['dob']);
             }
             else $data['dob'] = '1970-01-01';
 
             $data['debut'] = $data['debut'] == '' ? 0 : $data['debut'];
             $data['height'] = $data['height'] == '' ? 0 : $data['height'];
             $data['weight'] = $data['weight'] == '' ? 0 : $data['weight'];
+
+            if ($data['measurements'] != '')
+            {
+                $measurements = $data['measurements'];
+                $measurements = str_replace(':W', '-', $measurements);
+                $measurements = str_replace(':H', '-', $measurements);
+                $data['measurements'] = $measurements;
+            }
 
             $actress = $this->actressRepository->find($actressID);
 
@@ -282,5 +296,24 @@ class ActressesController extends Controller
         return response()->json(
             ['html' => '',
                 'notification' => $notification]);
+    }
+
+    public function flag($actressID, Request $request){
+        $data = $request->all();
+        $this->actressRepository->addMissing($actressID, $data['name'], 0);
+        return response()->json(
+            ['res' => 1]);
+    }
+
+    public function unflag($actressID){
+        $this->actressRepository->removeMissing($actressID, 0);
+        return response()->json(
+            ['res' => 1]);
+    }
+
+    public function missing(){
+        $result = $this->actressRepository->getMissingList(0);
+
+        return view('backend.actresses.missing', ['actresses' => $result]);
     }
 }

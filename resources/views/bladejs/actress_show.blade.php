@@ -24,6 +24,38 @@
                 }
             });
         });
+
+        $('#btn-flag').off('click').on('click',function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '/actresses/' + $('#actressID').val() + '/flag',
+                data: {_token: '{{csrf_token()}}', name: '{{$actress->name}}'},
+                dataType: 'JSON',
+                success: function (data) {
+                    if (data.res == 1){
+                        $('#btn-flag').remove();
+                    }
+                }
+            });
+        });
+
+        $('#btn-unflag').off('click').on('click',function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '/actresses/' + $('#actressID').val() + '/unflag',
+                data: {_token: '{{csrf_token()}}'},
+                dataType: 'JSON',
+                success: function (data) {
+                    if (data.res == 1){
+                        $('#btn-unflag').remove();
+                    }
+                }
+            });
+        });
     }
 
     $(document).ready(function () {

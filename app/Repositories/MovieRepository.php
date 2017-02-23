@@ -12,6 +12,7 @@ use App\Models\Actress;
 use App\Models\Movie;
 use app\Repositories\BaseClasses\Repository;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class MovieRepository extends Repository
 {
@@ -28,7 +29,6 @@ class MovieRepository extends Repository
 
     public function updateAtID($id, array $attributes, array $options = [])
     {
-
         $oldActresses = json_decode($attributes['oldActresses']);
         $newActresses = [];
         if(isset($attributes['existActresses'])){
@@ -85,14 +85,21 @@ class MovieRepository extends Repository
     public function create(array $attributes, array $options = [])
     {
         $castList = [];
-        if(isset($attributes['newActresses'])){
-            $newActresses = $attributes['newActresses'];
-            unset($attributes['newActresses']);
-        }
+        $autoNameFlag = false;
 
         if(isset($attributes['existActresses'])){
             $existActresses = $attributes['existActresses'];
             unset($attributes['existActresses']);
+
+            if (count($existActresses) == 1){
+                $autoNameFlag = true;
+            }
+        }
+
+        if(isset($attributes['newActresses'])){
+            $newActresses = $attributes['newActresses'];
+            unset($attributes['newActresses']);
+            $autoNameFlag = false;
         }
 
         if(isset($attributes['tags'])){
@@ -102,6 +109,17 @@ class MovieRepository extends Repository
 
         DB::beginTransaction();
         try{
+            //naming movie by actress's name
+            if($attributes['name'] == ''){
+                if($autoNameFlag){
+                    $actress = Actress::where('id', '=', $existActresses[0])
+                        ->select('name')
+                        ->limit(1)
+                        ->get();
+                    $attributes['name'] = $actress[0]->name;
+                }
+            }
+
             // add movie
             $movie = parent::create($attributes, ['validation' => TRUE]);
 
@@ -112,6 +130,12 @@ class MovieRepository extends Repository
             DB::table('studios')
                 ->where('id', $attributes['studio_id'])
                 ->increment('movie_count');
+
+            if(isset($attributes['series_id'])){
+                DB::table('series')
+                    ->where('id', $attributes['series_id'])
+                    ->increment('movie_count');
+            }
 
             // attach tags
             if(isset($tags)){
@@ -186,10 +210,18 @@ class MovieRepository extends Repository
     }
 
     public function bannerMovies(){
-        return Movie::inRandomOrder()
-            ->select('image', 'code', 'name')
+        $key = 'banner_movies';
+        if (Cache::has($key)) {
+            return Cache::get($key);
+        }
+
+        $data = Movie::inRandomOrder()
+            ->select('id', 'image', 'code', 'name', 'thumbnail')
             ->limit(6)
             ->get();
+        Cache::put($key, $data, 60*24);
+
+        return $data;
     }
 
     public function latestMovies(){
@@ -201,7 +233,7 @@ class MovieRepository extends Repository
 
     public function topViewedMovies(){
         return Movie::select('id', 'code', 'name', 'note', 'rate', 'thumbnail', 'views')
-            ->orderBy('views', 'desc')
+            ->where('stored', '1')
             ->limit(18)
             ->get();
     }
@@ -218,6 +250,22 @@ class MovieRepository extends Repository
             ->orderBy('created_at', 'desc')
             ->limit(18)
             ->get();
+    }
+
+    public function todayMovies(){
+        $key = 'today_movies';
+        if (Cache::has($key)) {
+            return Cache::get($key);
+        }
+
+        $data = Movie::inRandomOrder()
+            ->select('id', 'code', 'name', 'rate', 'image', 'release', 'included', 'contain', 'note')
+            ->orderBy('created_at', 'desc')
+            ->limit(3)
+            ->get();
+        Cache::put($key, $data, 60*24);
+
+        return $data;
     }
 
     /**

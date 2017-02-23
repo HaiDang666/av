@@ -23,4 +23,22 @@
     @yield('page_plugin_css')
 
     @yield('page_style')
+
+    <style>
+        .img-thumbnail-size{
+            height: 238px !important;
+            width: 175px !important;
+        }
+        .img-image-size{
+            max-height: 420px !important;
+            max-width: 800px !important;
+        }
+        .img-slide-size{
+            max-height: 312px !important;
+        }
+        .img-movie-thumbnail-small{
+            width: 160px !important;
+            height: 218px !important;
+        }
+    </style>
 </head>

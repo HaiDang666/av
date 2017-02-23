@@ -11,10 +11,10 @@ class Movie extends Model
 
     public static $namespace = 'App\Models\Movie';
 
-    protected $table = "movies";
+    protected $table = 'movies';
     protected $fillable = [
         'name', 'code', 'rate', 'note', 'release',
-        'studio_id', 'stored', 'length', 'included', 'contain',
+        'studio_id', 'series_id', 'stored', 'length', 'included', 'contain',
         'image', 'thumbnail',
         'link'
     ];
@@ -31,6 +31,10 @@ class Movie extends Model
 
     public function studio(){
         return $this->belongsTo('App\Models\Studio', 'studio_id');
+    }
+
+    public function series(){
+        return $this->belongsTo('App\Models\Series', 'series_id');
     }
 
     public function tags(){

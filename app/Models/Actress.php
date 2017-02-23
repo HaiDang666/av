@@ -11,7 +11,7 @@ class Actress extends Model
 
     public static $namespace = 'App\Models\Actress';
 
-    protected $table = "actresses";
+    protected $table = 'actresses';
     protected $guarded = ['id'];
     protected $fillable = [
         'name', 'alias', 'debut', 'measurements', 'dob', 'pob', 'rate', 'note',
