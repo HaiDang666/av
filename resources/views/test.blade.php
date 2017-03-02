@@ -1,4 +1,4 @@
-<?/*
+<?
 session_start();
 $OAUTH2_CLIENT_ID = '955281492660-bido0e8o6cubevav2eoe4qgfp75vb4k3.apps.googleusercontent.com';
 $OAUTH2_CLIENT_SECRET = 'WhaVodO_3NV4dBUKXBB3JzSJ';
@@ -79,7 +79,7 @@ $_SESSION[$tokenSessionKey] = $client->getAccessToken();
         $authUrl = $client->createAuthUrl();
         $htmlBody = "<h3>Authorization Required</h3><p>You need to <a href=".$authUrl.">authorize access</a> before proceeding.<p>";
     }
-*/?><!--
+?>
 
     <!doctype html>
     <html>
@@ -90,4 +90,3 @@ $_SESSION[$tokenSessionKey] = $client->getAccessToken();
     <?/*=$htmlBody*/?>
     </body>
     </html>
--->
