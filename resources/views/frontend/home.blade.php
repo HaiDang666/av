@@ -16,7 +16,7 @@
                     <li role="presentation" class="active"><a href="#latest" id="latest-tab" role="tab" data-toggle="tab" aria-controls="latest" aria-expanded="true">Featured</a></li>
                     <li role="presentation"><a href="#viewed" role="tab" id="viewed-tab" data-toggle="tab" aria-controls="viewed" aria-expanded="false">Available</a></li>
                     {{--<li role="presentation"><a href="#rating" role="tab" id="rating-tab"  data-toggle="tab" aria-controls="rating" aria-expanded="true">Top Rating</a></li>--}}
-                    <li role="presentation"><a href="#added" role="tab" id="added-tab" data-toggle="tab" aria-controls="added" aria-expanded="false">Recently Added</a></li>
+                    {{--<li role="presentation"><a href="#added" role="tab" id="added-tab" data-toggle="tab" aria-controls="added" aria-expanded="false">Recently Added</a></li>--}}
                 </ul>
                 <div id="myTabContent" class="tab-content">
                     {{-- latest --}}
@@ -105,7 +105,7 @@
                     </div>--}}
 
                     {{-- recently added --}}
-                    <div role="tabpanel" class="tab-pane fade" id="added" aria-labelledby="added-tab">
+                    {{--<div role="tabpanel" class="tab-pane fade" id="added" aria-labelledby="added-tab">
                         @foreach($recentlyAddedMovies as $movie)
                             <div class="col-md-2 w3l-movie-gride-agile">
                                 <a href="{{url('movies/' . $movie->code . '?id='. $movie->id)}}" class="hvr-shutter-out-horizontal">
@@ -129,7 +129,7 @@
                             </div>
                         @endforeach
                         <div class="clearfix"> </div>
-                    </div>
+                    </div>--}}
                 </div>
             </div>
         </div>

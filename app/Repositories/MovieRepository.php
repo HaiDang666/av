@@ -233,7 +233,7 @@ class MovieRepository extends Repository
 
     public function topViewedMovies(){
         return Movie::select('id', 'code', 'name', 'note', 'rate', 'thumbnail', 'views')
-			->orderBy('release', 'desc')
+			->orderBy('updated_at', 'desc')
             ->where('stored', '1')
             ->limit(18)
             ->get();

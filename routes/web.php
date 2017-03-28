@@ -41,6 +41,7 @@ Route::group(['domain' => $domain ], function (){
     }]);
     /*test*/
     Route::get('/test', 'TestController@get');
+    Route::get('/test/cc', 'TestController@testcc');
     Route::post('/test', 'TestController@post');
 });
 

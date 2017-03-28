@@ -23,8 +23,8 @@ class FeHomeController extends Controller
         $bannerMovies = $this->movieRepository->bannerMovies();
         $latestMovies = $this->movieRepository->latestMovies();
         $topViewedMovies = $this->movieRepository->topViewedMovies();
-        $topRatingMovies = null;//$this->movieRepository->topRatingMovies();
-        $recentlyAddedMovies = $this->movieRepository->recentlyAddedMovies();
+        $topRatingMovies = null; //$this->movieRepository->topRatingMovies();
+        $recentlyAddedMovies = null; //$this->movieRepository->recentlyAddedMovies();
 
         $recentlyActresses = $this->actressRepository->recentlyActresses();
 

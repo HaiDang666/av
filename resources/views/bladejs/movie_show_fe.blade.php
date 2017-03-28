@@ -56,7 +56,7 @@
                 alert('dek co phim coi');
                 return;
             }
-
+            $(document.body).css({'cursor' : 'wait'});
             var token = "{!! csrf_token() !!}";
             var formData = {
                 id: utubeID,
@@ -67,9 +67,10 @@
                 url: '/movies/unlock',
                 data: formData,
                 success: function (data) {
+                    $(document.body).css({'cursor' : 'default'});
                     if(data.code == '1'){
                         $("#video").remove();
-                        $("#player").append('<iframe width="100%" height="600px" src="https://www.youtube.com/embed/'+utubeID+'?controls=1&autoplay=1"></iframe>');
+                        $("#player").append('<iframe allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen" width="100%" height="600px" src="https://www.youtube.com/embed/'+utubeID+'?controls=1&autoplay=1"></iframe>');
                         setTimeout(function () {
                             var token = "{!! csrf_token() !!}";
                             var formData = {
@@ -87,6 +88,7 @@
                     }
                 },
                 error: function () {
+                    $(document.body).css({'cursor' : 'default'});
                     alert("dek cho coi");
                 }
             });
