@@ -16,9 +16,9 @@ use App\Http\Requests;
 class FeMoviesController extends Controller
 {
 
-    protected $OAUTH2_CLIENT_ID = '955281492660-bido0e8o6cubevav2eoe4qgfp75vb4k3.apps.googleusercontent.com';
-    protected $OAUTH2_CLIENT_SECRET = 'WhaVodO_3NV4dBUKXBB3JzSJ';
-    protected $refresh_token = '1/OpezOjAj9eaMyKjauYQQw08K7lXfcjMcXcHvFDPXYUw';
+    protected $OAUTH2_CLIENT_ID = '';
+    protected $OAUTH2_CLIENT_SECRET = '';
+    protected $refresh_token = '';
 
     protected $movieRepository;
     protected $studioRepository;
